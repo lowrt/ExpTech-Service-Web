@@ -16,10 +16,6 @@
             <div class="title">TREM Service Forget</div>
             <div class="subtitle">ExpTech 帳戶忘記密碼</div>
             <div class="info">
-                <div class="name_box">
-                    <div class="name_title">用戶名稱</div>
-                    <input class="name_text" id="name" type="text">
-                </div>
                 <div class="email_box">
                     <div class="email_title">電子郵件</div>
                     <input class="email_text" id="email" type="text">
@@ -79,26 +75,6 @@
             padding: 5px;
         }
 
-        .name_box {
-            padding: 1%;
-            width: 50%;
-        }
-
-        .name_title {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .name_text {
-            border-radius: 5px;
-            width: 80%;
-            text-align: center;
-            color: white;
-            background-color: #333439;
-            border: 1px solid black;
-            outline: none;
-        }
-
         .email_box {
             padding: 1%;
             width: 50%;
@@ -138,16 +114,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
     <script>
         const _button = document.getElementById("button");
-        const _name = document.getElementById("name");
         const _email = document.getElementById("email");
 
         function forget() {
             _button.disabled = true;
             _button.textContent = "處理中...";
-            _name.disabled = true;
             _email.disabled = true;
             const data = {
-                name: document.getElementById("name").value,
                 email: document.getElementById("email").value,
             }
             axios.post("https://exptech.com.tw/api/v1/et/forget-email", data)
@@ -157,8 +130,6 @@
                     exit();
                     const res = err.request.response;
                     if (res == "Format error!") alert("格式 錯誤!");
-                    else if (res == "Email error!") alert("電子郵件 和 已註冊帳戶 不符!");
-                    else if (res == "Name error!") alert("用戶名稱 和 已註冊帳戶 不符!");
                     else if (res == "Can't find this account!") alert("找不到此帳戶!");
                     else alert("未知錯誤 請到官方 Discord 回報!");
                 })
@@ -166,7 +137,6 @@
 
         function exit() {
             _button.textContent = "驗證";
-            _name.disabled = false;
             _email.disabled = false;
             _button.disabled = false;
         }
