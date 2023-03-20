@@ -78,73 +78,76 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
     <script>
-        let last_count = -1
+        let last_count = -1;
+        let last_time = Date.now();
 
-        if (!localStorage.getItem("key")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html'
+        if (!localStorage.getItem("key")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
         axios.get("https://exptech.com.tw/api/v1/et/ntp")
             .then(async (res) => {
                 if (res.data.time - (localStorage.getItem("timestamp") ?? 0) > 86400 * 1000 * 7) {
-                    clear()
-                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html'
+                    clear();
+                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
                 } else {
-                    localStorage.setItem("timestamp", res.data.time)
-                    const ans = await get_balance()
-                    if (ans) setInterval(() => get_balance(), 5000)
+                    localStorage.setItem("timestamp", res.data.time);
+                    const ans = await get_balance();
+                    if (ans) setInterval(() => get_balance(), 5000);
                 }
             }).catch(err => {
                 console.error(err);
-            })
+            });
         function clear() {
-            localStorage.removeItem("key")
-            localStorage.removeItem("timestamp")
+            localStorage.removeItem("key");
+            localStorage.removeItem("timestamp");
         }
 
         function copy() {
             navigator.clipboard.writeText(localStorage.getItem("key"))
                 .then(() => alert("金鑰已複製到剪貼板"))
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
 
         async function get_balance() {
             return await new Promise((c) => {
                 axios.get(`https://exptech.com.tw/api/v1/et/balance?key=${localStorage.getItem("key")}`)
                     .then(res => {
-                        document.getElementById("count").innerHTML = `剩餘 API 請求次數: ${res.data.balance}次`
-                        const time = document.getElementById("time")
-                        const use = document.getElementById("use")
+                        document.getElementById("count").innerHTML = `剩餘 API 請求次數: ${res.data.balance}次`;
+                        const time = document.getElementById("time");
+                        const use = document.getElementById("use");
                         if (last_count != -1) {
                             if (last_count) {
                                 if (last_count - res.data.balance) {
-                                    let _time = (res.data.balance / ((last_count - res.data.balance) * 12)).toFixed(1)
-                                    let _time_string = ""
-                                    if (_time < 60) _time_string = `${_time}分鐘`
+                                    const use_min = Math.floor((last_count - res.data.balance) * (60 / ((Date.now() - last_time) / 1000)));
+                                    let _time = (res.data.balance / use_min).toFixed(1);
+                                    let _time_string = "";
+                                    if (_time < 60) _time_string = `${_time}分鐘`;
                                     else {
-                                        _time = (_time / 60).toFixed(1)
-                                        if (_time < 24) _time_string = `${_time}小時`
+                                        _time = (_time / 60).toFixed(1);
+                                        if (_time < 24) _time_string = `${_time}小時`;
                                         else {
-                                            _time = (_time / 24).toFixed(1)
-                                            _time_string = `${_time}天`
+                                            _time = (_time / 24).toFixed(1);
+                                            _time_string = `${_time}天`;
                                         }
                                     }
-                                    time.innerHTML = `剩餘使用時間: ${_time_string}`
-                                    use.innerHTML = `每分鐘用量: ${(last_count - res.data.balance) * 12}次`
+                                    time.innerHTML = `剩餘使用時間: ${_time_string}`;
+                                    use.innerHTML = `每分鐘用量: ${use_min}次`;
                                 } else {
-                                    time.innerHTML = `剩餘使用時間: 未使用`
-                                    use.innerHTML = `每分鐘用量: 未使用`
+                                    time.innerHTML = `剩餘使用時間: 未使用`;
+                                    use.innerHTML = `每分鐘用量: 未使用`;
                                 }
                             } else {
-                                time.innerHTML = `剩餘使用時間: 已用完`
-                                use.innerHTML = `每分鐘用量: 已用完`
+                                time.innerHTML = `剩餘使用時間: 已用完`;
+                                use.innerHTML = `每分鐘用量: 已用完`;
                             }
                         }
-                        last_count = res.data.balance
-                        c(true)
+                        last_count = res.data.balance;
+                        last_time = Date.now();
+                        c(true);
                     })
                     .catch(err => {
-                        clear()
+                        clear();
                         console.error(err);
-                        c(false)
-                    })
+                        c(false);
+                    });
             })
         }
     </script>

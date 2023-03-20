@@ -171,7 +171,7 @@
             _button.textContent = "處理中...";
             _name.disabled = true;
             _pass.disabled = true;
-            _code.disabled = true
+            _code.disabled = true;
             const data = {
                 name: document.getElementById("name").value,
                 pass: document.getElementById("pass").value,
@@ -187,7 +187,7 @@
                     else if (res == "Verify error!") alert("驗證碼 錯誤!");
                     else if (res == "Invaild symbol!") alert("非法字符!");
                     else alert("未知錯誤 請到官方 Discord 回報!");
-                })
+                });
         }
 
         function exit() {

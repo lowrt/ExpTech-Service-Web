@@ -152,9 +152,9 @@
             }
             axios.post("https://exptech.com.tw/api/v1/et/sign-in", data)
                 .then(res => {
-                    localStorage.setItem("key", res.data.key)
-                    localStorage.setItem("timestamp", res.data.time)
-                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/user.html'
+                    localStorage.setItem("key", res.data.key);
+                    localStorage.setItem("timestamp", res.data.time);
+                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/user.html';
                 })
                 .catch(err => {
                     console.error(err);
@@ -162,7 +162,7 @@
                     const res = err.request.response;
                     if (res == "Can't find this account!") alert("找不到此帳戶!");
                     else alert("未知錯誤 請到官方 Discord 回報!");
-                })
+                });
         }
 
         function exit() {
