@@ -1,10 +1,10 @@
 <html lang="zh-Hant">
 
 <head>
-    <title id="title">TREM Service Sign-In</title>
+    <title id="title">TREM Service Key-Remove</title>
     <meta charset="utf-8" />
     <meta content="ExpTech Studio" property="og:title" />
-    <meta content="ExpTech | 探索科技 | 登入" property="og:description" />
+    <meta content="ExpTech | 探索科技 | 刪除金鑰" property="og:description" />
     <meta content="https://exptech.com.tw/api/v1/file/exptech/index.html" property="og:url" />
     <meta content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg"
         property="og:image" />
@@ -13,25 +13,16 @@
 <body style="background-color: #333439;">
     <div class="main">
         <div class="body">
-            <div class="title">TREM Service Sign-In</div>
-            <div class="subtitle">ExpTech 帳戶登入</div>
+            <div class="title">TREM Service Key-Remove</div>
+            <div class="subtitle">ExpTech 刪除金鑰</div>
             <div class="info">
-                <div class="name_box">
-                    <div class="name_title">用戶名稱</div>
-                    <input class="name_text" id="name" type="text">
-                </div>
-                <div class="pass_box">
-                    <div class="pass_title">用戶密碼</div>
-                    <input class="pass_text" id="pass" type="text">
+                <div class="key_box">
+                    <div class="key_title">欲刪除之金鑰</div>
+                    <input class="key_text" id="key" type="text">
                 </div>
             </div>
             <div class="button_box">
-                <button class="button_text" id="button" type="button" onclick="sign_up()">登入</button>
-            </div>
-            <div class="link_box">
-                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/forget-email.html">忘記密碼</a></div>
-                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/sign-up-email.html">註冊帳戶</a></div>
-                <div class="link"><a href="https://exptech.com.tw/f?v=discord">Discord</a></div>
+                <button class="button_text" id="button" type="button" onclick="_delete()">確認刪除</button>
             </div>
         </div>
     </div>
@@ -87,37 +78,17 @@
             padding: 5px;
         }
 
-        .name_box {
+        .key_box {
             padding: 1%;
             width: 50%;
         }
 
-        .name_title {
+        .key_title {
             font-size: 16px;
             font-weight: 600;
         }
 
-        .name_text {
-            border-radius: 5px;
-            width: 80%;
-            text-align: center;
-            color: white;
-            background-color: #333439;
-            border: 1px solid black;
-            outline: none;
-        }
-
-        .pass_box {
-            padding: 1%;
-            width: 50%;
-        }
-
-        .pass_title {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .pass_text {
+        .key_text {
             border-radius: 5px;
             width: 80%;
             text-align: center;
@@ -146,23 +117,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
     <script>
         const _button = document.getElementById("button");
-        const _name = document.getElementById("name");
-        const _pass = document.getElementById("pass");
+        const _key = document.getElementById("key");
 
-        function sign_up() {
+        if (!localStorage.getItem("token")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
+        function _delete() {
             _button.disabled = true;
             _button.textContent = "處理中...";
-            _name.disabled = true;
-            _pass.disabled = true;
-            const data = {
-                name: document.getElementById("name").value,
-                pass: document.getElementById("pass").value,
-            }
-            axios.post("https://exptech.com.tw/api/v1/et/sign-in", data)
+            _key.disabled = true;
+            axios.get(`https://exptech.com.tw/api/v1/et/key-remove?token=${localStorage.getItem("token")}&key=${_key.value}`)
                 .then(res => {
-                    console.log(res.data)
-                    localStorage.setItem("token", res.data.token);
-                    localStorage.setItem("timestamp", res.data.time);
+                    alert("金鑰刪除成功!");
                     window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/user.html';
                 })
                 .catch(err => {
@@ -175,9 +139,8 @@
         }
 
         function exit() {
-            _button.textContent = "登入";
-            _name.disabled = false;
-            _pass.disabled = false;
+            _button.textContent = "確認刪除";
+            _key.disabled = false;
             _button.disabled = false;
         }
     </script>

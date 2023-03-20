@@ -21,8 +21,11 @@
                 <div id="time">剩餘使用時間: 計算中...</div>
                 <div style="color: red;font-size: 8px;">根據即時用量計算 僅供參考</div>
             </div>
-            <button onclick="copy()">複製金鑰</button>
+            <div class="info" id="key_list" style="overflow: auto;"></div>
+            <button onclick="copy()">複製權杖</button>
             <div class="link_box">
+                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/key-add.html">新增金鑰</a></div>
+                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/key-remove.html">刪除金鑰</a></div>
                 <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/edit.html">變更帳密</a></div>
                 <div class="link"><a href="https://exptech.com.tw/f?v=discord">Discord</a></div>
             </div>
@@ -30,6 +33,25 @@
     </div>
 
     <style>
+        @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+        html,
+        body {
+            font-family: "cwTeXYen", sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .key_list_text {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .key_list_padding {
+            padding: 2px;
+            margin: 3px;
+        }
+
         .main {
             width: 100%;
             height: 100%;
@@ -81,7 +103,7 @@
         let last_count = -1;
         let last_time = Date.now();
 
-        if (!localStorage.getItem("key")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
+        if (!localStorage.getItem("token")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
         axios.get("https://exptech.com.tw/api/v1/et/ntp")
             .then(async (res) => {
                 if (res.data.time - (localStorage.getItem("timestamp") ?? 0) > 86400 * 1000 * 7) {
@@ -96,19 +118,25 @@
                 console.error(err);
             });
         function clear() {
-            localStorage.removeItem("key");
+            localStorage.removeItem("token");
             localStorage.removeItem("timestamp");
         }
 
         function copy() {
-            navigator.clipboard.writeText(localStorage.getItem("key"))
+            navigator.clipboard.writeText(localStorage.getItem("token"))
+                .then(() => alert("權杖已複製到剪貼板"))
+                .catch(err => console.error(err));
+        }
+
+        function copy_key(key) {
+            navigator.clipboard.writeText(key)
                 .then(() => alert("金鑰已複製到剪貼板"))
                 .catch(err => console.error(err));
         }
 
         async function get_balance() {
             return await new Promise((c) => {
-                axios.get(`https://exptech.com.tw/api/v1/et/balance?key=${localStorage.getItem("key")}`)
+                axios.get(`https://exptech.com.tw/api/v1/et/balance?token=${localStorage.getItem("token")}`)
                     .then(res => {
                         document.getElementById("count").innerHTML = `剩餘 API 請求次數: ${res.data.balance}次`;
                         const time = document.getElementById("time");
@@ -141,6 +169,24 @@
                         }
                         last_count = res.data.balance;
                         last_time = Date.now();
+                        const key_list = document.getElementById("key_list");
+                        key_list.innerHTML = "";
+                        if (!Object.keys(res.data.key_list).length) key_list.style.display = "none";
+                        for (let i = 0; i < Object.keys(res.data.key_list).length; i++) {
+                            const key = Object.keys(res.data.key_list)[i];
+                            const div_0 = document.createElement("div");
+                            div_0.style.display = "flex";
+                            const div_1 = document.createElement("div");
+                            div_1.className = "key_list_text key_list_padding";
+                            div_1.innerHTML = `${res.data.key_list[key].name} | ${res.data.key_list[key].count}次/60秒`;
+                            const button = document.createElement("button");
+                            button.className = "key_list_padding";
+                            button.onclick = () => { copy_key(key) };
+                            button.innerHTML = "複製金鑰";
+                            div_0.appendChild(div_1);
+                            div_0.appendChild(button);
+                            key_list.appendChild(div_0);
+                        }
                         c(true);
                     })
                     .catch(err => {
