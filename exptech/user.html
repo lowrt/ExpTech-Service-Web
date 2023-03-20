@@ -1,0 +1,141 @@
+<html lang="zh-Hant">
+
+<head>
+    <title id="title">TREM Service Panel</title>
+    <meta charset="utf-8" />
+    <meta content="ExpTech Studio" property="og:title" />
+    <meta content="ExpTech | 探索科技 | 用戶資訊面板" property="og:description" />
+    <meta content="https://exptech.com.tw/api/v1/file/exptech/index.html" property="og:url" />
+    <meta content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg"
+        property="og:image" />
+</head>
+
+<body style="background-color: #333439;">
+    <div class="main">
+        <div class="body">
+            <div class="title">TREM Service Panel</div>
+            <div class="subtitle">ExpTech 用戶資訊面板</div>
+            <div class="info">
+                <div id="count">剩餘 API 請求次數: 計算中...</div>
+                <div id="use">每分鐘用量: 計算中...</div>
+                <div id="time">剩餘使用時間: 計算中...</div>
+                <div style="color: red;font-size: 8px;">根據即時用量計算 僅供參考</div>
+            </div>
+            <div class="link_box">
+                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/edit.html">變更帳密</a></div>
+                <div class="link"><a href="https://exptech.com.tw/f?v=discord">Discord</a></div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .main {
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            display: grid;
+            justify-items: center;
+            color: white;
+        }
+
+        .body {
+            text-align: center;
+            padding: 4%;
+            border: 3px solid black;
+            border-radius: 5px;
+            background-color: #535353;
+        }
+
+        .link_box {
+            display: grid;
+            justify-items: center;
+        }
+
+        .link {
+            padding: 3px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .info {
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 5px;
+            display: grid;
+            justify-items: left;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
+    <script>
+        let last_count = -1
+
+        if (!localStorage.getItem("key")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html'
+        axios.get("https://exptech.com.tw/api/v1/et/ntp")
+            .then(async (res) => {
+                if (res.data.time - (localStorage.getItem("timestamp") ?? 0) > 86400 * 1000 * 7) {
+                    clear()
+                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html'
+                } else {
+                    localStorage.setItem("timestamp", res.data.time)
+                    const ans = await get_balance()
+                    if (ans) setInterval(() => get_balance(), 5000)
+                }
+            }).catch(err => {
+                console.error(err);
+            })
+        function clear() {
+            localStorage.removeItem("key")
+            localStorage.removeItem("timestamp")
+        }
+
+        async function get_balance() {
+            return await new Promise((c) => {
+                axios.get(`https://exptech.com.tw/api/v1/et/balance?key=${localStorage.getItem("key")}`)
+                    .then(res => {
+                        document.getElementById("count").innerHTML = `剩餘 API 請求次數: ${res.data.balance}次`
+                        const time = document.getElementById("time")
+                        const use = document.getElementById("use")
+                        if (last_count != -1) {
+                            if (last_count) {
+                                let _time = (res.data.balance / ((last_count - res.data.balance) * 12)).toFixed(1)
+                                let _time_string = ""
+                                if (_time < 60) _time_string = `${_time}分鐘`
+                                else {
+                                    _time = (_time / 60).toFixed(1)
+                                    if (_time < 24) _time_string = `${_time}小時`
+                                    else {
+                                        _time = (_time / 24).toFixed(1)
+                                        _time_string = `${_time}天`
+                                    }
+                                }
+                                time.innerHTML = `剩餘使用時間: ${_time_string}`
+                                use.innerHTML = `每分鐘用量: ${(last_count - res.data.balance) * 12}次`
+                            } else {
+                                time.innerHTML = `剩餘使用時間: 已用完`
+                                use.innerHTML = `每分鐘用量: 已用完`
+                            }
+                        }
+                        last_count = res.data.balance
+                        c(true)
+                    })
+                    .catch(err => {
+                        clear()
+                        console.error(err);
+                        c(false)
+                    })
+            })
+        }
+    </script>
+</body>
+
+</html>

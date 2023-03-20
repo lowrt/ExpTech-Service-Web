@@ -1,0 +1,209 @@
+<html lang="zh-Hant">
+
+<head>
+    <title id="title">TREM Service Sign-Up</title>
+    <meta charset="utf-8" />
+    <meta content="ExpTech Studio" property="og:title" />
+    <meta content="ExpTech | 探索科技 | 註冊" property="og:description" />
+    <meta content="https://exptech.com.tw/api/v1/file/exptech/index.html" property="og:url" />
+    <meta content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg"
+        property="og:image" />
+</head>
+
+<body style="background-color: #333439;">
+    <div class="main">
+        <div class="body">
+            <div class="title">TREM Service Edit</div>
+            <div class="subtitle">ExpTech 帳戶變更</div>
+            <div class="info">
+                <div class="name_box">
+                    <div class="name_title">用戶名稱 (舊)</div>
+                    <input class="name_text" id="old_name" type="text">
+                </div>
+                <div class="pass_box">
+                    <div class="pass_title">用戶密碼 (舊)</div>
+                    <input class="pass_text" id="old_pass" type="text">
+                </div>
+                <div class="name_box">
+                    <div class="name_title">用戶名稱 (新)</div>
+                    <input class="name_text" id="new_name" type="text">
+                </div>
+                <div class="pass_box">
+                    <div class="pass_title">用戶密碼 (新)</div>
+                    <input class="pass_text" id="new_pass" type="text">
+                </div>
+            </div>
+            <div class="button_box">
+                <button class="button_text" id="button" type="button" onclick="edit()">確認變更</button>
+            </div>
+            <div class="link_box">
+                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/sign-in.html">登入帳戶</a></div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .main {
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            display: grid;
+            justify-items: center;
+            color: white;
+        }
+
+        .body {
+            text-align: center;
+            padding: 4%;
+            border: 3px solid black;
+            border-radius: 5px;
+            background-color: #535353;
+        }
+
+        .link_box {
+            display: grid;
+            justify-items: center;
+        }
+
+        .link {
+            padding: 3px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .info {
+            display: grid;
+            justify-items: center;
+            padding: 5px;
+        }
+
+        .name_box {
+            padding: 1%;
+            width: 50%;
+        }
+
+        .name_title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .name_text {
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+            color: white;
+            background-color: #333439;
+            border: 1px solid black;
+            outline: none;
+        }
+
+        .pass_box {
+            padding: 1%;
+            width: 50%;
+        }
+
+        .pass_title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .pass_text {
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+            color: white;
+            background-color: #333439;
+            border: 1px solid black;
+            outline: none;
+        }
+
+        .code_box {
+            padding: 1%;
+            width: 50%;
+        }
+
+        .code_title {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .code_text {
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+            color: white;
+            background-color: #333439;
+            border: 1px solid black;
+            outline: none;
+        }
+
+        .button_box {
+            padding: 1%;
+            align-items: center;
+        }
+
+        .button_text {
+            color: white;
+            background-color: #333439;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 2%;
+            padding: 1%;
+            width: 60%;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
+    <script>
+        const _button = document.getElementById("button");
+        const _old_name = document.getElementById("old_name");
+        const _old_pass = document.getElementById("old_pass");
+        const _new_name = document.getElementById("new_name");
+        const _new_pass = document.getElementById("new_pass");
+
+
+        function edit() {
+            _button.disabled = true;
+            _button.textContent = "處理中...";
+            _old_name.disabled = true;
+            _old_pass.disabled = true;
+            _new_name.disabled = true;
+            _new_pass.disabled = true;
+            const data = {
+                old_name: document.getElementById("old_name").value,
+                old_pass: document.getElementById("old_pass").value,
+                new_name: document.getElementById("new_name").value,
+                new_pass: document.getElementById("new_pass").value,
+            }
+            axios.post("https://exptech.com.tw/api/v1/et/sign-up", data)
+                .then(res => window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html')
+                .catch(err => {
+                    console.error(err);
+                    exit();
+                    const res = err.request.response;
+                    if (res == "Format error!") alert("格式 錯誤!");
+                    else if (res == "Verify error!") alert("驗證碼 錯誤!");
+                    else alert("未知錯誤 請到官方 Discord 回報!<br>");
+                })
+        }
+
+        function exit() {
+            _button.textContent = "確認變更";
+            _new_name.disabled = false;
+            _new_pass.disabled = false;
+            _old_name.disabled = false;
+            _old_pass.disabled = false;
+            _button.disabled = false;
+        }
+    </script>
+</body>
+
+</html>

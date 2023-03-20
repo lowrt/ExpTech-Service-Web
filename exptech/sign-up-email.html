@@ -1,0 +1,175 @@
+<html lang="zh-Hant">
+
+<head>
+    <title id="title">TREM Service Sign-Up</title>
+    <meta charset="utf-8" />
+    <meta content="ExpTech Studio" property="og:title" />
+    <meta content="ExpTech | 探索科技 | 註冊" property="og:description" />
+    <meta content="https://exptech.com.tw/api/v1/file/exptech/index.html" property="og:url" />
+    <meta content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg"
+        property="og:image" />
+</head>
+
+<body style="background-color: #333439;">
+    <div class="main">
+        <div class="body">
+            <div class="title">TREM Service Sign-Up</div>
+            <div class="subtitle">ExpTech 帳戶註冊</div>
+            <div class="info">
+                <div class="name_box">
+                    <div class="name_title">用戶名稱</div>
+                    <input class="name_text" id="name" type="text">
+                </div>
+                <div class="email_box">
+                    <div class="email_title">電子郵件</div>
+                    <input class="email_text" id="email" type="text">
+                </div>
+            </div>
+            <div class="button_box">
+                <button class="button_text" id="button" type="button" onclick="sign_up()">註冊</button>
+            </div>
+            <div class="link_box">
+                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/forget-email.html">忘記密碼</a></div>
+                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/sign-in.html">登入帳戶</a></div>
+                <div class="link"><a href="https://exptech.com.tw/f?v=discord">Discord</a></div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .main {
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            display: grid;
+            justify-items: center;
+            color: white;
+        }
+
+        .body {
+            text-align: center;
+            padding: 4%;
+            border: 3px solid black;
+            border-radius: 5px;
+            background-color: #535353;
+        }
+
+        .link_box {
+            display: grid;
+            justify-items: center;
+        }
+
+        .link {
+            padding: 3px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .info {
+            display: grid;
+            justify-items: center;
+            padding: 5px;
+        }
+
+        .name_box {
+            padding: 1%;
+            width: 50%;
+        }
+
+        .name_title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .name_text {
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+            color: white;
+            background-color: #333439;
+            border: 1px solid black;
+            outline: none;
+        }
+
+        .email_box {
+            padding: 1%;
+            width: 50%;
+        }
+
+        .email_title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .email_text {
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+            color: white;
+            background-color: #333439;
+            border: 1px solid black;
+            outline: none;
+        }
+
+        .button_box {
+            padding: 1%;
+            align-items: center;
+        }
+
+        .button_text {
+            color: white;
+            background-color: #333439;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 2%;
+            padding: 1%;
+            width: 60%;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
+    <script>
+        const _button = document.getElementById("button");
+        const _name = document.getElementById("name");
+        const _email = document.getElementById("email");
+
+        function sign_up() {
+            _button.disabled = true;
+            _button.textContent = "處理中...";
+            _name.disabled = true;
+            _email.disabled = true;
+            const data = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+            }
+            axios.post("https://exptech.com.tw/api/v1/et/sign-up-email", data)
+                .then(res => window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-up.html')
+                .catch(err => {
+                    console.error(err);
+                    exit();
+                    const res = err.request.response;
+                    if (res == "Format error!") alert("格式 錯誤!");
+                    else if (res == "This name already in use!") alert("此 用戶名稱 已被使用!");
+                    else if (res == "This email already in use!") alert("此 電子郵件 已註冊!");
+                    else alert("未知錯誤 請到官方 Discord 回報!<br>");
+                })
+        }
+
+        function exit() {
+            _button.textContent = "註冊";
+            _name.disabled = false;
+            _email.disabled = false;
+            _button.disabled = false;
+        }
+    </script>
+</body>
+
+</html>
