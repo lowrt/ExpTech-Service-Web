@@ -21,6 +21,7 @@
                 <div id="time">剩餘使用時間: 計算中...</div>
                 <div style="color: red;font-size: 8px;">根據即時用量計算 僅供參考</div>
             </div>
+            <div id="ip_list" class="info" style="overflow: auto;justify-items: center;"></div>
             <button onclick="copy()">複製金鑰</button>
             <button onclick="reset()">重置金鑰</button>
             <div class="link_box">
@@ -83,6 +84,10 @@
             margin: 5px;
             display: grid;
             justify-items: left;
+        }
+
+        .ip_list_text {
+            font-size: 14px;
         }
     </style>
 
@@ -167,6 +172,28 @@
                         }
                         last_count = res.data.balance;
                         last_time = Date.now();
+                        const ip_list = document.getElementById("ip_list");
+                        ip_list.innerHTML = "";
+                        const div = document.createElement("div");
+                        div.innerHTML = `IP位置 | 最後使用時間 | 累計使用次數`;
+                        div.className = `ip_list_text`;
+                        ip_list.append(div);
+                        for (let i = 0; i < Object.keys(res.data.ip_list).length; i++) {
+                            const ip = Object.keys(res.data.ip_list)[i];
+                            const div = document.createElement("div");
+                            let _ip = [];
+                            let IP = "";
+                            if (ip.includes(".")) {
+                                _ip = ip.split(".");
+                                IP = `${_ip[0]}.xxx.${_ip[2]}.xxx`;
+                            } else {
+                                _ip = ip.split(":");
+                                IP = `${_ip[0]}:xxx:${_ip[2]}:xxx:${_ip[4]}:xxx:xxx:xxx`;
+                            }
+                            div.innerHTML = `${IP} | ${Full(res.data.ip_list[ip].time)} | ${res.data.ip_list[ip].count}`;
+                            div.className = `ip_list_text`;
+                            ip_list.append(div);
+                        }
                         c(true);
                     })
                     .catch(err => {
@@ -175,6 +202,16 @@
                         c(false);
                     });
             })
+        }
+
+        function Full(time = Date.now()) {
+            const now = new Date(time);
+            return now.getFullYear() +
+                "/" + (now.getMonth() + 1) +
+                "/" + now.getDate() +
+                " " + now.getHours() +
+                ":" + now.getMinutes() +
+                ":" + now.getSeconds();
         }
     </script>
 </body>
