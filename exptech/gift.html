@@ -132,7 +132,7 @@
             axios.get(`https://exptech.com.tw/api/v1/et/gift?key=${localStorage.getItem("key")}&code=${_gift.value}`)
                 .then(res => {
                     alert("兌換成功!");
-                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
+                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/user.html';
                 })
                 .catch(err => {
                     console.error(err);
@@ -140,7 +140,7 @@
                     const res = err.request.response;
                     if (res == "This gift code invalid!") alert("兌換碼 無效!");
                     else alert("未知錯誤 請到官方 Discord 回報!");
-                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
+                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/user.html';
                 });
         }
 
