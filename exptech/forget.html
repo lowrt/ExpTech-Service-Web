@@ -191,9 +191,7 @@
                     console.error(err);
                     exit();
                     const res = err.request.response;
-                    if (res == "Format error!") alert("格式 錯誤!");
-                    else if (res == "Verify error!") alert("驗證碼 錯誤!");
-                    else alert("未知錯誤 請到官方 Discord 回報!");
+                    alert(res);
                 });
         }
 

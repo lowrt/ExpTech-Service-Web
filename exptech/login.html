@@ -5,14 +5,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="登入管理你的 ExpTech 帳號">
-  
+
   <!-- Facebook Meta Tags -->
   <meta property="og:site_name" content="探索科技 | ExpTech Studio" />
   <meta property="og:url" content="https://exptech.com.tw/api/v1/file/exptech/sign-in.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="登入">
   <meta property="og:description" content="登入管理你的 ExpTech 帳號">
-  <meta property="og:image" content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -20,7 +21,8 @@
   <meta property="twitter:url" content="https://exptech.com.tw/api/v1/file/exptech/sign-in.html">
   <meta name="twitter:title" content="登入">
   <meta name="twitter:description" content="登入管理你的 ExpTech 帳號">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
+  <meta name="twitter:image"
+    content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
 
 </head>
 
@@ -51,6 +53,7 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
     :root {
       --background: 285deg, 100%, 99%;
       --on-background: 240deg, 7%, 11%;
@@ -117,19 +120,21 @@
       flex-direction: column;
       margin-bottom: 12px;
     }
-    
+
     .form-item {
       margin-bottom: 12px;
     }
 
-    label { 
+    label {
       font-size: 14px;
       line-height: 16px;
       padding: 8px 0;
       color: hsl(var(--on-surface-variant));
     }
 
-    input[type=text], input[type=password], input[type=email] {
+    input[type=text],
+    input[type=password],
+    input[type=email] {
       all: unset;
       flex: 1;
       padding: 12px;
@@ -139,28 +144,33 @@
       outline: 1px solid hsla(var(--outline), .4);
       transition: outline .1s ease-in-out;
     }
-    
-    input[type=text]:disabled, input[type=password]:disabled {
+
+    input[type=text]:disabled,
+    input[type=password]:disabled {
       outline: 1px solid hsla(var(--on-surface-variant), .12);
       color: hsla(var(--on-surface-variant), .38);
       cursor: not-allowed;
     }
 
-    input[type=text]:not(:disabled):hover, input[type=password]:not(:disabled):hover {
+    input[type=text]:not(:disabled):hover,
+    input[type=password]:not(:disabled):hover {
       outline-color: hsl(var(--on-surface-variant));
     }
-    
-    input[type=text]:not(:disabled):active, input[type=password]:not(:disabled):active {
+
+    input[type=text]:not(:disabled):active,
+    input[type=password]:not(:disabled):active {
       opacity: 0.8;
     }
-    
-    input[type=text]:not(:disabled):focus, input[type=password]:not(:disabled):focus {
+
+    input[type=text]:not(:disabled):focus,
+    input[type=password]:not(:disabled):focus {
       outline: 2px solid hsl(var(--primary));
       background-color: hsla(var(--primary), .08);
       color: hsl(var(--on-primary-container));
     }
-    
-    input[type=text]::placeholder, input[type=password]::placeholder {
+
+    input[type=text]::placeholder,
+    input[type=password]::placeholder {
       color: hsla(var(--on-surface-variant), .6)
     }
 
@@ -174,9 +184,9 @@
       line-height: 18px;
       font-weight: bold;
       transition: background-color .1s ease-in-out,
-                  opacity .1s ease-in-out;
+        opacity .1s ease-in-out;
     }
-    
+
     #register:hover {
       background-color: hsla(var(--primary), 0.12);
     }
@@ -194,7 +204,9 @@
       transition: opacity .1s ease-in-out;
     }
 
-    #register:active, #submit:active, a:active {
+    #register:active,
+    #submit:active,
+    a:active {
       opacity: 0.8;
     }
 
@@ -206,7 +218,7 @@
       color: hsl(var(--primary));
       text-decoration: none;
     }
-    
+
     .info {
       display: inline-block;
       margin: 16px;
@@ -221,21 +233,23 @@
         --background: 240deg, 7%, 11%;
         --on-background: 255deg, 7%, 89%;
         --primary: 220deg, 100%, 84%;
-        --on-primary: 213deg, 100%, 20% ;
+        --on-primary: 213deg, 100%, 20%;
         --primary-container: 212deg, 100%, 28%;
         --on-primary-container: 224deg, 100%, 92%;
         --outline: 229deg, 5%, 58%;
         --surface-variant: 222deg, 7%, 29%;
         --on-surface-variant: 230deg, 11%, 79%;
       }
-      
+
       ::-ms-reveal {
         filter: invert(100%);
       }
     }
 
     @media screen and (max-width: 768px) {
-      .container { width: auto; }
+      .container {
+        width: auto;
+      }
     }
   </style>
 
@@ -277,6 +291,8 @@
           document.getElementById("username").disabled = false;
           document.getElementById("password").disabled = false;
           document.getElementById("submit").disabled = false;
+          const res = err.request.response;
+          alert(res);
         });
     })
   </script>

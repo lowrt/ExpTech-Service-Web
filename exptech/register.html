@@ -5,14 +5,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="註冊 ExpTech 帳號">
-  
+
   <!-- Facebook Meta Tags -->
   <meta property="og:site_name" content="探索科技 | ExpTech Studio" />
   <meta property="og:url" content="https://exptech.com.tw/api/v1/file/exptech/register.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="註冊">
   <meta property="og:description" content="註冊 ExpTech 帳號">
-  <meta property="og:image" content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary">
@@ -20,7 +21,8 @@
   <meta property="twitter:url" content="https://exptech.com.tw/api/v1/file/exptech/register.html">
   <meta name="twitter:title" content="註冊">
   <meta name="twitter:description" content="註冊 ExpTech 帳號">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
+  <meta name="twitter:image"
+    content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
 
 </head>
 
@@ -49,12 +51,14 @@
             </div>
             <div class="form-item">
               <label class="required" for="password">密碼</label>
-              <input id="password" type="password" name="password" placeholder="密碼" autocomplete="new-password" required>
+              <input id="password" type="password" name="password" placeholder="密碼" autocomplete="new-password"
+                required>
               <div id="password-strength"></div>
             </div>
             <div class="form-item" class="view">
               <label class="required" for="repeat-password">確認密碼</label>
-              <input id="repeat-password" type="password" name="password" placeholder="確認密碼" autocomplete="new-password" required>
+              <input id="repeat-password" type="password" name="password" placeholder="確認密碼" autocomplete="new-password"
+                required>
             </div>
           </div>
           <button id="login" type="button">登入帳號</button>
@@ -62,7 +66,10 @@
         </form>
       </div>
       <div id="success-view" class="view">
-        <svg class="check-mark" xmlns="http://www.w3.org/2000/svg" height="128" width="128" viewBox="0 96 960 960"><path d="M421 744.537 690.537 475l-34.845-34.23L421 675.847 302.539 557.385l-33.846 34.23L421 744.537Zm59.067 211.462q-78.221 0-147.397-29.92-69.176-29.92-120.989-81.71-51.814-51.791-81.747-120.936-29.933-69.146-29.933-147.366 0-78.836 29.92-148.204 29.92-69.369 81.71-120.682 51.791-51.314 120.936-81.247 69.146-29.933 147.366-29.933 78.836 0 148.204 29.92 69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173 0 78.221-29.92 147.397-29.92 69.176-81.21 120.989-51.291 51.814-120.629 81.747-69.337 29.933-148.173 29.933ZM480 910.615q139.692 0 237.154-97.769Q814.615 715.077 814.615 576q0-139.692-97.461-237.154Q619.692 241.385 480 241.385q-139.077 0-236.846 97.461Q145.385 436.308 145.385 576q0 139.077 97.769 236.846T480 910.615ZM480 576Z"/></svg>
+        <svg class="check-mark" xmlns="http://www.w3.org/2000/svg" height="128" width="128" viewBox="0 96 960 960">
+          <path
+            d="M421 744.537 690.537 475l-34.845-34.23L421 675.847 302.539 557.385l-33.846 34.23L421 744.537Zm59.067 211.462q-78.221 0-147.397-29.92-69.176-29.92-120.989-81.71-51.814-51.791-81.747-120.936-29.933-69.146-29.933-147.366 0-78.836 29.92-148.204 29.92-69.369 81.71-120.682 51.791-51.314 120.936-81.247 69.146-29.933 147.366-29.933 78.836 0 148.204 29.92 69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173 0 78.221-29.92 147.397-29.92 69.176-81.21 120.989-51.291 51.814-120.629 81.747-69.337 29.933-148.173 29.933ZM480 910.615q139.692 0 237.154-97.769Q814.615 715.077 814.615 576q0-139.692-97.461-237.154Q619.692 241.385 480 241.385q-139.077 0-236.846 97.461Q145.385 436.308 145.385 576q0 139.077 97.769 236.846T480 910.615ZM480 576Z" />
+        </svg>
         <div class="success-title title">註冊成功</div>
         <div class="success-description">將在五秒後跳轉回登入畫面</div>
       </div>
@@ -72,6 +79,7 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
     :root {
       --background: 48deg, 83%, 98%;
       --on-background: 72deg, 10%, 10%;
@@ -90,7 +98,7 @@
       --strong: 72deg, 100%, 20%;
       --very-strong: 300deg, 76%, 37%;
     }
-    
+
     .view {
       width: 400px;
       transition: opacity 100ms ease-in-out;
@@ -99,7 +107,7 @@
     #form-view {
       opacity: 1;
     }
-    
+
     #success-view {
       display: none;
       opacity: 0;
@@ -137,7 +145,7 @@
       font-family: "Noto Sans TC", sans-serif;
       overflow-x: hidden;
     }
-    
+
     #container {
       position: relative;
       width: 400px;
@@ -149,7 +157,7 @@
       border-radius: 8px;
       transition: height 100ms ease-in-out;
     }
-    
+
     .title {
       font-size: 24px;
       line-height: 26px;
@@ -157,7 +165,7 @@
       text-align: center;
       margin-bottom: 8px;
     }
-    
+
     .description {
       text-align: center;
       margin: 16px;
@@ -168,30 +176,32 @@
       margin: 0;
       width: 100%;
     }
-    
+
     .form-item-container {
       margin-left: 8px;
       margin-bottom: 32px;
     }
-    
+
     .form-item {
       display: flex;
       flex-direction: column;
       margin-bottom: 12px;
     }
-    
+
     .form-item {
       margin-bottom: 12px;
     }
-    
-    label { 
+
+    label {
       font-size: 14px;
       line-height: 16px;
       padding: 8px 0;
       color: hsl(var(--on-surface-variant));
     }
-    
-    input[type=text], input[type=password], input[type=email] {
+
+    input[type=text],
+    input[type=password],
+    input[type=email] {
       all: unset;
       flex: 1;
       padding: 12px;
@@ -201,28 +211,38 @@
       outline: 1px solid hsla(var(--outline), .4);
       transition: outline .1s ease-in-out;
     }
-    
-    input[type=text]:disabled, input[type=password]:disabled, input[type=email]:disabled {
+
+    input[type=text]:disabled,
+    input[type=password]:disabled,
+    input[type=email]:disabled {
       outline: 1px solid hsla(var(--on-surface-variant), .12);
       color: hsla(var(--on-surface-variant), .38);
       cursor: not-allowed;
     }
 
-    input[type=text]:not(:disabled):hover, input[type=password]:not(:disabled):hover, input[type=email]:not(:disabled):hover {
+    input[type=text]:not(:disabled):hover,
+    input[type=password]:not(:disabled):hover,
+    input[type=email]:not(:disabled):hover {
       outline-color: hsl(var(--on-surface-variant));
     }
-    
-    input[type=text]:not(:disabled):active, input[type=password]:not(:disabled):active, input[type=email]:not(:disabled):active {
+
+    input[type=text]:not(:disabled):active,
+    input[type=password]:not(:disabled):active,
+    input[type=email]:not(:disabled):active {
       opacity: 0.8;
     }
-    
-    input[type=text]:not(:disabled):focus, input[type=password]:not(:disabled):focus, input[type=email]:not(:disabled):focus {
+
+    input[type=text]:not(:disabled):focus,
+    input[type=password]:not(:disabled):focus,
+    input[type=email]:not(:disabled):focus {
       outline: 2px solid hsl(var(--primary));
       background-color: hsla(var(--primary), .08);
       color: hsl(var(--on-primary-container));
     }
-    
-    input[type=text]::placeholder, input[type=password]::placeholder, input[type=email]::placeholder {
+
+    input[type=text]::placeholder,
+    input[type=password]::placeholder,
+    input[type=email]::placeholder {
       color: hsla(var(--on-surface-variant), .6)
     }
 
@@ -248,9 +268,9 @@
       content: "";
       background-color: transparent;
       transition: width .1s ease-in-out,
-                  background-color .1s ease-in-out;
+        background-color .1s ease-in-out;
     }
-    
+
     #password-strength::after {
       position: absolute;
       top: 100%;
@@ -272,7 +292,7 @@
       background-color: hsl(var(--outline));
       color: hsl(var(--outline));
     }
-    
+
     #password-strength.medium::before {
       width: 50%;
       background-color: hsl(var(--medium));
@@ -284,21 +304,21 @@
       background-color: hsl(var(--strong));
       color: hsl(var(--strong));
     }
-    
+
     #password-strength.very-strong::before {
       width: 100%;
       background-color: hsl(var(--very-strong));
       color: hsl(var(--very-strong));
     }
-    
+
     #password-strength.error::after {
       color: hsl(var(--error));
     }
-    
+
     #password-strength.empty::after {
       content: "密碼不得為空";
     }
-    
+
     #password-strength.invalid::after {
       content: "密碼只能包含大小寫半形英數、 _ 、 . 、- 和 @";
     }
@@ -308,7 +328,7 @@
       content: "密碼強度：弱";
       color: hsl(var(--outline));
     }
-    
+
     #password-strength.medium::after {
       width: 50%;
       content: "密碼強度：中等";
@@ -320,7 +340,7 @@
       content: "密碼強度：強";
       color: hsl(var(--strong));
     }
-    
+
     #password-strength.very-strong::after {
       width: 100%;
       content: "密碼強度：非常強";
@@ -337,8 +357,8 @@
       font-size: 16px;
       float: right;
       transition: background-color .1s ease-in-out,
-                  color .1s ease-in-out,
-                  opacity .1s ease-in-out;
+        color .1s ease-in-out,
+        opacity .1s ease-in-out;
     }
 
     #request-otp:disabled {
@@ -357,9 +377,9 @@
       line-height: 18px;
       font-weight: bold;
       transition: background-color .1s ease-in-out,
-                  opacity .1s ease-in-out;
+        opacity .1s ease-in-out;
     }
-    
+
     #login:hover {
       background-color: hsla(var(--primary), 0.12);
     }
@@ -375,8 +395,8 @@
       font-weight: bold;
       float: right;
       transition: background-color .1s ease-in-out,
-                  color .1s ease-in-out,
-                  opacity .1s ease-in-out;
+        color .1s ease-in-out,
+        opacity .1s ease-in-out;
     }
 
     #submit:disabled {
@@ -384,12 +404,16 @@
       color: hsla(var(--on-surface), .38);
       cursor: not-allowed;
     }
-    
-    #request-otp:focus-visible, #login:focus-visible, #submit:focus-visible {
+
+    #request-otp:focus-visible,
+    #login:focus-visible,
+    #submit:focus-visible {
       outline: 2px solid hsl(var(--primary));
     }
 
-    #request-otp:not(:disabled):active, #login:not(:disabled):active, #submit:not(:disabled):active {
+    #request-otp:not(:disabled):active,
+    #login:not(:disabled):active,
+    #submit:not(:disabled):active {
       opacity: .8;
     }
 
@@ -401,7 +425,7 @@
       color: hsla(var(--on-surface-variant), .6);
       text-decoration: none;
     }
-    
+
     @media (prefers-color-scheme: dark) {
       :root {
         --background: 72deg, 10%, 10%;
@@ -421,14 +445,16 @@
         --strong: 71deg, 100%, 42%;
         --very-strong: 308deg, 100%, 83%;
       }
-      
+
       ::-ms-reveal {
         filter: invert(100%);
       }
     }
 
     @media screen and (max-width: 768px) {
-      #container { width: auto; }
+      #container {
+        width: auto;
+      }
     }
   </style>
 
@@ -437,16 +463,16 @@
       window.location.href = './login.html';
     });
 
-    document.getElementById("email").addEventListener("input", function(e) {
+    document.getElementById("email").addEventListener("input", function (e) {
       document.getElementById("request-otp").disabled = !this.value.length;
     });
-    
-    document.getElementById("password").addEventListener("input", function(e) {
+
+    document.getElementById("password").addEventListener("input", function (e) {
       document.getElementById("password-strength").style.display = "block";
 
-      if (this.value.match(/(?=.*[^A-Za-z0-9@_\.-])/)) 
+      if (this.value.match(/(?=.*[^A-Za-z0-9@_\.-])/))
         return document.getElementById("password-strength").className = "error invalid"
-      
+
       if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{10,})/)) {
         document.getElementById("password-strength").className = "very-strong"
       } else if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)) {
@@ -455,7 +481,7 @@
         document.getElementById("password-strength").className = "medium"
       } else if (this.value.length > 0) {
         document.getElementById("password-strength").className = "weak"
-      } else  {
+      } else {
         document.getElementById("password-strength").className = "error empty"
       }
     });
@@ -498,7 +524,7 @@
                 document.getElementById("email").reportValidity();
                 break;
               }
-            
+
               default:
                 console.error(res);
                 break;
@@ -509,7 +535,7 @@
           console.error(err);
         });
     });
-    
+
     document.getElementById("register").addEventListener("submit", (e) => {
       e.preventDefault();
       document.getElementById("repeat-password").setCustomValidity("");
@@ -553,7 +579,7 @@
               document.getElementById("form-view").style.display = "none";
               document.getElementById("form-view").style.position = "";
             }, 100);
-          
+
             setTimeout(() => {
               window.location.href = './login.html';
             }, 5_000);
@@ -575,6 +601,8 @@
         })
         .catch(err => {
           console.error(err);
+          const res = err.request.response;
+          alert(res);
         });
     });
   </script>

@@ -1,7 +1,7 @@
 <html lang="zh-Hant">
 
 <head>
-    <title id="title">TREM Service Sign-Up</title>
+    <title id="title">TREM Service Edit</title>
     <meta charset="utf-8" />
     <meta content="ExpTech Studio" property="og:title" />
     <meta content="ExpTech | 探索科技 | 註冊" property="og:description" />
@@ -191,16 +191,13 @@
                 new_name: document.getElementById("new_name").value,
                 new_pass: document.getElementById("new_pass").value,
             }
-            axios.post("https://exptech.com.tw/api/v1/et/sign-up", data)
+            axios.post("https://exptech.com.tw/api/v1/et/edit", data)
                 .then(res => window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html')
                 .catch(err => {
                     console.error(err);
                     exit();
                     const res = err.request.response;
-                    if (res == "Format error!") alert("格式 錯誤!");
-                    else if (res == "Verify error!") alert("驗證碼 錯誤!");
-                    else if (res == "Invaild symbol!") alert("非法字符!");
-                    else alert("未知錯誤 請到官方 Discord 回報!");
+                    alert(res);
                 });
         }
 

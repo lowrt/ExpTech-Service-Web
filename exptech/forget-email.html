@@ -137,9 +137,7 @@
                     console.error(err);
                     exit();
                     const res = err.request.response;
-                    if (res == "Format error!") alert("格式 錯誤!");
-                    else if (res == "Can't find this account!") alert("找不到此帳戶!");
-                    else alert("未知錯誤 請到官方 Discord 回報!");
+                    alert(res);
                 });
         }
 
