@@ -15,7 +15,7 @@
   <meta property="og:image" content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
 
   <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta property="twitter:domain" content="exptech.com.tw">
   <meta property="twitter:url" content="https://exptech.com.tw/api/v1/file/exptech/register.html">
   <meta name="twitter:title" content="註冊">
@@ -26,39 +26,46 @@
 
 <body>
   <main>
-    <div class="container">
+    <div id="container">
       <div class="title">註冊</div>
       <div class="description">註冊 ExpTech 帳號</div>
-      <form id="register" class="register-form" action="" method="post">
-        <div class="form-item-container">
-          <div class="form-item">
-            <label class="required" for="username">用戶名稱</label>
-            <input id="username" type="text" name="username" placeholder="用戶名稱" required>
-          </div>
-          <div class="form-item">
-            <label class="required" for="email">電子郵件地址</label>
-            <input id="email" type="email" name="email" placeholder="電子郵件地址" required>
-          </div>
-          <div class="form-item">
-            <label class="required" for="otp">驗證碼</label>
-            <div class="input-action">
-              <input id="otp" type="text" name="otp" placeholder="驗證碼" required>
-              <button id="request-otp" type="button" disabled>請求驗證碼</button>
+      <div id="form-view" class="view">
+        <form id="register" class="register-form" action="" method="post">
+          <div class="form-item-container">
+            <div class="form-item">
+              <label class="required" for="username">用戶名稱</label>
+              <input id="username" type="text" name="username" placeholder="用戶名稱" autocomplete="username" required>
+            </div>
+            <div class="form-item">
+              <label class="required" for="email">電子郵件地址</label>
+              <input id="email" type="email" name="email" placeholder="電子郵件地址" autocomplete="email" required>
+            </div>
+            <div class="form-item">
+              <label class="required" for="otp">驗證碼</label>
+              <div class="input-action">
+                <input id="otp" type="text" name="otp" placeholder="驗證碼" autocomplete="one-time-code" required>
+                <button id="request-otp" type="button" disabled>請求驗證碼</button>
+              </div>
+            </div>
+            <div class="form-item">
+              <label class="required" for="password">密碼</label>
+              <input id="password" type="password" name="password" placeholder="密碼" autocomplete="new-password" required>
+              <div id="password-strength"></div>
+            </div>
+            <div class="form-item" class="view">
+              <label class="required" for="repeat-password">確認密碼</label>
+              <input id="repeat-password" type="password" name="password" placeholder="確認密碼" autocomplete="new-password" required>
             </div>
           </div>
-          <div class="form-item">
-            <label class="required" for="password">密碼</label>
-            <input id="password" type="password" name="password" placeholder="用戶密碼" required>
-            <div id="password-strength"></div>
-          </div>
-          <div class="form-item">
-            <label class="required" for="repeat-password">確認密碼</label>
-            <input id="repeat-password" type="password" name="password" placeholder="確認密碼" required>
-          </div>
-        </div>
-        <button id="login" type="button">登入帳號</button>
-        <button id="submit" type="submit">註冊</button>
-      </form>
+          <button id="login" type="button">登入帳號</button>
+          <button id="submit" type="submit">註冊</button>
+        </form>
+      </div>
+      <div id="success-view" class="view">
+        <svg class="check-mark" xmlns="http://www.w3.org/2000/svg" height="128" width="128" viewBox="0 96 960 960"><path d="M421 744.537 690.537 475l-34.845-34.23L421 675.847 302.539 557.385l-33.846 34.23L421 744.537Zm59.067 211.462q-78.221 0-147.397-29.92-69.176-29.92-120.989-81.71-51.814-51.791-81.747-120.936-29.933-69.146-29.933-147.366 0-78.836 29.92-148.204 29.92-69.369 81.71-120.682 51.791-51.314 120.936-81.247 69.146-29.933 147.366-29.933 78.836 0 148.204 29.92 69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173 0 78.221-29.92 147.397-29.92 69.176-81.21 120.989-51.291 51.814-120.629 81.747-69.337 29.933-148.173 29.933ZM480 910.615q139.692 0 237.154-97.769Q814.615 715.077 814.615 576q0-139.692-97.461-237.154Q619.692 241.385 480 241.385q-139.077 0-236.846 97.461Q145.385 436.308 145.385 576q0 139.077 97.769 236.846T480 910.615ZM480 576Z"/></svg>
+        <div class="success-title title">註冊成功</div>
+        <div class="success-description">將在五秒後跳轉回登入畫面</div>
+      </div>
     </div>
     <a class="info" href="https://exptech.com.tw/f?v=discord">Discord 伺服器</a>
   </main>
@@ -75,6 +82,7 @@
       --secondary-container: 69deg, 41%, 83%;
       --on-secondary-container: 71deg, 57%, 7%;
       --outline: 64deg, 6%, 44%;
+      --on-surface: 72deg, 10%, 10%;
       --surface-variant: 64deg, 24%, 86%;
       --on-surface-variant: 70deg, 9%, 26%;
       --error: 0deg, 75%, 42%;
@@ -83,6 +91,38 @@
       --very-strong: 300deg, 76%, 37%;
     }
     
+    .view {
+      width: 400px;
+      transition: opacity 100ms ease-in-out;
+    }
+
+    #form-view {
+      opacity: 1;
+    }
+    
+    #success-view {
+      display: none;
+      opacity: 0;
+    }
+
+    .check-mark {
+      display: block;
+      margin: 32px auto;
+      fill: hsl(var(--primary));
+    }
+
+    .success-title {
+      color: hsl(var(--on-surface-variant));
+    }
+
+    .success-description {
+      margin: 8px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 18px;
+      color: hsl(var(--outline));
+    }
+
     body {
       display: grid;
       align-items: center;
@@ -98,7 +138,8 @@
       overflow-x: hidden;
     }
     
-    .container {
+    #container {
+      position: relative;
       width: 400px;
       padding: 48px 36px;
       padding-left: 28px;
@@ -106,6 +147,7 @@
       outline: 1px solid hsl(var(--surface-variant));
       box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
       border-radius: 8px;
+      transition: height 100ms ease-in-out;
     }
     
     .title {
@@ -206,7 +248,7 @@
       content: "";
       background-color: transparent;
       transition: width .1s ease-in-out,
-      background-color .1s ease-in-out;
+                  background-color .1s ease-in-out;
     }
     
     #password-strength::after {
@@ -294,7 +336,9 @@
       border-radius: 4px;
       font-size: 16px;
       float: right;
-      transition: background-color .1s ease-in-out, color .1s ease-in-out, opacity .1s ease-in-out;
+      transition: background-color .1s ease-in-out,
+                  color .1s ease-in-out,
+                  opacity .1s ease-in-out;
     }
 
     #request-otp:disabled {
@@ -330,7 +374,15 @@
       line-height: 18px;
       font-weight: bold;
       float: right;
-      transition: opacity .1s ease-in-out;
+      transition: background-color .1s ease-in-out,
+                  color .1s ease-in-out,
+                  opacity .1s ease-in-out;
+    }
+
+    #submit:disabled {
+      background-color: hsla(var(--on-surface), .12);
+      color: hsla(var(--on-surface), .38);
+      cursor: not-allowed;
     }
     
     #request-otp:focus-visible, #login:focus-visible, #submit:focus-visible {
@@ -361,6 +413,7 @@
         --secondary-container: 72deg, 21%, 24%;
         --on-secondary-container: 69deg, 41%, 83%;
         --outline: 64deg, 6%, 54%;
+        --on-surface: 48deg, 16%, 87%;
         --surface-variant: 70deg, 9%, 26%;
         --on-surface-variant: 64deg, 13%, 75%;
         --error: 6deg, 100%, 84%;
@@ -375,7 +428,7 @@
     }
 
     @media screen and (max-width: 768px) {
-      .container { width: auto; }
+      #container { width: auto; }
     }
   </style>
 
@@ -447,6 +500,7 @@
               }
             
               default:
+                console.error(res);
                 break;
             }
           }
@@ -458,10 +512,12 @@
     
     document.getElementById("register").addEventListener("submit", (e) => {
       e.preventDefault();
+      document.getElementById("repeat-password").setCustomValidity("");
 
       const values = {
         username: document.getElementById("username").value,
-        password: document.getElementById("password").value
+        password: document.getElementById("password").value,
+        otp: document.getElementById("otp").value
       }
 
       if (document.getElementById("repeat-password").value != values.password) {
@@ -470,11 +526,9 @@
         return;
       }
 
-      document.getElementById("username").disabled = true;
-      document.getElementById("password").disabled = true;
       document.getElementById("submit").disabled = true;
 
-      fetch("https://exptech.com.tw/api/v1/et/sign-in", {
+      fetch("https://exptech.com.tw/api/v1/et/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -482,15 +536,27 @@
         body: JSON.stringify({
           name: values.username,
           pass: values.password,
+          code: values.otp
         })
       })
         .then(async res => {
           if (res.ok) {
-            const data = await res.json()
-            console.log(data)
-            localStorage.setItem("key", data.key);
-            localStorage.setItem("timestamp", data.time);
-            window.location.href = './user.html';
+            document.getElementById("container").style.height = document.getElementById("form-view").offsetHeight + 76;
+            document.getElementById("form-view").style.position = "absolute";
+            document.getElementById("success-view").style.position = "absolute";
+            document.getElementById("success-view").style.display = "block";
+            document.getElementById("form-view").style.opacity = 0;
+            document.getElementById("container").style.height = document.getElementById("success-view").offsetHeight + 76;
+            setTimeout(() => {
+              document.getElementById("success-view").style.position = "";
+              document.getElementById("success-view").style.opacity = 1;
+              document.getElementById("form-view").style.display = "none";
+              document.getElementById("form-view").style.position = "";
+            }, 100);
+          
+            setTimeout(() => {
+              window.location.href = './login.html';
+            }, 5_000);
           } else {
             switch (await res.text()) {
               case "Verify error!": {
@@ -499,8 +565,11 @@
                 break;
               }
 
-              default:
+              default: {
+                console.error(res);
+                document.getElementById("submit").disabled = false;
                 break;
+              }
             }
           }
         })
