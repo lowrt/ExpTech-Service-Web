@@ -447,9 +447,17 @@
 
       //if (!document.getElementById("email").reportValidity() || !document.getElementById("password").reportValidity() || !document.getElementById("new-password").reportValidity()) return;
 
-      const values = {
+      let values = {
         email: document.getElementById("email").value,
         pass: document.getElementById("password").value,
+        new_pass: document.getElementById("new-password").value,
+      }
+
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+
+      if (params.token) values = {
+        token: params.token,
         new_pass: document.getElementById("new-password").value,
       }
 
