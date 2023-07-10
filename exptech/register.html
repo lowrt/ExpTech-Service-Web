@@ -424,6 +424,7 @@
     const success_view = document.getElementById("success-view");
     const form_view = document.getElementById("form-view");
     const container = document.getElementById("container");
+    const submit = document.getElementById("submit");
 
     document.getElementById("login").onclick = (e) => { window.location.href = './login.html'; }
 
@@ -456,7 +457,7 @@
         return;
       }
 
-      document.getElementById("submit").disabled = true;
+      submit.disabled = true;
 
       fetch("https://exptech.com.tw/api/v1/et/register", {
         method: "POST",
@@ -513,7 +514,7 @@
                 break;
               }
             }
-            document.getElementById("submit").disabled = false;
+            submit.disabled = false;
           }
         })
         .catch(err => {

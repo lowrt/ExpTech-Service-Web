@@ -416,41 +416,39 @@
   </style>
 
   <script>
-    document.getElementById("login").addEventListener("click", (e) => {
-      window.location.href = './login.html';
-    });
+    const password_strength = document.getElementById("password-strength");
+    const new_password = document.getElementById("new-password");
+    const email = document.getElementById("email");
+    const password = document.getElementById("email");
+    const success_view = document.getElementById("success-view");
+    const form_view = document.getElementById("form-view");
+    const container = document.getElementById("container");
+    const submit = document.getElementById("submit");
 
-    document.getElementById("new-password").addEventListener("input", function (e) {
-      document.getElementById("password-strength").style.display = "block";
+    document.getElementById("login").onclick = (e) => { window.location.href = './login.html'; };
 
-      if (this.value.match(/(?=.*[^A-Za-z0-9@_\.-])/))
-        return document.getElementById("password-strength").className = "error invalid"
+    new_password.oninput = (e) => {
+      password_strength.style.display = "block";
 
-      if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{10,})/)) {
-        document.getElementById("password-strength").className = "very-strong"
-      } else if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)) {
-        document.getElementById("password-strength").className = "strong"
-      } else if (this.value.match(/((?=.*[a-zA-Z0-9])(?=.{6,}))/)) {
-        document.getElementById("password-strength").className = "medium"
-      } else if (this.value.length > 0) {
-        document.getElementById("password-strength").className = "weak"
-      } else {
-        document.getElementById("password-strength").className = "error empty"
-      }
-    });
+      if (this.value.match(/(?=.*[^A-Za-z0-9@_\.-])/)) return password_strength.className = "error invalid";
+
+      if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{10,})/)) password_strength.className = "very-strong";
+      else if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)) password_strength.className = "strong";
+      else if (this.value.match(/((?=.*[a-zA-Z0-9])(?=.{6,}))/)) password_strength.className = "medium";
+      else if (this.value.length > 0) password_strength.className = "weak";
+      else password_strength.className = "error empty";
+    };
 
     document.getElementById("register").addEventListener("submit", (e) => {
       e.preventDefault();
-      document.getElementById("email").setCustomValidity("");
-      document.getElementById("password").setCustomValidity("");
-      document.getElementById("new-password").setCustomValidity("");
-
-      //if (!document.getElementById("email").reportValidity() || !document.getElementById("password").reportValidity() || !document.getElementById("new-password").reportValidity()) return;
+      email.setCustomValidity("");
+      password.setCustomValidity("");
+      new_password.setCustomValidity("");
 
       let values = {
-        email: document.getElementById("email").value,
-        pass: document.getElementById("password").value,
-        new_pass: document.getElementById("new-password").value,
+        email: email.value,
+        pass: password.value,
+        new_pass: new_password.value,
       }
 
       const urlSearchParams = new URLSearchParams(window.location.search);
@@ -458,22 +456,14 @@
 
       if (params.token) values = {
         token: params.token,
-        new_pass: document.getElementById("new-password").value,
+        new_pass: new_password.value,
       }
 
-      //if (document.getElementById("repeat-password").value != values.pass) {
-        //document.getElementById("repeat-password").setCustomValidity("與密碼不相符");
-        //document.getElementById("repeat-password").reportValidity();
-        //return;
-      //}
-
-      document.getElementById("submit").disabled = true;
+      submit.disabled = true;
 
       fetch("https://exptech.com.tw/api/v1/et/change", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json", },
         body: JSON.stringify({
           email: values.email,
           pass: values.pass,
@@ -482,69 +472,67 @@
       })
         .then(async res => {
           if (res.ok) {
-            document.getElementById("container").style.height = document.getElementById("form-view").offsetHeight + 76;
-            document.getElementById("form-view").style.position = "absolute";
-            document.getElementById("success-view").style.position = "absolute";
-            document.getElementById("success-view").style.display = "block";
-            document.getElementById("form-view").style.opacity = 0;
-            document.getElementById("container").style.height = document.getElementById("success-view").offsetHeight + 76;
+            container.style.height = form_view.offsetHeight + 76;
+            form_view.style.position = "absolute";
+            success_view.style.position = "absolute";
+            success_view.style.display = "block";
+            form_view.style.opacity = 0;
+            container.style.height = success_view.offsetHeight + 76;
             setTimeout(() => {
-              document.getElementById("success-view").style.position = "";
-              document.getElementById("success-view").style.opacity = 1;
-              document.getElementById("form-view").style.display = "none";
-              document.getElementById("form-view").style.position = "";
+              success_view.style.position = "";
+              success_view.style.opacity = 1;
+              form_view.style.display = "none";
+              form_view.style.position = "";
             }, 100);
 
-            setTimeout(() => {
-              window.location.href = './login.html';
-            }, 5_000);
+            setTimeout(() => window.location.href = './login.html', 5_000);
           } else {
             switch (await res.text()) {
               case "Invaild email!": {
-                document.getElementById("email").setCustomValidity("電子郵件地址無效。");
-                document.getElementById("email").reportValidity();
+                email.setCustomValidity("電子郵件地址無效。");
+                email.reportValidity();
                 break;
               }
 
               case "Invaild pass!": {
-                document.getElementById("password").setCustomValidity("舊密碼無效。");
-                document.getElementById("password").reportValidity();
+                password.setCustomValidity("舊密碼無效。");
+                password.reportValidity();
                 break;
               }
 
               case "Invaild new pass!": {
-                document.getElementById("new-password").setCustomValidity("新密碼無效。");
-                document.getElementById("new-password").reportValidity();
+                new_password.setCustomValidity("新密碼無效。");
+                new_password.reportValidity();
                 break;
               }
 
               case "Pass format error!": {
-                document.getElementById("password").setCustomValidity("舊密碼格式錯誤。");
-                document.getElementById("password").reportValidity();
+                password.setCustomValidity("舊密碼格式錯誤。");
+                password.reportValidity();
                 break;
               }
 
               case "New pass format error!": {
-                document.getElementById("new-password").setCustomValidity("新密碼格式錯誤。");
-                document.getElementById("new-password").reportValidity();
+                new_password.setCustomValidity("新密碼格式錯誤。");
+                new_password.reportValidity();
                 break;
               }
 
               case "No changes found!": {
-                document.getElementById("email").setCustomValidity("沒有發現任何變化。");
-                document.getElementById("email").reportValidity();
+                email.setCustomValidity("沒有發現任何變化。");
+                email.reportValidity();
                 break;
               }
 
               case "Pass error!": {
-                document.getElementById("password").setCustomValidity("舊密碼錯誤。");
-                document.getElementById("password").reportValidity();
+                password.setCustomValidity("舊密碼錯誤。");
+                password.reportValidity();
                 break;
               }
 
               case "This account was not found!": {
-                document.getElementById("email").setCustomValidity("電子郵件地址找不到。");
-                document.getElementById("email").reportValidity();
+                email.setCustomValidity("電子郵件地址找不到。");
+                email.reportValidity();
                 break;
               }
 
@@ -553,7 +541,7 @@
                 break;
               }
             }
-            document.getElementById("submit").disabled = false;
+            submit.disabled = false;
           }
         })
         .catch(err => {

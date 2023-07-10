@@ -12,24 +12,13 @@
 
 <body style="background-color: #333439;">
     <div class="main">
-        <div class="body">
-            <div class="title">TREM Service Panel</div>
-            <div class="subtitle">ExpTech 用戶資訊面板</div>
-            <div class="info">
-                <div id="count">剩餘 API 請求次數: 計算中...</div>
-                <div id="use">每分鐘用量: 計算中...</div>
-                <div id="time">剩餘使用時間: 計算中...</div>
-                <div style="color: red;font-size: 8px;">根據即時用量計算 僅供參考</div>
-            </div>
-            <div id="ip_list" class="info" style="overflow: auto;justify-items: center;"></div>
-            <button onclick="copy()">複製金鑰</button>
-            <button onclick="reset()">重置金鑰</button>
-            <div class="link_box">
-                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/edit.html">變更帳密</a></div>
-                <div class="link"><a href="https://exptech.com.tw/api/v1/file/exptech/gift.html">兌換禮物</a></div>
-                <div class="link"><a href="https://exptech.com.tw/f?v=discord">Discord</a></div>
-            </div>
-        </div>
+        <div>硬幣: <a id="coin"></a></div>
+        <div>WebSocket 數量: <a id="client"></a></div>
+        <div><a id="service"></a></div>
+        <div><a id="subscribe"></a></div>
+        <div><a id="key"></a></div>
+        <div><a id="key_list"></a></div>
+        <div><a id="client_list"></a></div>
     </div>
 
     <style>
@@ -38,182 +27,41 @@
         html,
         body {
             font-family: "cwTeXYen", sans-serif;
-            padding: 0;
-            margin: 0;
         }
 
         .main {
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            display: grid;
-            justify-items: center;
+            font-size: 30px;
             color: white;
-        }
-
-        .body {
-            text-align: center;
-            padding: 4%;
-            border: 3px solid black;
-            border-radius: 5px;
-            background-color: #535353;
-        }
-
-        .link_box {
-            display: grid;
-            justify-items: center;
-        }
-
-        .link {
-            padding: 3px;
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 900;
-        }
-
-        .subtitle {
-            font-size: 26px;
-            font-weight: 600;
-        }
-
-        .info {
-            border: 2px solid white;
-            border-radius: 5px;
-            padding: 2px;
-            margin: 5px;
-            display: grid;
-            justify-items: left;
-        }
-
-        .ip_list_text {
-            font-size: 14px;
         }
     </style>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
     <script>
-        let last_count = -1;
-        let last_time = Date.now();
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
 
-        if (!localStorage.getItem("key")) window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
-        axios.get("https://exptech.com.tw/api/v1/et/ntp")
-            .then(async (res) => {
-                if (res.data.time - (localStorage.getItem("timestamp") ?? 0) > 86400 * 1000 * 7) {
-                    clear();
-                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
-                } else {
-                    localStorage.setItem("timestamp", res.data.time);
-                    const ans = await get_balance();
-                    if (ans) setInterval(() => get_balance(), 5000);
-                }
-            }).catch(err => {
-                console.error(err);
-            });
-        function clear() {
-            localStorage.removeItem("key");
-            localStorage.removeItem("timestamp");
-        }
+        if (!params.token) window.location.href = './login.html';
 
-        function copy() {
-            navigator.clipboard.writeText(localStorage.getItem("key"))
-                .then(() => alert("金鑰已複製到剪貼板"))
-                .catch(err => console.error(err));
-        }
-
-        function reset() {
-            axios.get(`https://exptech.com.tw/api/v1/et/key-reset?key=${localStorage.getItem("key")}`)
-                .then(res => {
-                    clear()
-                    alert("金鑰重置成功!");
-                    window.location.href = 'https://exptech.com.tw/api/v1/file/exptech/sign-in.html';
+        function load() {
+            fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
+                .then(async res => {
+                    const data = await res.json();
+                    document.getElementById("coin").textContent = data.coin;
+                    document.getElementById("client").textContent = data.client;
+                    document.getElementById("service").textContent = data.service;
+                    document.getElementById("subscribe").textContent = data.subscribe;
+                    document.getElementById("key").textContent = JSON.stringify(data.key);
+                    document.getElementById("key_list").textContent = JSON.stringify(data.key_list);
+                    document.getElementById("client_list").textContent = JSON.stringify(data.client_list);
+                    console.log(data);
                 })
                 .catch(err => {
-                    clear()
                     console.error(err);
                     const res = err.request.response;
-                    if (res == "Can't find this account!") alert("找不到此帳戶!");
-                    else alert("未知錯誤 請到官方 Discord 回報!");
+                    alert(res);
                 });
         }
 
-        async function get_balance() {
-            return await new Promise((c) => {
-                axios.get(`https://exptech.com.tw/api/v1/et/balance?key=${localStorage.getItem("key")}`)
-                    .then(res => {
-                        document.getElementById("count").innerHTML = `剩餘 API 請求次數: ${res.data.balance}次`;
-                        const time = document.getElementById("time");
-                        const use = document.getElementById("use");
-                        if (last_count != -1) {
-                            if (last_count) {
-                                if (last_count - res.data.balance) {
-                                    const use_min = Math.floor((last_count - res.data.balance) * (60 / ((Date.now() - last_time) / 1000)));
-                                    let _time = (res.data.balance / use_min).toFixed(1);
-                                    let _time_string = "";
-                                    if (_time < 60) _time_string = `${_time}分鐘`;
-                                    else {
-                                        _time = (_time / 60).toFixed(1);
-                                        if (_time < 24) _time_string = `${_time}小時`;
-                                        else {
-                                            _time = (_time / 24).toFixed(1);
-                                            _time_string = `${_time}天`;
-                                        }
-                                    }
-                                    time.innerHTML = `剩餘使用時間: ${_time_string}`;
-                                    use.innerHTML = `每分鐘用量: ${use_min}次`;
-                                } else {
-                                    time.innerHTML = `剩餘使用時間: 未使用`;
-                                    use.innerHTML = `每分鐘用量: 未使用`;
-                                }
-                            } else {
-                                time.innerHTML = `剩餘使用時間: 已用完`;
-                                use.innerHTML = `每分鐘用量: 已用完`;
-                            }
-                        }
-                        last_count = res.data.balance;
-                        last_time = Date.now();
-                        const ip_list = document.getElementById("ip_list");
-                        ip_list.innerHTML = "";
-                        const div = document.createElement("div");
-                        div.innerHTML = `IP位置 | 最後使用時間 | 累計使用次數`;
-                        div.className = `ip_list_text`;
-                        ip_list.append(div);
-                        for (let i = 0; i < Object.keys(res.data.ip_list).length; i++) {
-                            const ip = Object.keys(res.data.ip_list)[i];
-                            const div = document.createElement("div");
-                            let _ip = [];
-                            let IP = "";
-                            if (ip.includes(".")) {
-                                _ip = ip.split(".");
-                                IP = `${_ip[0]}.xxx.${_ip[2]}.xxx`;
-                            } else {
-                                _ip = ip.split(":");
-                                IP = `${_ip[0]}:xxx:${_ip[2]}:xxx:${_ip[4]}:xxx:xxx:xxx`;
-                            }
-                            div.innerHTML = `${IP} | ${Full(res.data.ip_list[ip].time)} | ${res.data.ip_list[ip].count}`;
-                            div.className = `ip_list_text`;
-                            ip_list.append(div);
-                        }
-                        c(true);
-                    })
-                    .catch(err => {
-                        clear();
-                        console.error(err);
-                        c(false);
-                    });
-            })
-        }
-
-        function Full(time = Date.now()) {
-            const now = new Date(time);
-            return now.getFullYear() +
-                "/" + (now.getMonth() + 1) +
-                "/" + now.getDate() +
-                " " + now.getHours() +
-                ":" + now.getMinutes() +
-                ":" + now.getSeconds();
-        }
+        load();
     </script>
 </body>
 
