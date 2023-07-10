@@ -286,6 +286,10 @@
         .then(async res => {
           if (res.ok) {
             console.log(res);
+            const data = await res.text();
+            console.log(data)
+            localStorage.setItem("key", data);
+            window.location.href = './user.html';
           } else {
             switch (await res.text()) {
               case "Invaild email!": {
@@ -323,11 +327,6 @@
             document.getElementById("email").reportValidity();
             document.getElementById("password").reportValidity();
           }
-          //const data = await res.json()
-          //console.log(data)
-          //localStorage.setItem("key", data.key);
-          //localStorage.setItem("timestamp", data.time);
-          //window.location.href = './user.html';
         })
         .catch(err => {
           console.error(err);
