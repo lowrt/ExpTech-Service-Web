@@ -35,19 +35,8 @@
         <form id="register" class="register-form" action="" method="post">
           <div class="form-item-container">
             <div class="form-item">
-              <label class="required" for="username">用戶名稱</label>
-              <input id="username" type="text" name="username" placeholder="用戶名稱" autocomplete="username" required>
-            </div>
-            <div class="form-item">
               <label class="required" for="email">電子郵件地址</label>
               <input id="email" type="email" name="email" placeholder="電子郵件地址" autocomplete="email" required>
-            </div>
-            <div class="form-item">
-              <label class="required" for="otp">驗證碼</label>
-              <div class="input-action">
-                <input id="otp" type="text" name="otp" placeholder="驗證碼" autocomplete="one-time-code" required>
-                <button id="request-otp" type="button" disabled>請求驗證碼</button>
-              </div>
             </div>
             <div class="form-item">
               <label class="required" for="password">密碼</label>
@@ -55,7 +44,7 @@
                 required>
               <div id="password-strength"></div>
             </div>
-            <div class="form-item" class="view">
+            <div class="form-item">
               <label class="required" for="repeat-password">確認密碼</label>
               <input id="repeat-password" type="password" name="password" placeholder="確認密碼" autocomplete="new-password"
                 required>
@@ -70,7 +59,8 @@
           <path
             d="M421 744.537 690.537 475l-34.845-34.23L421 675.847 302.539 557.385l-33.846 34.23L421 744.537Zm59.067 211.462q-78.221 0-147.397-29.92-69.176-29.92-120.989-81.71-51.814-51.791-81.747-120.936-29.933-69.146-29.933-147.366 0-78.836 29.92-148.204 29.92-69.369 81.71-120.682 51.791-51.314 120.936-81.247 69.146-29.933 147.366-29.933 78.836 0 148.204 29.92 69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173 0 78.221-29.92 147.397-29.92 69.176-81.21 120.989-51.291 51.814-120.629 81.747-69.337 29.933-148.173 29.933ZM480 910.615q139.692 0 237.154-97.769Q814.615 715.077 814.615 576q0-139.692-97.461-237.154Q619.692 241.385 480 241.385q-139.077 0-236.846 97.461Q145.385 436.308 145.385 576q0 139.077 97.769 236.846T480 910.615ZM480 576Z" />
         </svg>
-        <div class="success-title title">註冊成功</div>
+        <div class="success-title title">發送成功</div>
+        <div class="success-description">已寄驗證信到你電子郵件地址請查收</div>
         <div class="success-description">將在五秒後跳轉回登入畫面</div>
       </div>
     </div>
@@ -347,26 +337,6 @@
       color: hsl(var(--very-strong));
     }
 
-    #request-otp {
-      all: unset;
-      padding: 10px 16px;
-      margin-left: 12px;
-      background-color: hsl(var(--secondary-container));
-      color: hsl(var(--on-secondary-container));
-      border-radius: 4px;
-      font-size: 16px;
-      float: right;
-      transition: background-color .1s ease-in-out,
-        color .1s ease-in-out,
-        opacity .1s ease-in-out;
-    }
-
-    #request-otp:disabled {
-      background-color: hsla(var(--surface-variant), .12);
-      color: hsla(var(--on-surface-variant), .38);
-      cursor: not-allowed;
-    }
-
     #login {
       all: unset;
       padding: 10px 8px;
@@ -403,18 +373,6 @@
       background-color: hsla(var(--on-surface), .12);
       color: hsla(var(--on-surface), .38);
       cursor: not-allowed;
-    }
-
-    #request-otp:focus-visible,
-    #login:focus-visible,
-    #submit:focus-visible {
-      outline: 2px solid hsl(var(--primary));
-    }
-
-    #request-otp:not(:disabled):active,
-    #login:not(:disabled):active,
-    #submit:not(:disabled):active {
-      opacity: .8;
     }
 
     .info {
@@ -463,10 +421,6 @@
       window.location.href = './login.html';
     });
 
-    document.getElementById("email").addEventListener("input", function (e) {
-      document.getElementById("request-otp").disabled = !this.value.length;
-    });
-
     document.getElementById("password").addEventListener("input", function (e) {
       document.getElementById("password-strength").style.display = "block";
 
@@ -486,67 +440,20 @@
       }
     });
 
-    document.getElementById("request-otp").addEventListener("click", (e) => {
-      document.getElementById("username").setCustomValidity("");
-      document.getElementById("email").setCustomValidity("");
-      if (!document.getElementById("username").reportValidity() || !document.getElementById("email").reportValidity()) return;
-
-      const values = {
-        username: document.getElementById("username").value,
-        email: document.getElementById("email").value,
-      }
-
-      fetch("https://exptech.com.tw/api/v1/et/sign-up-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: values.username,
-          email: values.email,
-        })
-      })
-        .then(async res => {
-          if (res.ok) {
-            document.getElementById("username").disabled = true;
-            document.getElementById("email").disabled = true;
-            document.getElementById("request-otp").disabled = true;
-          } else {
-            switch (await res.text()) {
-              case "This name already in use!": {
-                document.getElementById("username").setCustomValidity("這個用戶名稱已被使用。");
-                document.getElementById("username").reportValidity();
-                break;
-              }
-
-              case "This email already in use!": {
-                document.getElementById("email").setCustomValidity("這個電子郵件已被使用。");
-                document.getElementById("email").reportValidity();
-                break;
-              }
-
-              default:
-                console.error(res);
-                break;
-            }
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    });
-
     document.getElementById("register").addEventListener("submit", (e) => {
       e.preventDefault();
       document.getElementById("repeat-password").setCustomValidity("");
+      document.getElementById("email").setCustomValidity("");
+      document.getElementById("password").setCustomValidity("");
+
+      if (!document.getElementById("email").reportValidity() || !document.getElementById("password").reportValidity()) return;
 
       const values = {
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value,
-        otp: document.getElementById("otp").value
+        email: document.getElementById("email").value,
+        pass: document.getElementById("password").value,
       }
 
-      if (document.getElementById("repeat-password").value != values.password) {
+      if (document.getElementById("repeat-password").value != values.pass) {
         document.getElementById("repeat-password").setCustomValidity("與密碼不相符");
         document.getElementById("repeat-password").reportValidity();
         return;
@@ -554,15 +461,14 @@
 
       document.getElementById("submit").disabled = true;
 
-      fetch("https://exptech.com.tw/api/v1/et/sign-up", {
+      fetch("https://exptech.com.tw/api/v1/et/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: values.username,
-          pass: values.password,
-          code: values.otp
+          email: values.email,
+          pass: values.pass,
         })
       })
         .then(async res => {
@@ -585,18 +491,36 @@
             }, 5_000);
           } else {
             switch (await res.text()) {
-              case "Verify error!": {
-                document.getElementById("otp").setCustomValidity("驗證碼錯誤。");
-                document.getElementById("otp").reportValidity();
+              case "Invaild email!": {
+                document.getElementById("email").setCustomValidity("電子郵件地址無效。");
+                document.getElementById("email").reportValidity();
+                break;
+              }
+
+              case "Invaild pass!": {
+                document.getElementById("password").setCustomValidity("密碼無效。");
+                document.getElementById("password").reportValidity();
+                break;
+              }
+
+              case "Pass format error!": {
+                document.getElementById("password").setCustomValidity("密碼格式錯誤。");
+                document.getElementById("password").reportValidity();
+                break;
+              }
+
+              case "This email already in use!": {
+                document.getElementById("email").setCustomValidity("電子郵件地址使用。");
+                document.getElementById("email").reportValidity();
                 break;
               }
 
               default: {
                 console.error(res);
-                document.getElementById("submit").disabled = false;
                 break;
               }
             }
+            document.getElementById("submit").disabled = false;
           }
         })
         .catch(err => {
