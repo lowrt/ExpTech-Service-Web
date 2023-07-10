@@ -277,9 +277,7 @@
 
       fetch("https://exptech.com.tw/api/v1/et/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json", },
         body: JSON.stringify({
           email: values.email,
           pass: values.pass,
