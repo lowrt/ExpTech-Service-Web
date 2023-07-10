@@ -41,6 +41,7 @@
       </div>
       <div id="invaild-view" class="view">
         <svg  class="no-entry"  xmlns="http://www.w3.org/2000/svg" height="128" width="128" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><path d="M32,2C15.432,2,2,15.432,2,32C1.999,48.568,15.432,62,32,62s30.001-13.432,30-30C62.001,15.432,48.568,2,32,2z M9,38V26h46  v12H9z" fill="#e53935"/>
+        </svg>
         <div class="success-title title">無效註冊</div>
         <div class="success-description">將在五秒後跳轉回登入畫面</div>
       </div>
@@ -420,17 +421,11 @@
       .then(async res => {
         switch (await res.text()) {
           case "註冊成功": {
-            document.getElementById("container").style.height = document.getElementById("form-view").offsetHeight + 76;
-            document.getElementById("form-view").style.position = "absolute";
             document.getElementById("success-view").style.position = "absolute";
             document.getElementById("success-view").style.display = "block";
-            document.getElementById("form-view").style.opacity = 0;
-            document.getElementById("container").style.height = document.getElementById("success-view").offsetHeight + 76;
             setTimeout(() => {
               document.getElementById("success-view").style.position = "";
               document.getElementById("success-view").style.opacity = 1;
-              document.getElementById("form-view").style.display = "none";
-              document.getElementById("form-view").style.position = "";
             }, 100);
 
             setTimeout(() => {
@@ -440,17 +435,11 @@
           }
 
           case "Invaild code!": {
-            document.getElementById("container").style.height = document.getElementById("form-view").offsetHeight + 76;
-            document.getElementById("form-view").style.position = "absolute";
             document.getElementById("invaild-view").style.position = "absolute";
             document.getElementById("invaild-view").style.display = "block";
-            document.getElementById("form-view").style.opacity = 0;
-            document.getElementById("container").style.height = document.getElementById("invaild-view").offsetHeight + 76;
             setTimeout(() => {
               document.getElementById("invaild-view").style.position = "";
               document.getElementById("invaild-view").style.opacity = 1;
-              document.getElementById("form-view").style.display = "none";
-              document.getElementById("form-view").style.position = "";
             }, 100);
 
             setTimeout(() => {

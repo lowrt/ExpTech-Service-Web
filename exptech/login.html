@@ -34,8 +34,8 @@
       <form id="login" class="login-form" action="" method="post">
         <div class="form-item-container">
           <div class="form-item">
-            <label class="required" for="username">用戶名稱</label>
-            <input id="username" type="text" name="username" placeholder="用戶名稱" required>
+            <label class="required" for="email">電子郵件地址</label>
+            <input id="email" type="email" name="email" placeholder="電子郵件地址" autocomplete="email" required>
           </div>
           <div class="form-item">
             <label class="required" for="password">用戶密碼</label>
@@ -261,35 +261,77 @@
 
     document.getElementById("login").addEventListener("submit", (e) => {
       e.preventDefault();
+      document.getElementById("email").setCustomValidity("");
+      document.getElementById("password").setCustomValidity("");
+
       const values = {
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value
+        email: document.getElementById("email").value,
+        pass: document.getElementById("password").value
       }
 
-      document.getElementById("username").disabled = true;
+      document.getElementById("email").disabled = true;
       document.getElementById("password").disabled = true;
       document.getElementById("submit").disabled = true;
 
-      fetch("https://exptech.com.tw/api/v1/et/sign-in", {
+      fetch("https://exptech.com.tw/api/v1/et/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: values.username,
-          pass: values.password,
+          email: values.email,
+          pass: values.pass,
         })
       })
         .then(async res => {
-          const data = await res.json()
-          console.log(data)
-          localStorage.setItem("key", data.key);
-          localStorage.setItem("timestamp", data.time);
-          window.location.href = './user.html';
+          if (res.ok) {
+            console.log(res);
+          } else {
+            switch (await res.text()) {
+              case "Invaild email!": {
+                document.getElementById("email").setCustomValidity("電子郵件地址無效。");
+                break;
+              }
+
+              case "Invaild pass!": {
+                document.getElementById("password").setCustomValidity("密碼無效。");
+                break;
+              }
+
+              case "Pass error!": {
+                document.getElementById("password").setCustomValidity("密碼錯誤。");
+                break;
+              }
+
+              case "This account was not found!": {
+                document.getElementById("email").setCustomValidity("電子郵件地址找不到。");
+                setTimeout(() => {
+                  window.location.href = './register.html';
+                }, 5_000);
+                break;
+              }
+
+              default: {
+                console.error(res);
+                break;
+              }
+            }
+
+            document.getElementById("email").disabled = false;
+            document.getElementById("password").disabled = false;
+            document.getElementById("submit").disabled = false;
+            document.getElementById("email").reportValidity();
+            document.getElementById("password").reportValidity();
+          }
+          //const data = await res.json()
+          //console.log(data)
+          //localStorage.setItem("key", data.key);
+          //localStorage.setItem("timestamp", data.time);
+          //window.location.href = './user.html';
         })
         .catch(err => {
           console.error(err);
-          document.getElementById("username").disabled = false;
+          document.getElementById("email").disabled = false;
           document.getElementById("password").disabled = false;
           document.getElementById("submit").disabled = false;
           const res = err.request.response;
