@@ -8,7 +8,7 @@
 
   <!-- Facebook Meta Tags -->
   <meta property="og:site_name" content="探索科技 | ExpTech Studio" />
-  <meta property="og:url" content="https://exptech.com.tw/api/v1/file/exptech/change.html">
+  <meta property="og:url" content="https://exptech.com.tw/api/v1/file/exptech/register.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="更改密碼">
   <meta property="og:description" content="更改 ExpTech 密碼">
@@ -18,13 +18,12 @@
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary">
   <meta property="twitter:domain" content="exptech.com.tw">
-  <meta property="twitter:url" content="https://exptech.com.tw/api/v1/file/exptech/change.html">
+  <meta property="twitter:url" content="https://exptech.com.tw/api/v1/file/exptech/register.html">
   <meta name="twitter:title" content="更改密碼">
   <meta name="twitter:description" content="更改 ExpTech 密碼">
   <meta name="twitter:image"
     content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg">
 
-  <link id="css-index" rel="stylesheet" href="./utils.css" />
 </head>
 
 <body>
@@ -33,13 +32,13 @@
       <div class="title">更改密碼</div>
       <div class="description">更改 ExpTech 密碼</div>
       <div id="form-view" class="view">
-        <form id="change" class="change-form" action="" method="post">
+        <form id="register" class="register-form" action="" method="post">
           <div class="form-item-container">
-            <div class="form-item">
+            <div id="email-box" class="form-item">
               <label class="required" for="email">電子郵件地址</label>
               <input id="email" type="email" name="email" placeholder="電子郵件地址" autocomplete="email" required>
             </div>
-            <div class="form-item">
+            <div id="pass-box" class="form-item">
               <label class="required" for="password">舊密碼</label>
               <input id="password" type="password" name="password" placeholder="舊密碼" autocomplete="new-password"
                 required>
@@ -67,11 +66,365 @@
     <a class="info" href="https://exptech.com.tw/f?v=discord">Discord 伺服器</a>
   </main>
 
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
+    :root {
+      --background: 48deg, 83%, 98%;
+      --on-background: 72deg, 10%, 10%;
+      --primary: 70deg, 100%, 20%;
+      --on-primary: 0deg, 0%, 100%;
+      --primary-container: 72deg, 76%, 71%;
+      --on-primary-container: 74deg, 100%, 6%;
+      --secondary-container: 69deg, 41%, 83%;
+      --on-secondary-container: 71deg, 57%, 7%;
+      --outline: 64deg, 6%, 44%;
+      --on-surface: 72deg, 10%, 10%;
+      --surface-variant: 64deg, 24%, 86%;
+      --on-surface-variant: 70deg, 9%, 26%;
+      --error: 0deg, 75%, 42%;
+      --medium: 47deg, 100%, 23%;
+      --strong: 72deg, 100%, 20%;
+      --very-strong: 300deg, 76%, 37%;
+    }
+
+    .view {
+      width: 400px;
+      transition: opacity 100ms ease-in-out;
+    }
+
+    #form-view {
+      opacity: 1;
+    }
+
+    #success-view {
+      display: none;
+      opacity: 0;
+    }
+
+    #invaild-view {
+      display: none;
+      opacity: 0;
+    }
+
+    .check-mark {
+      display: block;
+      margin: 32px auto;
+      fill: hsl(var(--primary));
+    }
+
+    .success-title {
+      color: hsl(var(--on-surface-variant));
+    }
+
+    .success-description {
+      margin: 8px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 18px;
+      color: hsl(var(--outline));
+    }
+
+    body {
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      height: 100svh;
+      line-height: 18px;
+      background-color: hsl(var(--background));
+      color: hsl(var(--on-background));
+      user-select: none;
+      font-family: "Noto Sans TC", sans-serif;
+      overflow-x: hidden;
+    }
+
+    #container {
+      position: relative;
+      width: 400px;
+      padding: 48px 36px;
+      padding-left: 28px;
+      background-color: hsla(var(--primary), 0.04);
+      outline: 1px solid hsl(var(--surface-variant));
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      transition: height 100ms ease-in-out;
+    }
+
+    .title {
+      font-size: 24px;
+      line-height: 26px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      text-align: center;
+      margin: 16px;
+    }
+
+    .register-form {
+      display: table;
+      margin: 0;
+      width: 100%;
+    }
+
+    .form-item-container {
+      margin-left: 8px;
+      margin-bottom: 32px;
+    }
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+
+    .form-item {
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-size: 14px;
+      line-height: 16px;
+      padding: 8px 0;
+      color: hsl(var(--on-surface-variant));
+    }
+
+    input[type=text],
+    input[type=password],
+    input[type=email] {
+      all: unset;
+      flex: 1;
+      padding: 12px;
+      font-size: 14px;
+      line-height: 16px;
+      border-radius: 4px;
+      outline: 1px solid hsla(var(--outline), .4);
+      transition: outline .1s ease-in-out;
+    }
+
+    input[type=text]:disabled,
+    input[type=password]:disabled,
+    input[type=email]:disabled {
+      outline: 1px solid hsla(var(--on-surface-variant), .12);
+      color: hsla(var(--on-surface-variant), .38);
+      cursor: not-allowed;
+    }
+
+    input[type=text]:not(:disabled):hover,
+    input[type=password]:not(:disabled):hover,
+    input[type=email]:not(:disabled):hover {
+      outline-color: hsl(var(--on-surface-variant));
+    }
+
+    input[type=text]:not(:disabled):active,
+    input[type=password]:not(:disabled):active,
+    input[type=email]:not(:disabled):active {
+      opacity: 0.8;
+    }
+
+    input[type=text]:not(:disabled):focus,
+    input[type=password]:not(:disabled):focus,
+    input[type=email]:not(:disabled):focus {
+      outline: 2px solid hsl(var(--primary));
+      background-color: hsla(var(--primary), .08);
+      color: hsl(var(--on-primary-container));
+    }
+
+    input[type=text]::placeholder,
+    input[type=password]::placeholder,
+    input[type=email]::placeholder {
+      color: hsla(var(--on-surface-variant), .6)
+    }
+
+    .input-action {
+      display: flex;
+    }
+
+    #password-strength {
+      position: relative;
+      display: none;
+      height: 4px;
+      margin-top: 12px;
+      margin-bottom: 32px;
+      background-color: hsl(var(--surface-variant));
+      border-radius: 4px;
+    }
+
+    #password-strength::before {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 4px;
+      content: "";
+      background-color: transparent;
+      transition: width .1s ease-in-out,
+        background-color .1s ease-in-out;
+    }
+
+    #password-strength::after {
+      position: absolute;
+      top: 100%;
+      margin: 8px 0;
+      content: "";
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: bold;
+      transition: color .1s ease-in-out;
+    }
+
+    #password-strength.error::before {
+      background-color: hsl(var(--error));
+      color: hsl(var(--error));
+    }
+
+    #password-strength.weak::before {
+      width: 25%;
+      background-color: hsl(var(--outline));
+      color: hsl(var(--outline));
+    }
+
+    #password-strength.medium::before {
+      width: 50%;
+      background-color: hsl(var(--medium));
+      color: hsl(var(--medium));
+    }
+
+    #password-strength.strong::before {
+      width: 75%;
+      background-color: hsl(var(--strong));
+      color: hsl(var(--strong));
+    }
+
+    #password-strength.very-strong::before {
+      width: 100%;
+      background-color: hsl(var(--very-strong));
+      color: hsl(var(--very-strong));
+    }
+
+    #password-strength.error::after {
+      color: hsl(var(--error));
+    }
+
+    #password-strength.empty::after {
+      content: "密碼不得為空";
+    }
+
+    #password-strength.invalid::after {
+      content: "密碼只能包含大小寫半形英數、 _ 、 . 、- 和 @";
+    }
+
+    #password-strength.weak::after {
+      width: 25%;
+      content: "密碼強度：弱";
+      color: hsl(var(--outline));
+    }
+
+    #password-strength.medium::after {
+      width: 50%;
+      content: "密碼強度：中等";
+      color: hsl(var(--medium));
+    }
+
+    #password-strength.strong::after {
+      width: 75%;
+      content: "密碼強度：強";
+      color: hsl(var(--strong));
+    }
+
+    #password-strength.very-strong::after {
+      width: 100%;
+      content: "密碼強度：非常強";
+      color: hsl(var(--very-strong));
+    }
+
+    #login {
+      all: unset;
+      padding: 10px 8px;
+      background-color: transparent;
+      color: hsl(var(--primary));
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 18px;
+      font-weight: bold;
+      transition: background-color .1s ease-in-out,
+        opacity .1s ease-in-out;
+    }
+
+    #login:hover {
+      background-color: hsla(var(--primary), 0.12);
+    }
+
+    #submit {
+      all: unset;
+      padding: 10px 24px;
+      background-color: hsl(var(--primary));
+      color: hsl(var(--on-primary));
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 18px;
+      font-weight: bold;
+      float: right;
+      transition: background-color .1s ease-in-out,
+        color .1s ease-in-out,
+        opacity .1s ease-in-out;
+    }
+
+    #submit:disabled {
+      background-color: hsla(var(--on-surface), .12);
+      color: hsla(var(--on-surface), .38);
+      cursor: not-allowed;
+    }
+
+    .info {
+      display: inline-block;
+      margin: 16px;
+      font-size: 14px;
+      line-height: 16px;
+      color: hsla(var(--on-surface-variant), .6);
+      text-decoration: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: 72deg, 10%, 10%;
+        --on-background: 48deg, 83%, 98%;
+        --primary: 72deg, 53%, 61%;
+        --on-primary: 72deg, 100%, 10%;
+        --primary-container: 71deg, 100%, 15%;
+        --on-primary-container: 72deg, 76%, 71%;
+        --secondary-container: 72deg, 21%, 24%;
+        --on-secondary-container: 69deg, 41%, 83%;
+        --outline: 64deg, 6%, 54%;
+        --on-surface: 48deg, 16%, 87%;
+        --surface-variant: 70deg, 9%, 26%;
+        --on-surface-variant: 64deg, 13%, 75%;
+        --error: 6deg, 100%, 84%;
+        --medium: 47deg, 88%, 51%;
+        --strong: 71deg, 100%, 42%;
+        --very-strong: 308deg, 100%, 83%;
+      }
+
+      ::-ms-reveal {
+        filter: invert(100%);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      #container {
+        width: auto;
+      }
+    }
+  </style>
+
   <script>
     const password_strength = document.getElementById("password-strength");
     const new_password = document.getElementById("new-password");
     const email = document.getElementById("email");
-    const password = document.getElementById("email");
+    const password = document.getElementById("password");
     const success_view = document.getElementById("success-view");
     const form_view = document.getElementById("form-view");
     const container = document.getElementById("container");
@@ -80,6 +433,7 @@
     document.getElementById("login").onclick = (e) => { window.location.href = './login.html'; };
 
     new_password.oninput = (e) => {
+      this.value = new_password.value;
       password_strength.style.display = "block";
 
       if (this.value.match(/(?=.*[^A-Za-z0-9@_\.-])/)) return password_strength.className = "error invalid";
@@ -91,8 +445,15 @@
       else password_strength.className = "error empty";
     };
 
-    document.getElementById("change").addEventListener("submit", (e) => {
-      e.preventDefault();
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+
+    if (params.token) {
+      document.getElementById("email-box").style.display = "none";
+      document.getElementById("pass-box").style.display = "none";
+    }
+
+    submit.onclick = (e) => {
       email.setCustomValidity("");
       password.setCustomValidity("");
       new_password.setCustomValidity("");
@@ -103,12 +464,11 @@
         new_pass: new_password.value,
       }
 
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      const params = Object.fromEntries(urlSearchParams.entries());
-
-      if (params.token) values = {
-        token: params.token,
-        new_pass: new_password.value,
+      if (params.token) {
+        values = {
+          token: params.token,
+          new_pass: new_password.value,
+        }
       }
 
       submit.disabled = true;
@@ -117,6 +477,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json", },
         body: JSON.stringify({
+          token: values.token,
           email: values.email,
           pass: values.pass,
           new_pass: values.new_pass,
@@ -171,8 +532,8 @@
               }
 
               case "No changes found!": {
-                email.setCustomValidity("沒有發現任何變化。");
-                email.reportValidity();
+                new_password.setCustomValidity("沒有發現任何變化。");
+                new_password.reportValidity();
                 break;
               }
 
@@ -183,8 +544,8 @@
               }
 
               case "This account was not found!": {
-                email.setCustomValidity("電子郵件地址找不到。");
-                email.reportValidity();
+                new_password.setCustomValidity("電子郵件地址找不到。");
+                new_password.reportValidity();
                 break;
               }
 
@@ -198,10 +559,11 @@
         })
         .catch(err => {
           console.error(err);
+          submit.disabled = false;
           const res = err.request.response;
           alert(res);
         });
-    });
+    };
   </script>
 </body>
 

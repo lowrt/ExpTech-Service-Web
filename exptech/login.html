@@ -261,8 +261,7 @@
 
     document.getElementById("register").onclick = (e) => { window.location.href = './register.html'; }
 
-    document.getElementById("login").onsubmit = (e) => {
-      e.preventDefault();
+    submit.onclick = (e) => {
       email.setCustomValidity("");
       password.setCustomValidity("");
 
@@ -304,9 +303,7 @@
 
               case "This account was not found!": {
                 email.setCustomValidity("電子郵件地址找不到。");
-                setTimeout(() => {
-                  window.location.href = './register.html';
-                }, 5_000);
+                setTimeout(() => window.location.href = './register.html', 5_000);
                 break;
               }
 
