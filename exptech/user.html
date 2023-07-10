@@ -14,11 +14,79 @@
     <div class="main">
         <div>硬幣: <a id="coin"></a></div>
         <div>WebSocket 數量: <a id="client"></a></div>
-        <div><a id="service"></a></div>
-        <div><a id="subscribe"></a></div>
-        <div><a id="key"></a></div>
-        <div><a id="key_list"></a></div>
-        <div><a id="client_list"></a></div>
+        <div>生效中的服務:<a id="service"></a></div>
+        <div>自動訂閱的服務:<a id="subscribe"></a></div>
+        <div>已生成的金鑰:<a id="key"></a></div>
+        <div>金鑰列表:<a id="key_list"></a></div>
+        <div>客戶端列表:<a id="client_list"></a></div>
+    </div>
+
+    <div id="key-add-form-view" class="view main">
+        <div class="form-item-container">
+            <div id="key-add-box" class="form-item">
+                <label class="required" for="email">金鑰備註:</label>
+                <input id="key-add-text" type="text" name="text" placeholder="金鑰備註" autocomplete="text" required>
+            </div>
+        </div>
+        <button id="key-add-submit" type="submit">新增金鑰</button>
+        <div><a id="key_add_text"></a></div>
+    </div>
+
+    <div id="key-remove-form-view" class="view main">
+        <div class="form-item-container">
+            <div id="key-remove-box" class="form-item">
+                <label class="required" for="email">要移除的金鑰:</label>
+                <input id="key-remove-text" type="text" name="text" placeholder="要移除的金鑰" autocomplete="text" required>
+            </div>
+        </div>
+        <button id="key-remove-submit" type="submit">移除金鑰</button>
+        <div><a id="key_remove_text"></a></div>
+    </div>
+
+    <div id="subscribe-form-view" class="view main">
+        <div class="form-item-container">
+            <div id="rts-box" class="form-item">
+                <label class="required" for="subscribe">Real Time Station:</label>
+                <input id="rts-text" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+            <div id="rtw-box" class="form-item">
+                <label class="required" for="subscribe">Real Time Wave:</label>
+                <input id="rtw-text" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+            <div id="client2-box" class="form-item">
+                <label class="required" for="subscribe">client +2:</label>
+                <input id="client2-text" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+            <div id="client5-box" class="form-item">
+                <label class="required" for="subscribe">client +5:</label>
+                <input id="client5-text" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+        </div>
+        <button id="subscribe-submit" type="submit">訂閱</button>
+        <div><a id="subscribe_text"></a></div>
+    </div>
+
+    <div id="unsubscribe-form-view" class="view main">
+        <div class="form-item-container">
+            <div id="rts-box1" class="form-item">
+                <label class="required" for="subscribe">Real Time Station:</label>
+                <input id="rts-text1" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+            <div id="rtw-box1" class="form-item">
+                <label class="required" for="subscribe">Real Time Wave:</label>
+                <input id="rtw-text1" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+            <div id="client2-box1" class="form-item">
+                <label class="required" for="subscribe">client +2:</label>
+                <input id="client2-text1" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+            <div id="client5-box1" class="form-item">
+                <label class="required" for="subscribe">client +5:</label>
+                <input id="client5-text1" type="checkbox" name="checkbox" placeholder="" autocomplete="checkbox" required>
+            </div>
+        </div>
+        <button id="unsubscribe-submit" type="submit">解除訂閱</button>
+        <div><a id="unsubscribe_text"></a></div>
     </div>
 
     <style>
@@ -38,6 +106,20 @@
     <script>
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
+        const key_add_text = document.getElementById("key-add-text");
+        const key_add_submit = document.getElementById("key-add-submit");
+        const key_remove_text = document.getElementById("key-remove-text");
+        const key_remove_submit = document.getElementById("key-remove-submit");
+        const rts_text = document.getElementById("rts-text");
+        const rtw_text = document.getElementById("rtw-text");
+        const client2_text = document.getElementById("client2-text");
+        const client5_text = document.getElementById("client5-text");
+        const subscribe_submit = document.getElementById("subscribe-submit");
+        const rts_text1 = document.getElementById("rts-text1");
+        const rtw_text1 = document.getElementById("rtw-text1");
+        const client2_text1 = document.getElementById("client2-text1");
+        const client5_text1 = document.getElementById("client5-text1");
+        const unsubscribe_submit = document.getElementById("unsubscribe-submit");
 
         if (!params.token) window.location.href = './login.html';
 
@@ -62,6 +144,161 @@
         }
 
         load();
+
+        key_add_submit.onclick = (e) => {
+            fetch("https://exptech.com.tw/api/v1/et/key-add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({
+                  token: params.token,
+                  note: key_add_text.value,
+                })
+              })
+              .then(res => {
+                if (res.ok) {
+                    document.getElementById("key_add_text").textContent = `新增 ${key_add_text.value} 成功`;
+                } else {
+                    console.error(res);
+                }
+              })
+              .catch(err => {
+                console.error(err);
+                const res = err.request.response;
+              });
+          };
+
+        key_remove_submit.onclick = (e) => {
+            fetch(`https://exptech.com.tw/api/v1/et/key-remove?token=${params.token}&key=${key_remove_text.value}`)
+              .then(res => {
+                if (res.ok) {
+                    document.getElementById("key_remove_text").textContent = `移除 ${key_remove_text.value} 金鑰成功`;
+                } else {
+                    console.error(res);
+                }
+              })
+              .catch(err => {
+                console.error(err);
+                const res = err.request.response;
+              });
+          };
+
+        subscribe_submit.onclick = (e) => {
+            if (rts_text.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/subscribe?token=${params.token}&type=trem.rts`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("subscribe_text").textContent = `訂閱 rts 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+            if (rtw_text.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/subscribe?token=${params.token}&type=trem.rtw`)
+              .then(res => {
+                if (res.ok) {
+                    document.getElementById("subscribe_text").textContent = `訂閱 rtw 成功`;
+                } else {
+                    console.error(res);
+                }
+              })
+              .catch(err => {
+                console.error(err);
+                const res = err.request.response;
+              });
+            }
+            if (client2_text.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/subscribe?token=${params.token}&type=websocket.plus2`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("subscribe_text").textContent = `訂閱 client +2 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+            if (client5_text.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/subscribe?token=${params.token}&type=websocket.plus5`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("subscribe_text").textContent = `訂閱 client +5 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+        };
+
+        unsubscribe_submit.onclick = (e) => {
+            if (rts_text1.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/unsubscribe?token=${params.token}&type=trem.rts`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("unsubscribe_text").textContent = `解除訂閱 rts 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+            if (rtw_text1.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/unsubscribe?token=${params.token}&type=trem.rtw`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("unsubscribe_text").textContent = `解除訂閱 rtw 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+            if (client2_text1.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/unsubscribe?token=${params.token}&type=websocket.plus2`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("unsubscribe_text").textContent = `解除訂閱 client +2 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+            if (client5_text1.checked) {
+                fetch(`https://exptech.com.tw/api/v1/et/unsubscribe?token=${params.token}&type=websocket.plus5`)
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById("unsubscribe_text").textContent = `解除訂閱 client +5 成功`;
+                    } else {
+                        console.error(res);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const res = err.request.response;
+                });
+            }
+        };
     </script>
 </body>
 
