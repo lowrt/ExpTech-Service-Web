@@ -89,6 +89,8 @@
         <div><a id="unsubscribe_text"></a></div>
     </div>
 
+    <button id="login" type="button">登出</button>
+
     <style>
         @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 
@@ -122,6 +124,8 @@
         const unsubscribe_submit = document.getElementById("unsubscribe-submit");
 
         if (!params.token) window.location.href = './login.html';
+
+        document.getElementById("login").onclick = (e) => { window.location.href = './login.html'; }
 
         function load() {
             fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
