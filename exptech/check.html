@@ -420,7 +420,7 @@
     })
       .then(async res => {
         switch (await res.text()) {
-          case "註冊成功": {
+          case "ok": {
             document.getElementById("success-view").style.position = "absolute";
             document.getElementById("success-view").style.display = "block";
             setTimeout(() => {
