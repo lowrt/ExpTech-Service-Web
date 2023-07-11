@@ -60,6 +60,19 @@
                     <div style="font-size: 24px;font-weight: 900;">預計剩餘天數</div>
                     <div id="day" style="font-size: 45px;padding: 10px;"></div>
                 </div>
+                <div class="box-items" style="background-color: darkgoldenrod;">
+                    <div style="font-size: 24px;font-weight: 900;">客戶端連接數</div>
+                    <div style="display: flex;align-items: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45px" height="45px" fill="currentColor"
+                            class="bi bi-speedometer" viewBox="0 0 16 16">
+                            <path
+                                d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z" />
+                            <path fill-rule="evenodd"
+                                d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z" />
+                        </svg>
+                        <div id="client" style="font-size: 45px;padding: 10px;"></div>
+                    </div>
+                </div>
                 <div style="padding: 15px;">
                     <div style="display: flex;align-items: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" style="color: red;" width="45px" height="45px"
@@ -353,9 +366,10 @@
             fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
                 .then(async res => {
                     user_info = await res.json();
+                    document.getElementById("client").textContent = `${Object.keys(user_info.client_list).length}/${user_info.client}`;
                     document.getElementById("coin").textContent = user_info.coin;
                     document.getElementById("use").textContent = user_info.use;
-                    document.getElementById("day").textContent = `${Math.floor(user_info.coin / user_info.use)} 天`;
+                    document.getElementById("day").textContent = (!user_info.coin) ? "已用完" : (!user_info.use) ? "未使用" : `${Math.floor(user_info.coin / user_info.use)} 天`;
                     reload_service();
                     reload_device();
                     reload_status();
@@ -524,7 +538,7 @@
                 status.setAttribute("data-text", status.textContent);
 
                 const type = document.createElement("td");
-                type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "訂閱"}</a>`;
+                if (item.type) type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "訂閱"}</a>`;
                 type.setAttribute("data-text", type.textContent);
 
                 box.appendChild(name);
