@@ -186,7 +186,7 @@ function service_info_load() {
 
     for (let i = 0; i < user_info.dump.length; i++) {
         Chart_data.labels.push(`${user_info.dump[i].hour.replace(" ", "日 ")}時`)
-        for (let I = 0; I < Object.keys(user_info.dump[i]).length; I++) {
+        for (let I = 0; I < Object.keys(user_info.dump[i].data).length; I++) {
             const type = Object.keys(user_info.dump[i].data)[I];
             if (!amount[type]) amount[type] = 0;
             amount[type] += user_info.dump[i].data[type];
@@ -251,7 +251,7 @@ function service_info_load() {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'ExpTech Service 流量圖'
+                        text: 'ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)'
                     },
                 },
                 responsive: true,
