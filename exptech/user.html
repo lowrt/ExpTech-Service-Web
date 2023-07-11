@@ -513,6 +513,7 @@
             { text: "維修", color: "darkkhaki" },
             { text: "測試", color: "darkcyan" },
             { text: "變更", color: "deeppink" },
+            { text: "完成", color: "green" },
         ]
 
         let service_list = []
@@ -605,7 +606,7 @@
 
                         const title = document.createElement("div");
                         title.className = "a-title";
-                        title.textContent = data[i].title;
+                        title.innerHTML = data[i].title;
 
                         const tag = document.createElement("div");
                         tag.className = "a-tag";
@@ -620,11 +621,11 @@
 
                         const subtitle = document.createElement("div");
                         subtitle.className = "a-subtitle";
-                        subtitle.textContent = data[i].subtitle;
+                        subtitle.innerHTML = data[i].subtitle;
 
                         const body = document.createElement("div");
                         body.className = "a-body";
-                        body.textContent = data[i].body;
+                        body.innerHTML = data[i].body;
 
                         box.appendChild(title);
                         box.appendChild(tag);
