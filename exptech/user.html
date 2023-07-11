@@ -173,6 +173,7 @@
                     </thead>
                     <tbody id="table-service"></tbody>
                 </table>
+                <div class="warn">⚠️<b>注意</b><br>WebSocket 模式下可以收到「較穩定快速的地震速報」</div>
             </div>
             <div id="box-key" class="box-item">
                 <div>
@@ -377,6 +378,12 @@
             cursor: pointer;
             padding: 10px;
             margin: 5px;
+        }
+
+        .warn {
+            color: gold;
+            font-size: 24px;
+            padding: 5px;
         }
     </style>
 
@@ -631,19 +638,19 @@
 
                 const service = document.createElement("td");
                 const ser = user_info.service?.includes(item.api);
-                service.textContent = (ser) ? "服務中" : "未提供";
-                service.style.backgroundColor = (ser) ? "green" : "red";
+                service.textContent = (ser || typeof item.type == "boolean") ? "服務中" : "未提供";
+                service.style.backgroundColor = (ser || typeof item.type == "boolean") ? "green" : "red";
                 service.setAttribute("data-text", service.textContent);
 
                 const status = document.createElement("td");
                 let sub = user_info.subscribe?.includes(item.api);
                 if (!sub) user_info.service?.includes(item.api)
-                if (item.type) status.textContent = (sub) ? "已申請" : "未申請";
-                if (item.type) status.style.backgroundColor = (sub) ? "green" : "red";
+                if (item.type && typeof item.type == "string") status.textContent = (sub) ? "已申請" : "未申請";
+                if (item.type && typeof item.type == "string") status.style.backgroundColor = (sub) ? "green" : "red";
                 status.setAttribute("data-text", status.textContent);
 
                 const type = document.createElement("td");
-                if (item.type) type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "申請"}</a>`;
+                if (item.type && typeof item.type == "string") type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "申請"}</a>`;
                 type.setAttribute("data-text", type.textContent);
 
                 box.appendChild(name);
