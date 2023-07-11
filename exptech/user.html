@@ -23,6 +23,7 @@
                 <div id="menu-device" class="menu-item">設備</div>
                 <div id="menu-info" class="menu-item">關於</div>
             </div>
+            <div class="menu1"></div>
             <div class="box">
                 <div id="box-index" class="box-item" style="display: block;">
                     <div style="display: flex;align-items: center;">
@@ -370,10 +371,18 @@
         .menu {
             width: 10%;
             text-align: center;
+            position: fixed;
+            left: 0;
+        }
+
+        .menu1 {
+            width: 10%;
         }
 
         .box {
             width: 90%;
+            overflow: auto;
+            height: calc(100vh - 60px);
         }
 
         .menu-item {
