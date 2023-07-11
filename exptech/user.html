@@ -28,49 +28,53 @@
                     <div style="font-size: 30px;font-weight: 900;padding: 10px;">帳戶訊息</div>
                     <div class="load" onclick="load()">刷新</div>
                 </div>
-                <div class="box-items" style="background-color: darkblue;">
-                    <div style="font-size: 24px;font-weight: 900;">剩餘硬幣數量</div>
-                    <div style="display: flex;align-items: center;">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="color: yellow;" width="45px" height="45px"
-                            fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
-                            <path
-                                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path
-                                d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                        </svg>
-                        <div id="coin" style="font-size: 45px;padding: 10px;"></div>
+                <div style="display: flex;">
+                    <div class="box-items" style="background-color: darkblue;">
+                        <div style="font-size: 24px;font-weight: 900;">剩餘硬幣數量</div>
+                        <div style="display: flex;align-items: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="color: yellow;" width="45px" height="45px"
+                                fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                            </svg>
+                            <div id="coin" style="font-size: 45px;padding: 10px;"></div>
+                        </div>
+                    </div>
+                    <div class="box-items" style="background-color: darkred;">
+                        <div style="font-size: 24px;font-weight: 900;">每日消耗數量</div>
+                        <div style="display: flex;align-items: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="color: yellow;" width="45px" height="45px"
+                                fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                            </svg>
+                            <div id="use" style="font-size: 45px;padding: 10px;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="box-items" style="background-color: darkred;">
-                    <div style="font-size: 24px;font-weight: 900;">每日消耗數量</div>
-                    <div style="display: flex;align-items: center;">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="color: yellow;" width="45px" height="45px"
-                            fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
-                            <path
-                                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path
-                                d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                        </svg>
-                        <div id="use" style="font-size: 45px;padding: 10px;"></div>
+                <div style="display: flex;">
+                    <div class="box-items" style="background-color: darkgreen;">
+                        <div style="font-size: 24px;font-weight: 900;">預計剩餘天數</div>
+                        <div id="day" style="font-size: 45px;padding: 10px;"></div>
                     </div>
-                </div>
-                <div class="box-items" style="background-color: darkgreen;">
-                    <div style="font-size: 24px;font-weight: 900;">預計剩餘天數</div>
-                    <div id="day" style="font-size: 45px;padding: 10px;"></div>
-                </div>
-                <div class="box-items" style="background-color: darkgoldenrod;">
-                    <div style="font-size: 24px;font-weight: 900;">客戶端連接數</div>
-                    <div style="display: flex;align-items: center;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="45px" height="45px" fill="currentColor"
-                            class="bi bi-speedometer" viewBox="0 0 16 16">
-                            <path
-                                d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z" />
-                            <path fill-rule="evenodd"
-                                d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z" />
-                        </svg>
-                        <div id="client" style="font-size: 45px;padding: 10px;"></div>
+                    <div class="box-items" style="background-color: darkgoldenrod;">
+                        <div style="font-size: 24px;font-weight: 900;">客戶端連接數</div>
+                        <div style="display: flex;align-items: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="45px" height="45px" fill="currentColor"
+                                class="bi bi-speedometer" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z" />
+                                <path fill-rule="evenodd"
+                                    d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z" />
+                            </svg>
+                            <div id="client" style="font-size: 45px;padding: 10px;"></div>
+                        </div>
                     </div>
                 </div>
                 <div style="padding: 15px;">
@@ -540,7 +544,7 @@
 
                 const status = document.createElement("td");
                 let sub = user_info.subscribe?.includes(item.api);
-                if(!sub) user_info.service?.includes(item.api)
+                if (!sub) user_info.service?.includes(item.api)
                 status.textContent = (sub) ? "已申請" : "未申請";
                 status.style.backgroundColor = (sub) ? "green" : "red";
                 status.setAttribute("data-text", status.textContent);
@@ -629,6 +633,8 @@
                 item.style.display = "none";
             box_info.style.display = "block";
         }
+
+        setInterval(() => load(), 60_000);
     </script>
 </body>
 
