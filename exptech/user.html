@@ -223,8 +223,7 @@
                         <tr>
                             <th>UUID(前10位)</th>
                             <th>IP</th>
-                            <th>初次連線時間</th>
-                            <th>最後連線時間</th>
+                            <th>連線時間</th>
                         </tr>
                     </thead>
                     <tbody id="table-device"></tbody>
@@ -603,14 +602,9 @@
                 first.textContent = time_string(user_info.client_list[id].time);
                 first.setAttribute("data-text", first.textContent);
 
-                const last = document.createElement("td");
-                last.textContent = time_string(user_info.client_list[id].last);
-                last.setAttribute("data-text", last.textContent);
-
                 box.appendChild(uuid);
                 box.appendChild(ip);
                 box.appendChild(first);
-                box.appendChild(last);
                 frag.appendChild(box);
             }
 
@@ -691,6 +685,9 @@
             for (const item of document.getElementsByClassName("box-item"))
                 item.style.display = "none";
             box_index.style.display = "block";
+            document.getElementById("info-page").style.display = "";
+            document.getElementById("pay-page").style.display = "none";
+            document.getElementById("Pay").style.display = "none";
         }
         menu_service.onclick = () => {
             for (const item of document.getElementsByClassName("menu-item"))
