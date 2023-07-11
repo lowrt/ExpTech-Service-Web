@@ -96,6 +96,7 @@
                             <th>說明</th>
                             <th>API</th>
                             <th>費用</th>
+                            <th>服務</th>
                             <th>狀態</th>
                             <th>操作</th>
                         </tr>
@@ -531,19 +532,27 @@
                 coin.textContent = `${item.coin} 硬幣/天`;
                 coin.setAttribute("data-text", coin.textContent);
 
+                const service = document.createElement("td");
+                const ser = user_info.service?.includes(item.api);
+                service.textContent = (ser) ? "服務中" : "未提供";
+                service.style.backgroundColor = (ser) ? "green" : "red";
+                service.setAttribute("data-text", service.textContent);
+
                 const status = document.createElement("td");
-                const sub = user_info.subscribe?.includes(item.type);
-                status.textContent = (sub) ? "已訂閱" : "未訂閱";
+                let sub = user_info.subscribe?.includes(item.api);
+                if(!sub) user_info.service?.includes(item.api)
+                status.textContent = (sub) ? "已申請" : "未申請";
                 status.style.backgroundColor = (sub) ? "green" : "red";
                 status.setAttribute("data-text", status.textContent);
 
                 const type = document.createElement("td");
-                if (item.type) type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "訂閱"}</a>`;
+                if (item.type) type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "申請"}</a>`;
                 type.setAttribute("data-text", type.textContent);
 
                 box.appendChild(name);
                 box.appendChild(api);
                 box.appendChild(coin);
+                box.appendChild(service);
                 box.appendChild(status);
                 box.appendChild(type);
                 frag.appendChild(box);
