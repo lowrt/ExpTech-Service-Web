@@ -244,6 +244,20 @@
                         </thead>
                         <tbody id="table-status"></tbody>
                     </table>
+                    <div style="font-size: 30px;font-weight: 900;padding: 10px;">流量圖(近24小時)</div>
+                    <canvas id="myChart"></canvas>
+                    <div style="font-size: 30px;font-weight: 900;padding: 10px;">流量統計列表(近24小時)</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>路徑</th>
+                                <th>請求類型</th>
+                                <th>服務類型</th>
+                                <th>次數</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-api"></tbody>
+                    </table>
                 </div>
                 <div id="box-device" class="box-item">
                     <div style="display: flex;align-items: center;">
@@ -404,14 +418,8 @@
         </div>
     </div>
 
-    <style>
-        
-    </style>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./user.js"></script>
-    <script>
-
-    </script>
 </body>
 
 </html>

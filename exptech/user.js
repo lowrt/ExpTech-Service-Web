@@ -1,3 +1,10 @@
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+if (!params.token) window.location.href = './login.html';
+
+Chart.defaults.borderColor = '#36A2EB';
+Chart.defaults.color = 'white';
+
 const menu_index = document.getElementById("menu-index");
 const menu_service = document.getElementById("menu-service");
 const menu_key = document.getElementById("menu-key");
@@ -17,14 +24,12 @@ const table_service = document.getElementById("table-service");
 const table_device = document.getElementById("table-device");
 const table_status = document.getElementById("table-status");
 const table_key = document.getElementById("table-key");
+const table_api = document.getElementById("table-api");
 
 const create = document.getElementById("create");
 const note = document.getElementById("note");
 const announcement = document.getElementById('announcement')
-
-const urlSearchParams = new URLSearchParams(window.location.search);
-const params = Object.fromEntries(urlSearchParams.entries());
-if (!params.token) window.location.href = './login.html';
+const ctx = document.getElementById('myChart');
 
 const a_type = [
     { text: "錯誤", color: "red" },
@@ -39,8 +44,10 @@ const a_type = [
     { text: "完成", color: "green" },
 ]
 
-let service_list = []
-let user_info = {}
+let service_list = [];
+let service_info = [];
+let user_info = {};
+let CTX;
 
 document.getElementById("add-coin").onclick = () => {
     document.getElementById("info-page").style.display = "none";
@@ -84,9 +91,11 @@ const time_string = (time) => {
     return Now;
 }
 
-fetch(`https://exptech.com.tw/api/v1/et/service-list`)
+fetch(`https://exptech.com.tw/api/v1/et/service-info`)
     .then(async res => {
-        service_list = await res.json();
+        const data = await res.json();
+        service_list = data.list;
+        service_info = data.info;
         load();
     })
     .catch(err => {
@@ -109,10 +118,11 @@ function load() {
             reload_device();
             reload_status();
             reload_key();
+            service_info_load();
             setTimeout(() => {
                 for (const item of document.getElementsByClassName("load"))
                     item.style.display = "";
-            }, 3000)
+            }, 3000);
         })
         .catch(err => {
             console.error(err);
@@ -164,6 +174,109 @@ function load() {
             const res = err.request.response;
             alert(res);
         });
+}
+
+function service_info_load() {
+    let amount = {}
+
+    const Chart_data = {
+        labels: [],
+        datasets: []
+    };
+
+    for (let i = 0; i < user_info.dump.length; i++) {
+        Chart_data.labels.push(`${user_info.dump[i].hour.replace(" ", "日 ")}時`)
+        for (let I = 0; I < Object.keys(user_info.dump[i]).length; I++) {
+            const type = Object.keys(user_info.dump[i].data)[I];
+            if (!amount[type]) amount[type] = 0;
+            amount[type] += user_info.dump[i].data[type];
+        }
+    }
+
+    for (let i = 0; i < user_info.dump.length; i++) {
+        for (let I = 0; I < Object.keys(amount).length; I++) {
+            const type = Object.keys(amount)[I];
+            let c = user_info.dump[i].data[type] ?? 0;
+            let find = false;
+            for (let _i = 0; _i < Chart_data.datasets.length; _i++) {
+                if (Chart_data.datasets[_i].label == type) {
+                    find = true;
+                    Chart_data.datasets[_i].data.push(c)
+                    break;
+                }
+            }
+            if (!find) Chart_data.datasets.push({
+                label: type,
+                data: [c],
+                backgroundColor: service_info[type]?.color ?? ColorCode(),
+            })
+        }
+    }
+
+    const frag = new DocumentFragment();
+    for (let i = 0; i < Object.keys(amount).length; i++) {
+        const type = Object.keys(amount)[i];
+        const box = document.createElement("tr");
+
+        const path = document.createElement("td");
+        path.textContent = type;
+        path.setAttribute("data-text", path.textContent);
+
+        const fun = document.createElement("td");
+        fun.textContent = (type.startsWith("ws")) ? "WebSocket" : (type.startsWith("get")) ? "GET" : "POST";
+        fun.setAttribute("data-text", fun.textContent);
+
+        const service = document.createElement("td");
+        service.textContent = service_info[type]?.service ?? "";
+        service.setAttribute("data-text", service.textContent);
+
+        const count = document.createElement("td");
+        count.textContent = amount[type];
+        count.setAttribute("data-text", count.textContent);
+
+        box.appendChild(path);
+        box.appendChild(fun);
+        box.appendChild(service);
+        box.appendChild(count);
+        frag.appendChild(box);
+    }
+
+    table_api.replaceChildren(frag);
+
+    if (!CTX)
+        CTX = new Chart(ctx, {
+            type: 'bar',
+            data: Chart_data,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'ExpTech Service 流量圖'
+                    },
+                },
+                responsive: true,
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            }
+        });
+    else {
+        CTX.data = Chart_data;
+        CTX.update();
+    }
+}
+
+function ColorCode() {
+    var makingColorCode = '0123456789ABCDEF';
+    var finalCode = '#';
+    for (var counter = 0; counter < 6; counter++)
+        finalCode = finalCode + makingColorCode[Math.floor(Math.random() * 16)];
+    return finalCode;
 }
 
 function switch_service(type, status) {
