@@ -257,16 +257,6 @@ table>tbody>tr:hover {
     color: gold;
 }
 
-.code-link {
-    color: lightskyblue;
-    cursor: pointer;
-    text-decoration: underline;
-    font-size: 24px;
-    width: fit-content;
-    padding: 2px;
-    margin: 2px;
-}
-
 .info-item {
     border-radius: 5px;
     border: 2px solid grey;
@@ -302,4 +292,29 @@ table>tbody>tr:hover {
     color: white;
     border-radius: 5px;
     font-size: 24px;
+}
+
+.info-box {
+    padding: 10px;
+    margin: 10px;
+}
+
+.link {
+    display: flex;
+    font-size: 24px;
+    align-items: center;
+    border: 0.5px solid gray;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.link:hover {
+    background-color: black;
+}
+
+.link-text {
+    padding-right: 5px;
 }

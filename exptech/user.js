@@ -105,8 +105,11 @@ fetch(`https://exptech.com.tw/api/v1/et/service-info`)
     });
 
 function load() {
-    for (const item of document.getElementsByClassName("load"))
-        item.style.display = "none";
+    for (const item of document.getElementsByClassName("load")) {
+        item.style.backgroundColor = "grey";
+        item.textContent = "資料更新中...";
+        item.style.pointerEvents = "none";
+    }
     fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
         .then(async res => {
             user_info = await res.json();
@@ -120,9 +123,15 @@ function load() {
             reload_key();
             service_info_load();
             setTimeout(() => {
-                for (const item of document.getElementsByClassName("load"))
-                    item.style.display = "";
-            }, 3000);
+                for (const item of document.getElementsByClassName("load")) {
+                    item.style.backgroundColor = "dodgerblue";
+                    item.textContent = "資料更新";
+                    item.style.pointerEvents = "";
+                    item.onclick = () => {
+                        load();
+                    }
+                }
+            }, 5000);
         })
         .catch(err => window.location.replace("./login.html"));
     fetch(`https://exptech.com.tw/api/v1/et/announcement`)
@@ -532,6 +541,10 @@ document.getElementById("out").onclick = () => {
             const res = err.request.response;
             alert(res);
         });
+}
+
+function link(url) {
+    window.open(`https://${url}`, '_blank');
 }
 
 setInterval(() => load(), 60_000);

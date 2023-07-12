@@ -32,153 +32,212 @@
             <div class="box">
                 <div id="box-index" class="box-item" style="display: block;">
                     <div style="display: flex;align-items: center;">
-                        <div style="font-size: 30px;font-weight: 900;padding: 10px;">帳戶訊息</div>
-                        <div class="load" onclick="load()">刷新</div>
+                        <div style="font-size: 30px;font-weight: 900;padding: 10px;">帳戶資訊</div>
+                        <div class="load"></div>
                     </div>
-                    <div id="info-page">
-                        <div style="display: flex;">
-                            <div class="box-items" style="background-color: darkblue;">
-                                <div style="font-size: 24px;font-weight: 900;">剩餘硬幣數量</div>
-                                <div style="display: flex;align-items: center;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: gold;" width="45px"
-                                        height="45px" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
-                                        <path
-                                            d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
-                                        <path
-                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                        <path
-                                            d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                                    </svg>
-                                    <div id="coin" style="font-size: 45px;padding: 10px;"></div>
+                    <div style="display: flex;">
+                        <div id="info-page">
+                            <div style="display: flex;">
+                                <div class="box-items" style="background-color: darkblue;">
+                                    <div style="font-size: 24px;font-weight: 900;">剩餘硬幣數量</div>
+                                    <div style="display: flex;align-items: center;">
+                                        <svg style="color: gold;" width="45px" height="45px" fill="currentColor"
+                                            class="bi bi-coin" viewBox="0 0 16 16">
+                                            <path
+                                                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                            <path
+                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path
+                                                d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                        </svg>
+                                        <div id="coin" style="font-size: 45px;padding: 10px;"></div>
+                                    </div>
+                                </div>
+                                <div class="box-items" style="background-color: darkmagenta;">
+                                    <div style="font-size: 24px;font-weight: 900;">每日消耗數量</div>
+                                    <div style="display: flex;align-items: center;">
+                                        <svg style="color: gold;" width="45px" height="45px" fill="currentColor"
+                                            class="bi bi-coin" viewBox="0 0 16 16">
+                                            <path
+                                                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                            <path
+                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path
+                                                d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                        </svg>
+                                        <div id="use" style="font-size: 45px;padding: 10px;"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="box-items" style="background-color: darkmagenta;">
-                                <div style="font-size: 24px;font-weight: 900;">每日消耗數量</div>
+                            <div style="display: flex;">
+                                <div class="box-items" style="background-color: darkcyan;">
+                                    <div style="font-size: 24px;font-weight: 900;">預計剩餘天數</div>
+                                    <div style="display: flex;align-items: center;">
+                                        <svg style="color: red;" width="45px" height="45px" fill="currentColor"
+                                            class="bi bi-graph-down-arrow" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M0 0h1v15h15v1H0V0Zm10 11.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v2.6l-3.613-4.417a.5.5 0 0 0-.74-.037L7.06 8.233 3.404 3.206a.5.5 0 0 0-.808.588l4 5.5a.5.5 0 0 0 .758.06l2.609-2.61L13.445 11H10.5a.5.5 0 0 0-.5.5Z" />
+                                        </svg>
+                                        <div id="day" style="font-size: 45px;padding: 10px;"></div>
+                                    </div>
+                                </div>
+                                <div class="box-items" style="background-color: darkgoldenrod;">
+                                    <div style="font-size: 24px;font-weight: 900;">客戶端連接數</div>
+                                    <div style="display: flex;align-items: center;">
+                                        <svg style="color: lawngreen;" width="45px" height="45px" fill="currentColor"
+                                            class="bi bi-speedometer" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z" />
+                                            <path fill-rule="evenodd"
+                                                d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z" />
+                                        </svg>
+                                        <div id="client" style="font-size: 45px;padding: 10px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="add-coin" class="box-items"
+                                style="background-color: darkolivegreen;cursor: pointer;">
                                 <div style="display: flex;align-items: center;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: gold;" width="45px"
-                                        height="45px" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                    <svg style="color: aqua;" width="45px" height="45px" fill="currentColor"
+                                        class="bi bi-battery-charging" viewBox="0 0 16 16">
                                         <path
-                                            d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                            d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z" />
                                         <path
-                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
                                         <path
-                                            d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                            d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z" />
+                                        <path
+                                            d="M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z" />
                                     </svg>
-                                    <div id="use" style="font-size: 45px;padding: 10px;"></div>
+                                    <div style="font-size: 40px;padding: 10px;">加值</div>
                                 </div>
                             </div>
                         </div>
-                        <div style="display: flex;">
-                            <div class="box-items" style="background-color: darkcyan;">
-                                <div style="font-size: 24px;font-weight: 900;">預計剩餘天數</div>
+                        <div id="pay-page" style="display: none;">
+                            <div class="box-items" onclick="Pay('1')"
+                                style="background-color: dimgrey;cursor: pointer;">
+                                <div style="font-size: 24px;font-weight: 900;">加值硬幣數量</div>
                                 <div style="display: flex;align-items: center;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: red;" width="45px"
-                                        height="45px" fill="currentColor" class="bi bi-graph-down-arrow"
+                                    <svg style="color: darkorange;" width="45px" height="45px" fill="currentColor"
+                                        class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                        <path
+                                            d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                    </svg>
+                                    <div style="font-size: 45px;padding: 10px;text-align: end;">
+                                        <div style="font-size: 45px;">+100 硬幣</div>
+                                        <div style="font-size: 22px;padding-right: 8px;">NTD 100</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-items" onclick="Pay('2')"
+                                style="background-color: darkslategrey;cursor: pointer;">
+                                <div style="font-size: 24px;font-weight: 900;">加值硬幣數量</div>
+                                <div style="display: flex;align-items: center;">
+                                    <svg style="color: darkorange;" width="45px" height="45px" fill="currentColor"
+                                        class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                        <path
+                                            d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                    </svg>
+                                    <div style="font-size: 45px;padding: 10px;text-align: end;">
+                                        <div style="font-size: 45px;">+500 硬幣</div>
+                                        <div style="font-size: 22px;padding-right: 8px;">NTD 500</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-items" onclick="Pay('3')"
+                                style="background-color: darkslateblue;cursor: pointer;">
+                                <div style="font-size: 24px;font-weight: 900;">加值硬幣數量</div>
+                                <div style="display: flex;align-items: center;">
+                                    <svg style="color: darkorange;" width="45px" height="45px" fill="currentColor"
+                                        class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                        <path
+                                            d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                    </svg>
+                                    <div style="font-size: 45px;padding: 10px;text-align: end;">
+                                        <div style="font-size: 45px;">+1000 硬幣</div>
+                                        <div style="font-size: 22px;padding-right: 8px;">NTD 1000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="Pay" style="display: none;" action="https://ccore.newebpay.com/MPG/mpg_gateway"
+                                method="POST">
+                                <input type="text" name="MerchantID" value="MS149651414" hidden />
+                                <input type="text" id="TradeInfo" name="TradeInfo" hidden />
+                                <input type="text" id="TradeSha" name="TradeSha" hidden />
+                                <input type="text" name="Version" value="2.0" hidden />
+                                <button class="Pay" type="submit">前往付款</button>
+                            </form>
+                        </div>
+                        <div class="info-box">
+                            <div style="font-size: 30px;font-weight: 900;padding: 10px;">常用連結</div>
+                            <div style="display: flex;">
+                                <div class="link" onclick="link('github.com/ExpTechTW')">
+                                    <div class="link-text">GitHub</div>
+                                    <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
                                         viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
-                                            d="M0 0h1v15h15v1H0V0Zm10 11.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v2.6l-3.613-4.417a.5.5 0 0 0-.74-.037L7.06 8.233 3.404 3.206a.5.5 0 0 0-.808.588l4 5.5a.5.5 0 0 0 .758.06l2.609-2.61L13.445 11H10.5a.5.5 0 0 0-.5.5Z" />
+                                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
                                     </svg>
-                                    <div id="day" style="font-size: 45px;padding: 10px;"></div>
                                 </div>
-                            </div>
-                            <div class="box-items" style="background-color: darkgoldenrod;">
-                                <div style="font-size: 24px;font-weight: 900;">客戶端連接數</div>
-                                <div style="display: flex;align-items: center;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: lawngreen;" width="45px"
-                                        height="45px" fill="currentColor" class="bi bi-speedometer" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z" />
+                                <div class="link" onclick="link('www.youtube.com/@exptech5327')">
+                                    <div class="link-text">YouTube</div>
+                                    <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                        viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
-                                            d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z" />
+                                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
                                     </svg>
-                                    <div id="client" style="font-size: 45px;padding: 10px;"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="add-coin" class="box-items" style="background-color: darkolivegreen;cursor: pointer;">
-                            <div style="display: flex;align-items: center;">
-                                <svg xmlns="http://www.w3.org/2000/svg" style="color: aqua;" width="45px" height="45px"
-                                    fill="currentColor" class="bi bi-battery-charging" viewBox="0 0 16 16">
-                                    <path
-                                        d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z" />
-                                    <path
-                                        d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
-                                    <path
-                                        d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2V6zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.405z" />
-                                    <path
-                                        d="M12 10h-1.783l1.542-1.639c.097-.103.178-.218.241-.34V10zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646zM16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z" />
-                                </svg>
-                                <div style="font-size: 40px;padding: 10px;">加值</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="pay-page" style="display: none;">
-                        <div class="box-items" onclick="Pay('1')" style="background-color: dimgrey;cursor: pointer;">
-                            <div style="font-size: 24px;font-weight: 900;">加值硬幣數量</div>
-                            <div style="display: flex;align-items: center;">
-                                <svg xmlns="http://www.w3.org/2000/svg" style="color: darkorange;" width="45px"
-                                    height="45px" fill="currentColor" class="bi bi-database-fill-add"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                    <path
-                                        d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                </svg>
-                                <div style="font-size: 45px;padding: 10px;text-align: end;">
-                                    <div style="font-size: 45px;">+100 硬幣</div>
-                                    <div style="font-size: 22px;padding-right: 8px;">NTD 100</div>
+                            <div style="display: flex;">
+                                <div class="link" onclick="link('exptech.com.tw/trem')">
+                                    <div class="link-text">線上展示</div>
+                                    <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                    </svg>
+                                </div>
+                                <div class="link" onclick="link('exptech.com.tw/api/v1/file/trem-infos.html')">
+                                    <div class="link-text">預警紀錄</div>
+                                    <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                    </svg>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box-items" onclick="Pay('2')"
-                            style="background-color: darkslategrey;cursor: pointer;">
-                            <div style="font-size: 24px;font-weight: 900;">加值硬幣數量</div>
-                            <div style="display: flex;align-items: center;">
-                                <svg xmlns="http://www.w3.org/2000/svg" style="color: darkorange;" width="45px"
-                                    height="45px" fill="currentColor" class="bi bi-database-fill-add"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                    <path
-                                        d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                </svg>
-                                <div style="font-size: 45px;padding: 10px;text-align: end;">
-                                    <div style="font-size: 45px;">+500 硬幣</div>
-                                    <div style="font-size: 22px;padding-right: 8px;">NTD 500</div>
+                            <div style="display: flex;">
+                                <div class="link"
+                                    onclick="link('docs.google.com/document/d/1MqWsmerVQs6VM-cJEG7ImtVlhCcEY7jRh8dVn0BscL0/view?rm=minimal')">
+                                    <div class="link-text">相關說明</div>
+                                    <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                    </svg>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="box-items" onclick="Pay('3')"
-                            style="background-color: darkslateblue;cursor: pointer;">
-                            <div style="font-size: 24px;font-weight: 900;">加值硬幣數量</div>
-                            <div style="display: flex;align-items: center;">
-                                <svg xmlns="http://www.w3.org/2000/svg" style="color: darkorange;" width="45px"
-                                    height="45px" fill="currentColor" class="bi bi-database-fill-add"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                    <path
-                                        d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                </svg>
-                                <div style="font-size: 45px;padding: 10px;text-align: end;">
-                                    <div style="font-size: 45px;">+1000 硬幣</div>
-                                    <div style="font-size: 22px;padding-right: 8px;">NTD 1000</div>
+                                <div class="link"
+                                    onclick="link('www.google.com/maps/d/u/0/edit?mid=10dQPSTv3TN7Q0u-3CYnPf35JTeL_tDc')">
+                                    <div class="link-text">測站列表</div>
+                                    <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <form id="Pay" style="display: none;" action="https://ccore.newebpay.com/MPG/mpg_gateway"
-                        method="POST">
-                        <input type="text" name="MerchantID" value="MS149651414" hidden />
-                        <input type="text" id="TradeInfo" name="TradeInfo" hidden />
-                        <input type="text" id="TradeSha" name="TradeSha" hidden />
-                        <input type="text" name="Version" value="2.0" hidden />
-                        <button class="Pay" type="submit">前往付款</button>
-                    </form>
                     <div style="padding: 15px;">
                         <div style="display: flex;align-items: center;">
-                            <svg xmlns="http://www.w3.org/2000/svg" style="color: red;" width="45px" height="45px"
-                                fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                            <svg style="color: red;" width="45px" height="45px" fill="currentColor"
+                                class="bi bi-envelope" viewBox="0 0 16 16">
                                 <path
                                     d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
                             </svg>
@@ -190,7 +249,7 @@
                 <div id="box-service" class="box-item">
                     <div style="display: flex;align-items: center;">
                         <div style="font-size: 30px;font-weight: 900;padding: 10px;">可用服務列表</div>
-                        <div class="load" onclick="load()">刷新</div>
+                        <div class="load"></div>
                     </div>
                     <table>
                         <thead>
@@ -214,7 +273,7 @@
                     </div>
                     <div style="display: flex;align-items: center;">
                         <div style="font-size: 30px;font-weight: 900;padding: 10px;">金鑰列表</div>
-                        <div class="load" onclick="load()">刷新</div>
+                        <div class="load"></div>
                     </div>
                     <table>
                         <thead>
@@ -232,7 +291,7 @@
                 <div id="box-status" class="box-item">
                     <div style="display: flex;align-items: center;">
                         <div style="font-size: 30px;font-weight: 900;padding: 10px;">金鑰狀態列表</div>
-                        <div class="load" onclick="load()">刷新</div>
+                        <div class="load"></div>
                     </div>
                     <table>
                         <thead>
@@ -263,7 +322,7 @@
                 <div id="box-device" class="box-item">
                     <div style="display: flex;align-items: center;">
                         <div style="font-size: 30px;font-weight: 900;padding: 10px;">在線設備列表</div>
-                        <div class="load" onclick="load()">刷新</div>
+                        <div class="load"></div>
                     </div>
                     <table>
                         <thead>
@@ -283,12 +342,23 @@
                         <div class="code-body">
                             TREM Lite 是一款開源地震速報軟體，提供給您即時的地震資訊，利用自製的測站，顯示各地的即時震度，在地震發生的第一時間取得各管道發布的強震即時警報訊息
                         </div>
-                        <a class="code-link"
-                            href="https://cdn.discordapp.com/attachments/1061979329279557632/1116057468984893521/TREM-Lite_Setup_1.6.5.exe">
-                            下載(Discord
-                            CDN)</a>
-                        <a class="code-link" href="https://github.com/ExpTechTW/TREM-Lite">
-                            GitHub</a>
+                        <div class="link"
+                            onclick="link('cdn.discordapp.com/attachments/1061979329279557632/1116057468984893521/TREM-Lite_Setup_1.6.5.exe')">
+                            <div class="link-text">下載 (Discord CDN)</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
+                        <div class="link" onclick="link('github.com/ExpTechTW/TREM-Lite')">
+                            <div class="link-text">GitHub</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">TREM Plus</div>
@@ -296,8 +366,14 @@
                         <div class="code-body">
                             各式功能聚集在一起的 TREM 客戶端
                         </div>
-                        <a class="code-link" href="https://github.com/yayacat/TREM/releases">
-                            GitHub</a>
+                        <div class="link" onclick="link('github.com/yayacat/TREM/releases')">
+                            <div class="link-text">GitHub</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">RTS Map</div>
@@ -305,10 +381,15 @@
                         <div class="code-body">
                             Real Time Station Map 即時觀測點
                         </div>
-                        <a class="code-link"
-                            href="https://cdn.discordapp.com/attachments/1067331542294216724/1122623477485142116/rts-map_0.0.16.exe">
-                            下載(Discord
-                            CDN)</a>
+                        <div class="link"
+                            onclick="link('cdn.discordapp.com/attachments/1067331542294216724/1122623477485142116/rts-map_0.0.16.exe')">
+                            <div class="link-text">下載 (Discord CDN)</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">TREM Web</div>
@@ -316,7 +397,14 @@
                         <div class="code-body">
                             TREM 即時強震觀測網
                         </div>
-                        <a class="code-link" href="https://exptech.com.tw/trem">網站</a>
+                        <div class="link" onclick="link('exptech.com.tw/trem')">
+                            <div class="link-text">網站</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">TREM SDMD</div>
@@ -324,7 +412,14 @@
                         <div class="code-body">
                             TREM Seismic Data Management System | TREM 地震資料管理系統
                         </div>
-                        <a class="code-link" href="https://exptech.com.tw/api/v1/file/SDMS.html">網站</a>
+                        <div class="link" onclick="link('exptech.com.tw/api/v1/file/SDMS.html')">
+                            <div class="link-text">網站</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">TREM Earthquake History</div>
@@ -332,7 +427,14 @@
                         <div class="code-body">
                             TREM 地震檢知紀錄
                         </div>
-                        <a class="code-link" href="https://exptech.com.tw/api/v1/file/trem-infos.html">網站</a>
+                        <div class="link" onclick="link('exptech.com.tw/api/v1/file/trem-infos.html')">
+                            <div class="link-text">網站</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">CWB EEW History</div>
@@ -340,7 +442,14 @@
                         <div class="code-body">
                             中央氣象局(CWB) 地震預警紀錄
                         </div>
-                        <a class="code-link" href="https://exptech.com.tw/api/v1/file/eew-infos.html">網站</a>
+                        <div class="link" onclick="link('exptech.com.tw/api/v1/file/eew-infos.html')">
+                            <div class="link-text">網站</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                     <div class="code-item">
                         <div class="code-title studio">TREM Image</div>
@@ -348,7 +457,14 @@
                         <div class="code-body">
                             TREM 圖像
                         </div>
-                        <a class="code-link" href="https://exptech.com.tw/api/v1/file/image.html">網站</a>
+                        <div class="link" onclick="link('exptech.com.tw/api/v1/file/image.html')">
+                            <div class="link-text">網站</div>
+                            <svg width="25px" height="25px" fill="currentColor" class="bi bi-arrow-right-square"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
                 <div id="box-info" class="box-item">
