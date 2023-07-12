@@ -1,9 +1,9 @@
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
-if (!params.token) window.location.href = './login.html';
+if (!params.token) window.location.replace("./login.html");
 
-Chart.defaults.borderColor = '#36A2EB';
-Chart.defaults.color = 'white';
+Chart.defaults.borderColor = "#36A2EB";
+Chart.defaults.color = "white";
 
 const menu_index = document.getElementById("menu-index");
 const menu_service = document.getElementById("menu-service");
@@ -28,8 +28,8 @@ const table_api = document.getElementById("table-api");
 
 const create = document.getElementById("create");
 const note = document.getElementById("note");
-const announcement = document.getElementById('announcement')
-const ctx = document.getElementById('myChart');
+const announcement = document.getElementById("announcement")
+const ctx = document.getElementById("myChart");
 
 const a_type = [
     { text: "錯誤", color: "red" },
@@ -124,11 +124,7 @@ function load() {
                     item.style.display = "";
             }, 3000);
         })
-        .catch(err => {
-            console.error(err);
-            const res = err.request.response;
-            alert(res);
-        });
+        .catch(err => window.location.replace("./login.html"));
     fetch(`https://exptech.com.tw/api/v1/et/announcement`)
         .then(async res => {
             const data = await res.json();
@@ -245,13 +241,13 @@ function service_info_load() {
 
     if (!CTX)
         CTX = new Chart(ctx, {
-            type: 'bar',
+            type: "bar",
             data: Chart_data,
             options: {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)'
+                        text: "ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)"
                     },
                 },
                 responsive: true,
@@ -272,8 +268,8 @@ function service_info_load() {
 }
 
 function ColorCode() {
-    var makingColorCode = '0123456789ABCDEF';
-    var finalCode = '#';
+    var makingColorCode = "0123456789ABCDEF";
+    var finalCode = "#";
     for (var counter = 0; counter < 6; counter++)
         finalCode = finalCode + makingColorCode[Math.floor(Math.random() * 16)];
     return finalCode;
@@ -526,6 +522,16 @@ menu_info.onclick = () => {
     for (const item of document.getElementsByClassName("box-item"))
         item.style.display = "none";
     box_info.style.display = "block";
+}
+
+document.getElementById("out").onclick = () => {
+    fetch(`https://exptech.com.tw/api/v1/et/logout?token=${params.token}`)
+        .then(async res => window.location.replace("./login.html"))
+        .catch(err => {
+            console.error(err);
+            const res = err.request.response;
+            alert(res);
+        });
 }
 
 setInterval(() => load(), 60_000);
