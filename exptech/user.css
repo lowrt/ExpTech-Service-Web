@@ -318,3 +318,28 @@ table>tbody>tr:hover {
 .link-text {
     padding-right: 5px;
 }
+
+.alert-box {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    background-color: rgb(75, 9, 9);
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    padding: 15px;
+    font-size: 28px;
+}
+
+.alert-box-button {
+    background-color: darkblue;
+    padding: 5px;
+    margin: 10px;
+    font-size: 24px;
+    border-radius: 5px;
+    border: 2px solid blue;
+    width: fit-content;
+    cursor: pointer;
+}

@@ -31,6 +31,11 @@ const note = document.getElementById("note");
 const announcement = document.getElementById("announcement");
 const ctx = document.getElementById("myChart");
 
+const alert_box = document.getElementById("alert-box");
+const index = document.getElementById("index");
+
+let client_limit = false;
+
 const a_type = [
 	{ text: "錯誤", color: "red" },
 	{ text: "已解決", color: "green" },
@@ -104,6 +109,9 @@ fetch("https://exptech.com.tw/api/v1/et/service-info")
 		alert(res);
 	});
 
+const client_text = document.getElementById("client");
+const day_text = document.getElementById("day");
+
 function load() {
 	for (const item of document.getElementsByClassName("load")) {
 		item.style.backgroundColor = "grey";
@@ -113,10 +121,24 @@ function load() {
 	fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
 		.then(async res => {
 			user_info = await res.json();
-			document.getElementById("client").textContent = `${Object.keys(user_info.client_list).length}/${user_info.client}`;
+			if (Object.keys(user_info.client_list).length > user_info.client) {
+				if (!client_limit) {
+					client_limit = true;
+					alert_box.style.display = "";
+					index.style.display = "none";
+					document.getElementById("alert-box-text").innerHTML = "已超出此帳戶限制之 <b>客戶端連接數</b><br>可能導致此帳戶底下的設備 <b>無法正常運作</b>";
+				}
+				client_text.style.color = "purple";
+			} else {
+				client_limit = false;
+				client_text.style.color = "white";
+			}
+			client_text.textContent = `${Object.keys(user_info.client_list).length}/${user_info.client}`;
 			document.getElementById("coin").textContent = user_info.coin;
 			document.getElementById("use").textContent = user_info.use;
-			document.getElementById("day").textContent = (!user_info.coin) ? "已用完" : (!user_info.use) ? "未使用" : `${Math.floor(user_info.coin / user_info.use)} 天`;
+			const day_count = Math.floor(user_info.coin / user_info.use);
+			day_text.textContent = (!user_info.coin) ? "已用完" : (!user_info.use) ? "未使用" : `${day_count} 天`;
+			day_text.style.color = (!user_info.coin) ? "purple" : (!user_info.use) ? "lightgray" : (day_count < 7) ? "purple" : "white";
 			reload_service();
 			reload_device();
 			reload_status();
@@ -185,8 +207,8 @@ function service_info_load() {
 	const amount = {};
 
 	const Chart_data = {
-		labels   : [],
-		datasets : [],
+		labels: [],
+		datasets: [],
 	};
 
 	for (let i = 0; i < user_info.dump.length; i++) {
@@ -211,9 +233,9 @@ function service_info_load() {
 				}
 
 			if (!find) Chart_data.datasets.push({
-				label           : type,
-				data            : [c],
-				backgroundColor : service_info[type]?.color ?? ColorCode(),
+				label: type,
+				data: [c],
+				backgroundColor: service_info[type]?.color ?? ColorCode(),
 			});
 		}
 
@@ -250,17 +272,17 @@ function service_info_load() {
 
 	if (!CTX) {
 		CTX = new Chart(ctx, {
-			type    : "bar",
-			data    : Chart_data,
-			options : {
+			type: "bar",
+			data: Chart_data,
+			options: {
 				plugins: {
 					title: {
-						display : true,
-						text    : "ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)",
+						display: true,
+						text: "ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)",
 					},
 				},
-				responsive : true,
-				scales     : {
+				responsive: true,
+				scales: {
 					x: {
 						stacked: true,
 					},
@@ -455,11 +477,11 @@ function reload_service() {
 
 create.onclick = () => {
 	fetch("https://exptech.com.tw/api/v1/et/key-add", {
-		method  : "POST",
-		headers : { "Content-Type": "application/json" },
-		body    : JSON.stringify({
-			token : params.token,
-			note  : note.value,
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			token: params.token,
+			note: note.value,
 		}),
 	})
 		.then(res => {
@@ -548,3 +570,8 @@ function link(url) {
 }
 
 setInterval(() => load(), 60_000);
+
+document.getElementById("alert-box-button").onclick = () => {
+	index.style.display = "";
+	alert_box.style.display = "none";
+}
