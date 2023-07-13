@@ -207,8 +207,8 @@ function service_info_load() {
 	const amount = {};
 
 	const Chart_data = {
-		labels: [],
-		datasets: [],
+		labels   : [],
+		datasets : [],
 	};
 
 	for (let i = 0; i < user_info.dump.length; i++) {
@@ -233,9 +233,9 @@ function service_info_load() {
 				}
 
 			if (!find) Chart_data.datasets.push({
-				label: type,
-				data: [c],
-				backgroundColor: service_info[type]?.color ?? ColorCode(),
+				label           : type,
+				data            : [c],
+				backgroundColor : service_info[type]?.color ?? ColorCode(),
 			});
 		}
 
@@ -272,17 +272,17 @@ function service_info_load() {
 
 	if (!CTX) {
 		CTX = new Chart(ctx, {
-			type: "bar",
-			data: Chart_data,
-			options: {
+			type    : "bar",
+			data    : Chart_data,
+			options : {
 				plugins: {
 					title: {
-						display: true,
-						text: "ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)",
+						display : true,
+						text    : "ExpTech Service 流量圖 (點擊下方圖例可調整查看的服務類型)",
 					},
 				},
-				responsive: true,
-				scales: {
+				responsive : true,
+				scales     : {
 					x: {
 						stacked: true,
 					},
@@ -477,11 +477,11 @@ function reload_service() {
 
 create.onclick = () => {
 	fetch("https://exptech.com.tw/api/v1/et/key-add", {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({
-			token: params.token,
-			note: note.value,
+		method  : "POST",
+		headers : { "Content-Type": "application/json" },
+		body    : JSON.stringify({
+			token : params.token,
+			note  : note.value,
 		}),
 	})
 		.then(res => {
@@ -574,4 +574,4 @@ setInterval(() => load(), 60_000);
 document.getElementById("alert-box-button").onclick = () => {
 	index.style.display = "";
 	alert_box.style.display = "none";
-}
+};
