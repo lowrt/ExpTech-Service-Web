@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "ExpTech Website",
   "scripts": {
-    "watch": "parcel ./src/*.pug --no-cache"
+    "watch": "parcel ./src/*.pug",
+    "build": "parcel build ./src/*.pug --no-cache"
   },
   "repository": {
     "type": "git",
