@@ -1,16 +1,16 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+@use "./components/input.scss";
 
 :root {
-  --background: 285deg, 100%, 99%;
-  --on-background: 240deg, 7%, 11%;
-  --primary: 211deg, 100%, 37%;
-  --on-primary: 0deg, 0%, 100%;
-  --primary-container: 224deg, 100%, 92%;
-  --on-primary-container: 216deg, 100%, 13%;
-  --outline: 224deg, 5%, 48%;
-  --surface-variant: 230deg, 24%, 90%;
-  --on-surface-variant: 222deg, 7%, 29%;
+  --background: 285deg 100% 99%;
+  --on-background: 240deg 7% 11%;
+  --primary: 211deg 100% 37%;
+  --on-primary: 0deg 0% 100%;
+  --primary-container: 224deg 100% 92%;
+  --on-primary-container: 216deg 100% 13%;
+  --outline: 224deg 5% 48%;
+  --surface-variant: 230deg 24% 90%;
+  --on-surface-variant: 222deg 7% 29%;
 }
 
 body {
@@ -70,52 +70,6 @@ body {
 
 .form-item {
   margin-bottom: 12px;
-}
-
-label {
-  font-size: 14px;
-  line-height: 16px;
-  padding: 8px 0;
-  color: hsl(var(--on-surface-variant));
-}
-
-input[type=text],
-input[type=password],
-input[type=email] {
-  all: unset;
-  flex: 1;
-  padding: 12px;
-  font-size: 14px;
-  line-height: 16px;
-  border-radius: 4px;
-  outline: 1px solid hsla(var(--outline), .4);
-  transition: outline .1s ease-in-out;
-
-  &:disabled {
-    outline: 1px solid hsla(var(--on-surface-variant), .12);
-    color: hsla(var(--on-surface-variant), .38);
-    cursor: not-allowed;
-  }
-
-  &:not(:disabled) {
-    &:hover {
-      outline-color: hsl(var(--on-surface-variant));
-    }
-
-    &:active {
-      opacity: 0.8;
-    }
-
-    &:focus {
-      outline: 2px solid hsl(var(--primary));
-      background-color: hsla(var(--primary), .08);
-      color: hsl(var(--on-primary-container));
-    }
-  }
-
-  &::placeholder {
-    color: hsla(var(--on-surface-variant), .6)
-  }
 }
 
 #register {
