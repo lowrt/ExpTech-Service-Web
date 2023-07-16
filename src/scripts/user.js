@@ -5,20 +5,19 @@ if (!params.token) window.location.replace("./login.html");
 Chart.defaults.borderColor = "#36A2EB";
 Chart.defaults.color = "white";
 
-const menu_index = document.getElementById("menu-index");
-const menu_service = document.getElementById("menu-service");
-const menu_key = document.getElementById("menu-key");
-const menu_status = document.getElementById("menu-status");
-const menu_device = document.getElementById("menu-device");
-const menu_code = document.getElementById("menu-code");
-const menu_info = document.getElementById("menu-info");
-const box_index = document.getElementById("box-index");
-const box_service = document.getElementById("box-service");
-const box_key = document.getElementById("box-key");
-const box_status = document.getElementById("box-status");
-const box_device = document.getElementById("box-device");
-const box_code = document.getElementById("box-code");
-const box_info = document.getElementById("box-info");
+for (const button of document.querySelectorAll("button.nav-item"))
+	button.addEventListener("click", () => {
+		if (document.getElementById(button.getAttribute("data-view")).classList.contains("active")) return;
+
+		for (const nav of document.querySelectorAll("button.nav-item")) {
+			nav.classList.remove("active");
+			document.getElementById(nav.getAttribute("data-view")).classList.remove("active");
+		}
+
+		button.classList.add("active");
+		setTimeout(() => document.getElementById(button.getAttribute("data-view")).classList.add("active"), 100);
+	});
+
 
 const table_service = document.getElementById("table-service");
 const table_device = document.getElementById("table-device");
@@ -53,11 +52,6 @@ let service_list = [];
 let service_info = [];
 let user_info = {};
 let CTX;
-
-document.getElementById("add-coin").onclick = () => {
-	document.getElementById("info-page").style.display = "none";
-	document.getElementById("pay-page").style.display = "";
-};
 
 function Pay(type) {
 	document.getElementById("pay-page").style.display = "none";
@@ -154,22 +148,22 @@ function load() {
 					};
 				}
 			}, 5000);
-		})
-		.catch(err => window.location.replace("./login.html"));
+		});
+	// .catch(err => window.location.replace("./login.html"));
 	fetch("https://exptech.com.tw/api/v1/et/announcement")
 		.then(async res => {
 			const data = await res.json();
 			const frag = new DocumentFragment();
 			for (let i = 0; i < data.length; i++) {
 				const box = document.createElement("div");
-				box.className = "a-item";
+				box.className = "announcement";
 
 				const title = document.createElement("div");
-				title.className = "a-title";
-				title.innerHTML = data[i].title;
+				title.className = "announcement-title";
+				title.textContent = data[i].title;
 
 				const tag = document.createElement("div");
-				tag.className = "a-tag";
+				tag.className = "announcement-tag-container";
 
 				for (let I = 0; I < data[i].type.length; I++) {
 					const t = document.createElement("a");
@@ -180,17 +174,18 @@ function load() {
 				}
 
 				const subtitle = document.createElement("div");
-				subtitle.className = "a-subtitle";
-				subtitle.innerHTML = data[i].subtitle;
+				subtitle.className = "announcement-subtitle";
+				subtitle.textContent = data[i].subtitle;
 
 				const body = document.createElement("div");
-				body.className = "a-body";
-				body.innerHTML = data[i].body;
+				body.className = "announcement-content";
+				body.textContent = data[i].body;
 
-				box.appendChild(title);
-				box.appendChild(tag);
+				subtitle.appendChild(tag);
 				box.appendChild(subtitle);
+				box.appendChild(title);
 				box.appendChild(body);
+
 				frag.appendChild(box);
 			}
 
@@ -493,66 +488,6 @@ create.onclick = () => {
 			const res = err.request.response;
 			alert(res);
 		});
-};
-
-menu_index.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_index.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_index.style.display = "block";
-	document.getElementById("info-page").style.display = "";
-	document.getElementById("pay-page").style.display = "none";
-	document.getElementById("Pay").style.display = "none";
-};
-menu_service.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_service.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_service.style.display = "block";
-};
-menu_key.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_key.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_key.style.display = "block";
-};
-menu_status.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_status.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_status.style.display = "block";
-};
-menu_device.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_device.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_device.style.display = "block";
-};
-menu_code.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_code.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_code.style.display = "block";
-};
-menu_info.onclick = () => {
-	for (const item of document.getElementsByClassName("menu-item"))
-		item.style.color = "darkgrey";
-	menu_info.style.color = "white";
-	for (const item of document.getElementsByClassName("box-item"))
-		item.style.display = "none";
-	box_info.style.display = "block";
 };
 
 document.getElementById("out").onclick = () => {

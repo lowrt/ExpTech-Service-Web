@@ -33,7 +33,9 @@ submit.addEventListener("submit", (e) => {
 		}),
 	})
 		.then(async res => {
-			if (res.ok) {window.location.href = `./user.html?token=${await res.text()}`;} else {
+			if (res.ok) {
+				window.location.href = `./user.html?token=${await res.text()}`;
+			} else {
 				switch (await res.text()) {
 					case "Invaild email!": {
 						email.setCustomValidity("電子郵件地址無效。");

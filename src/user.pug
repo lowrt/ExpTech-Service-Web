@@ -1,0 +1,474 @@
+html(lang="zh-Hant")
+
+  head
+    title#title TREM Service Panel
+    meta(harset="utf-8") 
+    meta(content="ExpTech Studio", property="og:title") 
+    meta(content="ExpTech | 探索科技 | 用戶資訊面板", property="og:description")
+    meta(content="https://exptech.com.tw/api/v1/file/exptech/index.html", property="og:url")
+    meta(content="https://raw.githubusercontent.com/ExpTechTW/ExpTechTW.github.io/master/image/main/ExpTech.jpg", property="og:image")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+    link(rel="stylesheet", href="stylesheets/components/header.scss")
+    link(rel="stylesheet", href="stylesheets/user.scss")
+  
+  body
+    .app-container
+      include ./components/header.pug
+      +header("TREM Service Panel")
+      
+      .content 
+        nav 
+          include ./components/icon.pug
+          button.nav-item.active(type="button", data-view="home")
+            +icon("home")
+            span 首頁
+          button.nav-item(type="button", data-view="services")
+            +icon("api")
+            span 服務
+          button.nav-item(type="button", data-view="keys")
+            +icon("key")
+            span 金鑰
+          button.nav-item(type="button", data-view="status")
+            +icon("monitoring")
+            span 狀態
+          button.nav-item(type="button", data-view="devices")
+            +icon("devices")
+            span 設備
+          button.nav-item(type="button", data-view="applications")
+            +icon("apps")
+            span 程式
+          button.nav-item(type="button", data-view="charge")
+            +icon("add")
+            span 加值
+          button.nav-item(type="button", data-view="about")
+            +icon("info")
+            span 關於
+          button#logout.nav-button.danger
+            +icon("logout")
+            span 登出
+
+        .view-container
+          #home.view.active
+            .container
+              .view-header 帳戶資訊
+              .card-container
+                .card
+                  .card-title 剩餘硬幣數量      
+                  .card-content
+                    svg.bi.bi-coin(
+                      style="color: gold"
+                      width="36px"
+                      height="36px"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    )
+                      path(d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z")
+                      path(d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+                      path(d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z")
+                    #coin.card-value
+
+                .card
+                  .card-title 每日消耗數量
+                  .card-content
+                    svg.bi.bi-coin(
+                      style="color: gold"
+                      width="36px"
+                      height="36px"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    )
+                      path(d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z")
+                      path(d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+                      path(d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z")
+                    #use.card-value
+
+                .card
+                  .card-title 預計剩餘天數
+                  .card-content
+                    svg.bi.bi-graph-down-arrow(
+                      style="color: red"
+                      width="36px"
+                      height="36px"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    )
+                      path(
+                        fill-rule="evenodd"
+                        d="M0 0h1v15h15v1H0V0Zm10 11.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v2.6l-3.613-4.417a.5.5 0 0 0-.74-.037L7.06 8.233 3.404 3.206a.5.5 0 0 0-.808.588l4 5.5a.5.5 0 0 0 .758.06l2.609-2.61L13.445 11H10.5a.5.5 0 0 0-.5.5Z"
+                      )
+                    #day.card-value
+                  
+                .card
+                  .card-title 客戶端連接數
+                  .card-content
+                    svg.bi.bi-speedometer(
+                      style="color: lawngreen"
+                      width="36px"
+                      height="36px"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    )
+                      path(d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z")
+                      path(
+                        fill-rule="evenodd"
+                        d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"
+                      )
+                    #client.card-value
+
+              // announcements
+              .view-header 公告
+              #announcement.announcement-container
+
+              // urls
+              .view-header 常用連結
+              .link-container
+                a.link.external(href="https://github.com/ExpTechTW", target="_blank", rel="noopener noreferrer") 
+                  .link-text GitHub
+                a.link.external(href="https://www.youtube.com/@exptech5327", target="_blank", rel="noopener noreferrer")
+                  .link-text YouTube
+                a.link.external(href="https://exptech.com.tw/trem", target="_blank", rel="noopener noreferrer")
+                  .link-text 線上展示
+                a.link.external(href="https://exptech.com.tw/api/v1/file/trem-infos.html", target="_blank", rel="noopener noreferrer")
+                  .link-text 預警紀錄
+                a.link.external(href="https://docs.google.com/document/d/1MqWsmerVQs6VM-cJEG7ImtVlhCcEY7jRh8dVn0BscL0/view?rm=minimal", target="_blank", rel="noopener noreferrer")
+                  .link-text 相關說明
+                a.link.external(href="https://www.google.com/maps/d/u/0/edit?mid=10dQPSTv3TN7Q0u-3CYnPf35JTeL_tDc", target="_blank", rel="noopener noreferrer")
+                  .link-text 測站列表
+                a.link.external(href="https://stats.uptimerobot.com/KElQPHqKVk", target="_blank", rel="noopener noreferrer") 
+                  .link-text 伺服器狀態
+                a.link.external(href="https://exptech.com.tw/api/v1/file/status/index.html", target="_blank", rel="noopener noreferrer")
+                  .link-text 伺服器流量
+        
+          #services.view 
+            .container
+              .view-header 可用服務列表
+            
+              table
+                thead
+                  tr
+                    th 說明
+                    th API
+                    th 費用
+                    th 服務
+                    th 狀態
+                    th 操作
+                  
+                tbody#table-service
+              
+              .warn 
+              div(style="display: flex; align-items: center;")
+                svg.bi.bi-exclamation-triangle-fill(
+                  width="25px"
+                  height="25px"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                )
+                  path(d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z")
+                
+                div(style="font-weight: 900; padding: 5px;")
+                  | 注意
+                  | WebSocket 模式下可以收到「較穩定快速的地震預警」
+            
+          #keys.view
+            .container
+              .view-header 金鑰列表
+              div
+                input#note.note(
+                  type="text"
+                  placeholder="備註(可不填)"
+                )
+                
+                button#create 創建金鑰
+              table
+                thead
+                  tr
+                    th Key(前10位)
+                    th 創建時間
+                    th 備註
+                    th 操作
+                    th 其他
+                  
+                tbody#table-key
+            
+          #status.view 
+            .container
+              .view-header 金鑰狀態列表
+              table
+                thead
+                  tr
+                    th Key(前10位)
+                    th IP
+                    th 初次連線時間
+                    th 最後連線時間
+                  
+                tbody#table-status
+              
+              .view-header 流量圖(近24小時)
+              
+              canvas#myChart
+                div(style="font-size: 30px; font-weight: 900; padding: 10px;") 流量統計列表(近24小時)
+              
+              table
+                thead
+                  tr
+                    th 路徑
+                    th 請求類型
+                    th 服務類型
+                    th 次數
+                
+                tbody#table-api
+          
+          #devices.view 
+            div(style="display: flex; align-items: center;")
+              div(style="font-size: 30px; font-weight: 900; padding: 10px;") 在線設備列表
+            
+            table
+              thead
+                tr
+                  th UUID(前10位)
+                  th IP
+                  th 連線時間
+                
+              tbody#table-device
+          
+          #applications.view 
+            .application-container
+              .application
+                .application-name-container
+                  .application-name TREM Lite
+                  .application-version v1.6.5 (1.6.11)
+                .application-maintainer Maintained by whes1015
+                .application-description TREM Lite 是一款開源地震速報軟體，提供給您即時的地震資訊，利用自製的測站，顯示各地的即時震度，在地震發生的第一時間取得各管道發布的強震即時警報訊息。
+                .link-container
+                  a.link(href="http://cdn.discordapp.com/attachments/1061979329279557632/1116057468984893521/TREM-Lite_Setup_1.6.5.exe", rel="noopener noreferrer", download) 
+                    +icon("download")
+                    .link-text 下載 (Discord CDN)
+                  a.link.external(href="https://github.com/ExpTechTW/TREM-Lite", target="_blank", rel="noopener noreferrer") 
+                    .link-text GitHub
+              
+              .application
+                .application-name-container
+                  .application-name TREM Plus
+                  .application-version v6.0.178
+                .application-maintainer Maintained by yayacat
+                .application-description 各式功能聚集在一起的 TREM 客戶端。
+                .link-container
+                  a.link.external(href="http://github.com/yayacat/TREM/releases/latest", target="_blank", rel="noopener noreferrer") 
+                    +icon("download")
+                    .link-text 下載 (Github)
+
+              .application
+                .application-name-container
+                  .application-name rts-map
+                  .application-version v0.0.16
+                .application-maintainer Maintained by Kamiya
+                .application-description rts-map 即時觀測地圖。
+                .link-container
+                  a.link(href="http://cdn.discordapp.com/attachments/1067331542294216724/1122623477485142116/rts-map_0.0.16.exe", rel="noopener noreferrer", download) 
+                    +icon("download")
+                    .link-text 下載 (Discord CDN)
+
+              .application
+                .application-name-container
+                  .application-name TREM Web
+                  .application-version 網頁
+                .application-maintainer Maintained by whes1015
+                .application-description TREM 即時強震觀測網。
+                .link-container
+                  a.link.external(href="http://exptech.com.tw/trem", target="_blank", rel="noopener noreferrer") 
+                    .link-text 網站
+
+              .application
+                .application-name-container
+                  .application-name TREM SDMD
+                  .application-version 網頁
+                .application-maintainer Maintained by whes1015
+                .application-description TREM Seismic Data Management System | TREM 地震資料管理系統。
+                .link-container
+                  a.link.external(href="http://exptech.com.tw/api/v1/file/SDMS.html", target="_blank", rel="noopener noreferrer") 
+                    .link-text 網站
+
+              .application
+                .application-name-container
+                  .application-name TREM Earthquake History
+                  .application-version 網頁
+                .application-maintainer Maintained by whes1015, Kamiya
+                .application-description TREM 地震檢知紀錄。
+                .link-container
+                  a.link.external(href="http://exptech.com.tw/api/v1/file/trem-infos.html", target="_blank", rel="noopener noreferrer") 
+                    .link-text 網站
+
+              .application
+                .application-name-container
+                  .application-name CWB EEW History
+                  .application-version 網頁
+                .application-maintainer Maintained by whes1015, Kamiya
+                .application-description 中央氣象局(CWB) 地震預警紀錄。
+                .link-container
+                  a.link.external(href="http://exptech.com.tw/api/v1/file/eew-infos.html", target="_blank", rel="noopener noreferrer") 
+                    .link-text 網站
+
+              .application
+                .application-name-container
+                  .application-name TREM Image
+                  .application-version 網頁
+                .application-maintainer Maintained by whes1015
+                .application-description TREM 圖像。
+                .link-container
+                  a.link.external(href="http://exptech.com.tw/api/v1/file/image.html", target="_blank", rel="noopener noreferrer") 
+                    .link-text 網站
+
+          #charge.view
+            .box-items(
+              onclick="Pay('1')"
+              style="background-color: dimgrey; cursor: pointer;"
+            )
+              div(style="font-size: 24px; font-weight: 900") 加值硬幣數量
+              
+              div(style="display: flex; align-items: center;")
+                svg.bi.bi-database-fill-add(
+                  style="color: darkorange"
+                  width="45px"
+                  height="45px"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                )
+                  path(d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z")
+                  path(d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z")
+                  
+                
+                div(style="font-size: 45px; padding: 10px; text-align: end")
+                    div(style="font-size: 45px") +100 硬幣
+                    div(style="font-size: 22px; padding-right: 8px") NTD 100
+                  
+            .box-items(
+              onclick="Pay('2')"
+              style="background-color: darkslategrey; cursor: pointer;"
+            )
+              div(style="font-size: 24px; font-weight: 900") 加值硬幣數量
+              
+              div(style="display: flex; align-items: center;")
+                svg.bi.bi-database-fill-add(
+                  style="color: darkorange"
+                  width="45px"
+                  height="45px"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                )
+                  path(d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z")
+                  path(d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z")
+
+                div(style="font-size: 45px; padding: 10px; text-align: end")
+                  div(style="font-size: 45px") +500 硬幣
+                  div(style="font-size: 22px; padding-right: 8px") NTD 500
+
+            .box-items(
+              onclick="Pay('3')"
+              style="background-color: darkslateblue; cursor: pointer;"
+            )
+                div(style="font-size: 24px; font-weight: 900;") 加值硬幣數量
+                div(style="display: flex; align-items: center;") 
+                  svg.bi.bi-database-fill-add(
+                    style="color: darkorange"
+                    width="45px"
+                    height="45px"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  )
+                    path(d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z")
+                    path(d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z")
+                    
+                  div(style="font-size: 45px; padding: 10px; text-align: end;")
+                    div(style="font-size: 45px;") +1000 硬幣
+                    div(style="font-size: 22px; padding-right: 8px;") NTD 1000
+            
+            form#Pay(
+              style="display: none"
+              action="https://ccore.newebpay.com/MPG/mpg_gateway"
+              method="POST"
+            )
+                input(type="text", name="MerchantID", value="MS149651414", hidden)
+                input#TradeInfo(type="text", name="TradeInfo", hidden)
+                input#TradeSha(type="text", name="TradeSha", hidden) 
+                input(type="text", name="Version", value="2.0", hidden)
+                button.Pay(type="submit") 前往付款
+
+          #about.view
+            .container 
+              .view-header TOS 服務條款
+              ol
+                li ExpTech 通過使用服務用戶被視為已同意#[span.info-note 使用條款] 
+                li #[span.info-note 禁止未經允許的再分發] (開發團隊知情且允許的情況 不受此規範限制) 
+                li 禁止轉售 TREM 提供之資訊
+                li 禁止違反法律法規或違反公共秩序和道德的行為
+                li TREM 使用 P2P 技術傳遞資訊
+                li 任何資訊均以#[span.info-note 中央氣象局(CWB)]發布之內容為準
+                li 所有非#[span.info-note 中央氣象局(CWB)]所提供之資料及其衍生服務均被視為#[span.info-note 進階功能] 
+                li 不得於網路上傳播含「進階功能」之畫面 避免觸犯氣象法及造成社會大眾之誤導或錯誤理解其含義
+                li 
+                  | 購買進階功能將代表您已接受其存在資訊錯誤的#[span.info-note 風險]，
+                  | 應在購買前#[span.info-note 自行評估]。甲方一概不負責因上述原因所導致之一切後果
+                li 除以上條款外 任何開發團隊合理認為不適當的行為均不被允許
+              
+              .info-end ExpTech Studio | 2023年07月12日 初稿
+            
+              .view-header 資料來源
+              div 地震預警
+              div
+                ul
+                  li: span 交通部中央氣象局 (CWB)
+                  li: span 日本気象庁 (JMA)
+                  li: span 防災科研 (NIED)
+                  li: span 中国四川省地震局 (SCDZJ)
+                  li: span 기상청 (KMA)
+                
+              div 震度
+              div
+                ul
+                  li: span 中央研究院 (SINICA)
+                  li: span 臺灣即時地震監測 (TREM)
+                
+              .view-header 貢獻者(Discord)
+              div ExpTech Studio
+              div
+                ul
+                  li: span whes1015
+                  li: span kamiya4047
+                  li: span yayacat
+                  li: span eggrollpvp
+                
+              div ExpTech Family
+              div
+                ul
+                  li: span __ellan
+                  li: span xiaoan0711
+                  li: span yawp93125
+                  li: span yoyo0901
+                  li: span xd_pisces
+                  li: span tya8732
+                  li: span xtw.littlecat
+                  li: span cracks666666
+                  li: span liangliang5102
+                  li: span hy2seong
+                  
+              .info-end 包括但不限於上述列出之用戶 因為有這些人的付出，TREM 才能越來越好
+
+        .overlay-container       
+          #alert-box.alert-box(style="display: none;") 
+            div(style="display: flex; align-items: center; padding: 15px;")
+            svg.bi.bi-exclamation-octagon-fill(
+              style="color: red"
+              width="45px"
+              height="45px"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            )
+              path(d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z")
+            
+              div(style="font-size: 40px; font-weight: 900; padding-left: 5px;") 警告
+
+          #alert-box-text(style="padding: 15px;")
+          #alert-box-button.alert-box-button 知道了
+
+    script(src="https://cdn.jsdelivr.net/npm/chart.js") 
+    script(type="module", src="./scripts/user.js", module)
