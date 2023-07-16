@@ -25,6 +25,7 @@ const table_device = document.getElementById("table-device");
 const table_status = document.getElementById("table-status");
 const table_key = document.getElementById("table-key");
 const table_api = document.getElementById("table-api");
+const table_equipment = document.getElementById("table-equipment");
 
 const create = document.getElementById("create");
 const note = document.getElementById("note");
@@ -33,6 +34,9 @@ const ctx = document.getElementById("myChart");
 
 const alert_box = document.getElementById("alert-box");
 const index = document.getElementById("index");
+const eid = document.getElementById("eid");
+const device_setting_box = document.getElementById("device-setting");
+const device_config = document.getElementById("device-config");
 
 let client_limit = false;
 
@@ -53,10 +57,27 @@ let service_list = [];
 let service_info = [];
 let user_info = {};
 let CTX;
+let config;
 
 document.getElementById("add-coin").onclick = () => {
 	document.getElementById("info-page").style.display = "none";
 	document.getElementById("pay-page").style.display = "";
+};
+
+document.getElementById("add-device").onclick = () => {
+	fetch(`https://exptech.com.tw/api/v1/check?eid=${eid.value}&token=${params.token}`)
+		.then(async res => {
+			const ans = await res.text()
+			eid.value = "";
+			if (ans == "OK") alert("請在60秒內按下裝置上的確認按鈕\n直到燈號熄滅");
+			else alert("未發現此裝置\n請檢查欲連接之裝置是否已連上網路");
+		})
+		.catch(err => {
+			eid.value = "";
+			console.error(err);
+			const res = err.request.response;
+			alert(res)
+		});
 };
 
 function Pay(type) {
@@ -144,6 +165,7 @@ function load() {
 			reload_status();
 			reload_key();
 			service_info_load();
+			equipment_info_load();
 			setTimeout(() => {
 				for (const item of document.getElementsByClassName("load")) {
 					item.style.backgroundColor = "dodgerblue";
@@ -195,6 +217,151 @@ function load() {
 			}
 
 			announcement.replaceChildren(frag);
+		})
+		.catch(err => {
+			console.error(err);
+			const res = err.request.response;
+			alert(res);
+		});
+}
+
+function equipment_info_load() {
+	const frag = new DocumentFragment();
+	for (let i = 0; i < Object.keys(user_info.device_list).length; i++) {
+		const id = Object.keys(user_info.device_list)[i];
+		const box = document.createElement("tr");
+
+		const eid = document.createElement("td");
+		eid.textContent = id;
+		eid.setAttribute("data-text", eid.textContent);
+
+		const model = document.createElement("td");
+		model.textContent = user_info.device_list[id].model;
+		model.setAttribute("data-text", model.textContent);
+
+		const IP = document.createElement("td");
+		IP.textContent = user_info.device_list[id].IP;
+		IP.setAttribute("data-text", IP.textContent);
+
+		const ip = document.createElement("td");
+		ip.textContent = user_info.device_list[id].ip;
+		ip.setAttribute("data-text", ip.textContent);
+
+		const ver = document.createElement("td");
+		ver.textContent = user_info.device_list[id].ver;
+		ver.setAttribute("data-text", ver.textContent);
+
+		const ssid = document.createElement("td");
+		ssid.textContent = user_info.device_list[id].ssid;
+		ssid.setAttribute("data-text", ssid.textContent);
+
+		const rssi = document.createElement("td");
+		rssi.textContent = user_info.device_list[id].rssi;
+		rssi.setAttribute("data-text", rssi.textContent);
+
+		const mac = document.createElement("td");
+		mac.textContent = user_info.device_list[id].mac;
+		mac.setAttribute("data-text", mac.textContent);
+
+		const time = document.createElement("td");
+		time.textContent = time_string(user_info.device_list[id].time);
+		time.setAttribute("data-text", time.textContent);
+
+		const test = document.createElement("td");
+		if (user_info.device_list[id].online) test.innerHTML = `<a style="color: lightskyblue;text-decoration:underline;cursor: pointer;" onclick="test('${id}')">測試</a>`;
+		else test.innerHTML = "離線";
+		test.setAttribute("data-text", test.textContent);
+
+		const set = document.createElement("td");
+		if (user_info.device_list[id].online) set.innerHTML = `<a style="color: lightskyblue;text-decoration:underline;cursor: pointer;" onclick="device_setting('${id}')">配置</a>`;
+		else set.innerHTML = "離線";
+		set.setAttribute("data-text", set.textContent);
+
+		box.appendChild(eid);
+		box.appendChild(model);
+		box.appendChild(IP);
+		box.appendChild(ip);
+		box.appendChild(ver);
+		box.appendChild(ssid);
+		box.appendChild(rssi);
+		box.appendChild(mac);
+		box.appendChild(time);
+		box.appendChild(test);
+		box.appendChild(set);
+		frag.appendChild(box);
+	}
+
+	table_equipment.replaceChildren(frag);
+}
+
+function device_setting(id) {
+	document.getElementById("config").textContent = `${id} Config`;
+	config = {
+		id: id,
+		ssid: "exptech",
+		pass: "1234567890",
+		lat: "22.967286",
+		lon: "120.2940045",
+		site: "1",
+	};
+	config.ssid = user_info.device_list[id].ssid;
+	if (user_info.device_list[id].pass) config.pass = user_info.device_list[id].pass;
+	if (user_info.device_list[id].config) {
+		if (user_info.device_list[id].config.lat) config.lat = user_info.device_list[id].config.lat;
+		if (user_info.device_list[id].config.lon) config.lon = user_info.device_list[id].config.lon;
+		if (user_info.device_list[id].config.site) config.site = user_info.device_list[id].config.site;
+	}
+	document.getElementById("ssid").value = config.ssid;
+	document.getElementById("pass").value = config.pass;
+	document.getElementById("lat").value = config.lat;
+	document.getElementById("lon").value = config.lon;
+	document.getElementById("site").value = config.site;
+	device_setting_box.style.display = "";
+}
+
+document.getElementById("device-config").onclick = () => {
+	config.ssid = document.getElementById("ssid").value;
+	config.pass = document.getElementById("pass").value;
+	config.lat = document.getElementById("lat").value;
+	config.lon = document.getElementById("lon").value;
+	config.site = document.getElementById("site").value;
+	fetch("https://exptech.com.tw/api/v1/et", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ function: "send", type: "config", uuid: config.id, token: params.token, data: config }),
+	})
+		.then(async res => {
+			const ans = await res.text();
+			if (ans == "Success Sended!") {
+				device_setting_box.style.display = "none";
+				load();
+				alert("已發送 [配置] 訊息");
+			} else if (ans == "Client Close!") alert("裝置已斷開連接");
+			else alert("未發現裝置");
+		})
+		.catch(err => {
+			console.error(err);
+			const res = err.request.response;
+			alert(res);
+		});
+
+}
+
+document.getElementById("device-cancel").onclick = () => {
+	device_setting_box.style.display = "none";
+}
+
+function test(id) {
+	fetch("https://exptech.com.tw/api/v1/et", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ function: "send", type: "test", uuid: id, token: params.token, }),
+	})
+		.then(async res => {
+			const ans = await res.text();
+			if (ans == "Success Sended!") alert("已發送 [測試] 訊息");
+			else if (ans == "Client Close!") alert("裝置已斷開連接");
+			else alert("未發現裝置");
 		})
 		.catch(err => {
 			console.error(err);

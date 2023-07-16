@@ -362,6 +362,39 @@
                         </thead>
                         <tbody id="table-device"></tbody>
                     </table>
+                    <div style="padding-top: 50px;">
+                        <input class="note" id="eid" type="number" placeholder="EID">
+                        <button id="add-device">新增裝置</button>
+                    </div>
+                    <div id="device-setting" style="padding-top: 50px;display: none;">
+                        <div id="config" style="font-size: 30px;font-weight: 900;padding: 10px;"></div>
+                        <div><input class="note" id="ssid" type="text" placeholder="SSID(exptech)"></div>
+                        <div><input class="note" id="pass" type="text" placeholder="Pass(1234567890)"></div>
+                        <div><input class="note" id="lon" type="number" placeholder="經度(120.2940045)"></div>
+                        <div><input class="note" id="lat" type="number" placeholder="緯度(22.967286)"></div>
+                        <div><input class="note" id="site" type="number" placeholder="場址值(1)"></div>
+                        <button id="device-config">配置</button>
+                        <button id="device-cancel">取消</button>
+                    </div>
+                    <div style="font-size: 30px;font-weight: 900;padding: 10px;">裝置列表(不計入客戶端連接數)</div>
+                    <table style="font-size: 18px;">
+                        <thead>
+                            <tr>
+                                <th>EID</th>
+                                <th>型號</th>
+                                <th>IP</th>
+                                <th>localIP</th>
+                                <th>版本</th>
+                                <th>SSID</th>
+                                <th>RSSI</th>
+                                <th>Mac地址</th>
+                                <th>最後連線時間</th>
+                                <th>測試</th>
+                                <th>設定</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-equipment"></tbody>
+                    </table>
                 </div>
                 <div id="box-code" class="box-item">
                     <div class="code-item">
