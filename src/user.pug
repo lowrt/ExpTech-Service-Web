@@ -230,7 +230,37 @@ html(lang="zh-Hant")
                   th 連線時間
                 
               tbody#table-device
-          
+            div(style="padding-top: 50px;")
+              input#eid.note(type="number", placeholder="EID")
+              button#add-device 新增裝置
+
+            div#device-setting(style="padding-top: 50px;display: none;")
+              div#config(style="font-size: 30px; font-weight: 900; padding: 10px;")
+              div: input#ssid.note(type="text", placeholder="SSID(exptech)")
+              div: input#pass.note(type="text", placeholder="Pass(1234567890)")
+              div: input#lon.note(type="number", placeholder="經度(120.2940045)")
+              div: input#lat.note(type="number", placeholder="緯度(22.967286)")
+              div: input#site.note(type="number", placeholder="場址值(1)")
+              button#device-config 配置
+              button#device-cancel 取消
+
+            div(style="font-size: 30px;font-weight: 900;padding: 10px;") 裝置列表(不計入客戶端連接數)
+            table(style="font-size: 18px;")
+              thead
+                tr
+                  th EID
+                  th 型號
+                  th IP
+                  th localIP
+                  th 版本
+                  th SSID
+                  th RSSI
+                  th Mac地址
+                  th 最後連線時間
+                  th 測試
+                  th 設定
+              tbody#table-equipment
+
           #applications.view 
             .application-container
               .application
