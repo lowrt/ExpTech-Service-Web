@@ -3,13 +3,15 @@
  */
 const email = document.getElementById("email");
 const password = document.getElementById("password");
-const submit = document.getElementById("submit");
+const loginForm = document.getElementById("login");
 
 document.getElementById("register").addEventListener("click", (e) => {
 	window.location.href = "./register.html";
 });
 
-submit.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+	console.log("owo");
 	email.setCustomValidity("");
 	password.setCustomValidity("");
 
@@ -20,7 +22,7 @@ submit.addEventListener("submit", (e) => {
 
 	email.disabled = true;
 	password.disabled = true;
-	submit.disabled = true;
+	loginForm.disabled = true;
 
 	fetch("https://exptech.com.tw/api/v1/et/login", {
 		method  : "POST",
@@ -66,7 +68,7 @@ submit.addEventListener("submit", (e) => {
 
 				email.disabled = false;
 				password.disabled = false;
-				submit.disabled = false;
+				loginForm.disabled = false;
 				email.reportValidity();
 				password.reportValidity();
 			}
@@ -75,8 +77,9 @@ submit.addEventListener("submit", (e) => {
 			console.error(err);
 			email.disabled = false;
 			password.disabled = false;
-			submit.disabled = false;
+			loginForm.disabled = false;
 			const res = err.request.response;
 			alert(res);
 		});
+	return false;
 });
