@@ -29,7 +29,8 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "targets": {
     "default": {
-      "context": "browser"
+      "context": "browser",
+      "publicUrl":"https://exptech.com.tw/api/v1/file/exptech/"
     }
   }
 }

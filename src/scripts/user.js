@@ -490,25 +490,24 @@ create.onclick = () => {
 		});
 };
 
-document.getElementById("logout").addEventListener("click",
-	function() {
-		document.body.style.pointerEvents = "none";
-		this.disabled = true;
-		this.classList.add("loading");
-		fetch(`https://exptech.com.tw/api/v1/et/logout?token=${params.token}`)
-			.then(res => {
-				if (res.ok)
-					window.location.replace("./login.html");
-				else
-					throw res.status;
-			})
-			.catch(err => {
-				console.error(err);
-				document.body.style.pointerEvents = "";
-				this.disabled = false;
-				this.classList.remove("loading");
-			});
-	});
+document.getElementById("logout").onclick = () => {
+	document.body.style.pointerEvents = "none";
+	this.disabled = true;
+	this.classList.add("loading");
+	fetch(`https://exptech.com.tw/api/v1/et/logout?token=${params.token}`)
+		.then(res => {
+			if (res.ok)
+				window.location.replace("./login.html");
+			else
+				throw res.status;
+		})
+		.catch(err => {
+			console.error(err);
+			document.body.style.pointerEvents = "";
+			this.disabled = false;
+			this.classList.remove("loading");
+		});
+};
 
 function link(url) {
 	window.open(`https://${url}`, "_blank");
