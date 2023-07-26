@@ -18,9 +18,11 @@ body {
 
     > .content {
       display: grid;
-      grid-template-columns: minmax(100px, 200px) 1fr;
+      grid-template-columns: 160px 1fr;
       gap: 12px;
       min-height: 0;
+      white-space: nowrap;
+      transition: grid-template-columns .2s;
 
       > nav {
         display: flex;
@@ -199,6 +201,7 @@ body {
         display: inline-flex;
         flex-wrap: wrap;
         gap: 4px;
+        margin: 0 4px;
 
         > .tag {
           color: #fff;
@@ -563,4 +566,20 @@ table>tbody>tr:hover {
 
 .action {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 426px) {
+  body > .app-container > .content {
+    grid-template-columns: 44px 1fr;
+
+    > nav {
+      > button.nav-item,
+      > button.nav-button {
+        > .text {
+          opacity: 0;
+          overflow: hidden;
+        }
+      }
+    }
+  }
 }

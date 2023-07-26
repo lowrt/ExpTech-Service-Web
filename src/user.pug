@@ -3,6 +3,7 @@ html(lang="zh-Hant")
   head
     title#title TREM Service Panel
     meta(charset="utf-8") 
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(content="ExpTech Studio", property="og:title") 
     meta(content="ExpTech | 探索科技 | 用戶資訊面板", property="og:description")
     meta(content="https://exptech.com.tw/api/v1/file/exptech/index.html", property="og:url")
@@ -10,7 +11,6 @@ html(lang="zh-Hant")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
     link(rel="stylesheet", href="stylesheets/components/header.scss")
     link(rel="stylesheet", href="stylesheets/user.scss")
-  
   body
     .app-container
       include ./components/header.pug
@@ -21,31 +21,31 @@ html(lang="zh-Hant")
           include ./components/icon.pug
           button.nav-item.active(type="button", data-view="home")
             +icon("home")
-            span 首頁
+            span.text 首頁
           button.nav-item(type="button", data-view="services")
             +icon("api")
-            span 服務
+            span.text 服務
           button.nav-item(type="button", data-view="keys")
             +icon("key")
-            span 金鑰
+            span.text 金鑰
           button.nav-item(type="button", data-view="status")
             +icon("monitoring")
-            span 狀態
+            span.text 狀態
           button.nav-item(type="button", data-view="devices")
             +icon("devices")
-            span 設備
+            span.text 設備
           button.nav-item(type="button", data-view="applications")
             +icon("apps")
-            span 程式
+            span.text 程式
           button.nav-item(type="button", data-view="charge")
             +icon("add")
-            span 加值
+            span.text 加值
           button.nav-item(type="button", data-view="about")
             +icon("info")
-            span 關於
+            span.text 關於
           button#logout.nav-button.danger
             +icon("logout")
-            span 登出
+            span.text 登出
 
         .view-container
           #home.view.active
