@@ -38,7 +38,7 @@
     "curly": ["error", "multi", "consistent"],
     "dot-location": ["error", "property"],
     "handle-callback-err": "off",
-    "indent": ["warn", "tab", { "SwitchCase": 1}],
+    "indent": ["warn", 2, { "SwitchCase": 1}],
     "key-spacing": ["warn", {
       "beforeColon": false,
       "afterColon": true,
