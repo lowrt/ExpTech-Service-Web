@@ -153,36 +153,28 @@ function refresh() {
       const data = await res.json();
       const frag = new DocumentFragment();
       for (let i = 0; i < data.length; i++) {
-        const box = document.createElement("div");
-        box.className = "announcement";
-
-        const title = document.createElement("div");
-        title.className = "announcement-title";
-        title.textContent = data[i].title;
-
-        const tag = document.createElement("div");
-        tag.className = "announcement-tag-container";
-
-        for (let I = 0; I < data[i].type.length; I++) {
-          const t = document.createElement("a");
-          t.className = "tag";
-          t.textContent = a_type[data[i].type[I]].text;
-          t.style.backgroundColor = a_type[data[i].type[I]].color;
-          tag.appendChild(t);
-        }
-
-        const subtitle = document.createElement("div");
-        subtitle.className = "announcement-subtitle";
-        subtitle.textContent = data[i].subtitle;
-
-        const body = document.createElement("div");
-        body.className = "announcement-content";
-        body.textContent = data[i].body;
-
-        subtitle.appendChild(tag);
-        box.appendChild(subtitle);
-        box.appendChild(title);
-        box.appendChild(body);
+        const box = new ElementBuilder()
+          .setClass([ "announcement" ])
+          // subtitle
+          .addChildren(new ElementBuilder()
+            .setClass([ "announcement-subtitle" ])
+            .setContent(data[i].subtitle)
+            .addChildren(new ElementBuilder()
+              .setClass([ "announcement-tag-container" ])
+              // tags
+              .addChildren(data[i].type.map(tag => new ElementBuilder()
+                .setClass([ "tag" ])
+                .setContent(a_type[tag].text)
+                .setStyle("backgroundColor", a_type[tag].color)))))
+          // title
+          .addChildren(new ElementBuilder()
+            .setClass([ "announcement-title" ])
+            .setContent(data[i].title))
+          // body
+          .addChildren(new ElementBuilder()
+            .setClass([ "announcement-content" ])
+            .setContent(data[i].body))
+          .toElement();
 
         frag.appendChild(box);
       }
