@@ -55,16 +55,24 @@ export class ElementBuilder {
     return this;
   }
 
+  setStyle(rule, value) {
+    this.element.style[rule] = value;
+    return this;
+  }
+
   addChildren(children) {
+    if (Array.isArray(children))
+      for (const child of children)
+        if (child instanceof ElementBuilder)
+          this.element.append(child.toElement());
+        else
+          this.element.append(child);
+    else
     if (children instanceof ElementBuilder)
-      if (Array.isArray(children))
-        this.element.append(...children.map(v => v.toElement()));
-      else
-        this.element.append(children.toElement());
-    else if (Array.isArray(children))
-      this.element.append(...children);
+      this.element.append(children.toElement());
     else
       this.element.append(children);
+
 
     return this;
   }
