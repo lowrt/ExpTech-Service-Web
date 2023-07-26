@@ -1,3 +1,5 @@
+import { ElementBuilder } from "./domhelper";
+
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 if (!params.token) window.location.replace("./login.html");
@@ -95,7 +97,7 @@ fetch("https://exptech.com.tw/api/v1/et/service-info")
 		const data = await res.json();
 		service_list = data.list;
 		service_info = data.info;
-		load();
+		refresh();
 	})
 	.catch(err => {
 		console.error(err);
@@ -106,7 +108,7 @@ fetch("https://exptech.com.tw/api/v1/et/service-info")
 const client_text = document.getElementById("client");
 const day_text = document.getElementById("day");
 
-function load() {
+function refresh() {
 	for (const item of document.getElementsByClassName("load")) {
 		item.style.backgroundColor = "grey";
 		item.textContent = "資料更新中...";
@@ -144,7 +146,7 @@ function load() {
 					item.textContent = "資料更新";
 					item.style.pointerEvents = "";
 					item.onclick = () => {
-						load();
+						refresh();
 					};
 				}
 			}, 5000);
@@ -303,7 +305,7 @@ function ColorCode() {
 
 function switch_service(type, status) {
 	fetch(`https://exptech.com.tw/api/v1/et/${(!status) ? "subscribe" : "unsubscribe"}?token=${params.token}&type=${type}`)
-		.then(res => load())
+		.then(res => refresh())
 		.catch(err => {
 			console.error(err);
 			const res = err.request.response;
@@ -311,53 +313,58 @@ function switch_service(type, status) {
 		});
 }
 
-function copy(key) {
+const copy = (key) => {
 	navigator.clipboard.writeText(key)
-		.then(() => alert("金鑰已複製到剪貼板"))
+		.then(() => alert("已將金鑰複製至剪貼板"))
 		.catch(err => console.error(err));
 }
 
-function del(key) {
+const deleteKey = (key) => {
 	fetch(`https://exptech.com.tw/api/v1/et/key-remove?token=${params.token}&key=${key}`)
-		.then(res => load())
+		.then(refresh)
 		.catch(err => {
 			console.error(err);
 			const res = err.request.response;
 			alert(res);
 		});
-}
+};
 
 function reload_key() {
 	const frag = new DocumentFragment();
 	for (let i = 0; i < Object.keys(user_info.key).length; i++) {
 		const k = Object.keys(user_info.key)[i];
-		const box = document.createElement("tr");
 
-		const key = document.createElement("td");
-		key.textContent = k.substring(0, 10);
-		key.setAttribute("data-text", key.textContent);
+    const data = {
+      key: k.substring(0, 10),
+      time: time_string(user_info.key[k].time),
+      note: user_info.key[k].note
+    }
 
-		const time = document.createElement("td");
-		time.textContent = time_string(user_info.key[k].time);
-		time.setAttribute("data-text", time.textContent);
+    const box = new ElementBuilder("tr")
+      // key
+      .addChildren(new ElementBuilder("td")
+        .setContent(data.key)
+        .setAttribute("data-text", data.key))
+      // time
+      .addChildren(new ElementBuilder("td")
+        .setContent(data.time)
+        .setAttribute("data-text", data.time))
+      // time
+      .addChildren(new ElementBuilder("td")
+        .setContent(data.note)
+        .setAttribute("data-text", data.note))
+      // copy to clipboard
+      .addChildren(new ElementBuilder("td")
+        .setContent("複製金鑰")
+        .setAttribute("data-text", "複製金鑰")
+        .on("click", copy, k))
+      // delete key
+      .addChildren(new ElementBuilder("td")
+        .setContent("刪除金鑰")
+        .setAttribute("data-text", "刪除金鑰")
+        .on("click", deleteKey, k))
+      .toElement();
 
-		const note = document.createElement("td");
-		note.textContent = user_info.key[k].note;
-		note.setAttribute("data-text", note.textContent);
-
-		const action = document.createElement("td");
-		action.innerHTML = `<a style="color: lightskyblue;text-decoration:underline;cursor: pointer;" onclick="copy('${k}')">複製金鑰</a>`;
-		action.setAttribute("data-text", action.textContent);
-
-		const del = document.createElement("td");
-		del.innerHTML = `<a style="color: red;text-decoration:underline;cursor: pointer;" onclick="del('${k}')">刪除金鑰</a>`;
-		del.setAttribute("data-text", del.textContent);
-
-		box.appendChild(key);
-		box.appendChild(time);
-		box.appendChild(note);
-		box.appendChild(action);
-		box.appendChild(del);
 		frag.appendChild(box);
 	}
 
@@ -480,7 +487,7 @@ create.onclick = () => {
 		}),
 	})
 		.then(res => {
-			load();
+			refresh();
 			note.value = "";
 		})
 		.catch(err => {
@@ -513,7 +520,7 @@ function link(url) {
 	window.open(`https://${url}`, "_blank");
 }
 
-setInterval(() => load(), 60_000);
+setInterval(() => refresh(), 60_000);
 
 document.getElementById("alert-box-button").onclick = () => {
 	index.style.display = "";
