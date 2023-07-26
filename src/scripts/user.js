@@ -71,25 +71,21 @@ function Pay(type) {
 		});
 }
 
-const time_string = (time) => {
-	const now = new Date(time);
-	let Now = now.getFullYear().toString();
-	Now += "/";
-	if ((now.getMonth() + 1) < 10) Now += "0" + (now.getMonth() + 1).toString();
-	else Now += (now.getMonth() + 1).toString();
-	Now += "/";
-	if (now.getDate() < 10) Now += "0" + now.getDate().toString();
-	else Now += now.getDate().toString();
-	Now += " ";
-	if (now.getHours() < 10) Now += "0" + now.getHours().toString();
-	else Now += now.getHours().toString();
-	Now += ":";
-	if (now.getMinutes() < 10) Now += "0" + now.getMinutes().toString();
-	else Now += now.getMinutes().toString();
-	Now += ":";
-	if (now.getSeconds() < 10) Now += "0" + now.getSeconds().toString();
-	else Now += now.getSeconds().toString();
-	return Now;
+const toTimeString = (timestamp) => {
+	const date = new Date(timestamp);
+	return [
+		[
+			`${date.getFullYear()}`,
+			`${date.getMonth() + 1}`.padStart(2, "0"),
+			`${date.getDate()}`.padStart(2, "0"),
+		].join("/"),
+		" ",
+		[
+			`${date.getHours()}`.padStart(2, "0"),
+			`${date.getMinutes()}`.padStart(2, "0"),
+			`${date.getSeconds()}`.padStart(2, "0"),
+		].join(":"),
+	].join("");
 };
 
 fetch("https://exptech.com.tw/api/v1/et/service-info")
@@ -317,7 +313,7 @@ const copy = (key) => {
 	navigator.clipboard.writeText(key)
 		.then(() => alert("已將金鑰複製至剪貼板"))
 		.catch(err => console.error(err));
-}
+};
 
 const deleteKey = (key) => {
 	fetch(`https://exptech.com.tw/api/v1/et/key-remove?token=${params.token}&key=${key}`)
@@ -334,36 +330,36 @@ function reload_key() {
 	for (let i = 0; i < Object.keys(user_info.key).length; i++) {
 		const k = Object.keys(user_info.key)[i];
 
-    const data = {
-      key: k.substring(0, 10),
-      time: time_string(user_info.key[k].time),
-      note: user_info.key[k].note
-    }
+		const data = {
+			key  : k.substring(0, 10),
+			time : toTimeString(user_info.key[k].time),
+			note : user_info.key[k].note,
+		};
 
-    const box = new ElementBuilder("tr")
-      // key
-      .addChildren(new ElementBuilder("td")
-        .setContent(data.key)
-        .setAttribute("data-text", data.key))
-      // time
-      .addChildren(new ElementBuilder("td")
-        .setContent(data.time)
-        .setAttribute("data-text", data.time))
-      // time
-      .addChildren(new ElementBuilder("td")
-        .setContent(data.note)
-        .setAttribute("data-text", data.note))
-      // copy to clipboard
-      .addChildren(new ElementBuilder("td")
-        .setContent("複製金鑰")
-        .setAttribute("data-text", "複製金鑰")
-        .on("click", copy, k))
-      // delete key
-      .addChildren(new ElementBuilder("td")
-        .setContent("刪除金鑰")
-        .setAttribute("data-text", "刪除金鑰")
-        .on("click", deleteKey, k))
-      .toElement();
+		const box = new ElementBuilder("tr")
+		// key
+			.addChildren(new ElementBuilder("td")
+				.setContent(data.key)
+				.setAttribute("data-text", data.key))
+		// time
+			.addChildren(new ElementBuilder("td")
+				.setContent(data.time)
+				.setAttribute("data-text", data.time))
+		// time
+			.addChildren(new ElementBuilder("td")
+				.setContent(data.note)
+				.setAttribute("data-text", data.note))
+		// copy to clipboard
+			.addChildren(new ElementBuilder("td")
+				.setContent("複製金鑰")
+				.setAttribute("data-text", "複製金鑰")
+				.on("click", copy, k))
+		// delete key
+			.addChildren(new ElementBuilder("td")
+				.setContent("刪除金鑰")
+				.setAttribute("data-text", "刪除金鑰")
+				.on("click", deleteKey, k))
+			.toElement();
 
 		frag.appendChild(box);
 	}
@@ -386,11 +382,11 @@ function reload_status() {
 		ip.setAttribute("data-text", ip.textContent);
 
 		const first = document.createElement("td");
-		first.textContent = time_string(user_info.key_list[k].start);
+		first.textContent = toTimeString(user_info.key_list[k].start);
 		first.setAttribute("data-text", first.textContent);
 
 		const last = document.createElement("td");
-		last.textContent = time_string(user_info.key_list[k].time);
+		last.textContent = toTimeString(user_info.key_list[k].time);
 		last.setAttribute("data-text", last.textContent);
 
 		box.appendChild(key);
@@ -418,7 +414,7 @@ function reload_device() {
 		ip.setAttribute("data-text", ip.textContent);
 
 		const first = document.createElement("td");
-		first.textContent = time_string(user_info.client_list[id].time);
+		first.textContent = toTimeString(user_info.client_list[id].time);
 		first.setAttribute("data-text", first.textContent);
 
 		box.appendChild(uuid);
