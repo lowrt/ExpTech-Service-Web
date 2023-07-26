@@ -284,6 +284,7 @@ body {
 
 .table-wrapper {
   overflow: auto;
+  padding-bottom: 4px;
 }
 
 table {
@@ -441,6 +442,7 @@ table>tbody>tr:hover {
 }
 
 ::-webkit-scrollbar {
+  height: 6px;
   width: 6px;
   background-color: rgb(255 255 255 / 8%);
 }
