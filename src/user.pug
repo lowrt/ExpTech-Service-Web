@@ -142,18 +142,18 @@ html(lang="zh-Hant")
           #services.view 
             .container
               .view-header 可用服務列表
-            
-              table
-                thead
-                  tr
-                    th 說明
-                    th API
-                    th 費用
-                    th 服務
-                    th 狀態
-                    th 操作
-                  
-                tbody#table-service
+              .table-wrapper
+                table
+                  thead
+                    tr
+                      th 說明
+                      th API
+                      th 費用
+                      th 服務
+                      th 狀態
+                      th 操作
+                    
+                  tbody#table-service
               
               .warn 
               div(style="display: flex; align-items: center;")
@@ -177,57 +177,61 @@ html(lang="zh-Hant")
                   type="text"
                   placeholder="備註(可不填)"
                 )
-                
                 button#create 創建金鑰
-              table
-                thead
-                  tr
-                    th Key(前10位)
-                    th 創建時間
-                    th 備註
-                    th 操作
-                    th 其他
-                  
-                tbody#table-key
+
+              .table-wrapper
+                table
+                  thead
+                    tr
+                      th Key(前10位)
+                      th 創建時間
+                      th 備註
+                      th 操作
+                      th 其他
+                    
+                  tbody#table-key
             
           #status.view 
             .container
               .view-header 金鑰狀態列表
-              table
-                thead
-                  tr
-                    th Key(前10位)
-                    th IP
-                    th 初次連線時間
-                    th 最後連線時間
-                  
-                tbody#table-status
+              .table-wrapper
+                table
+                  thead
+                    tr
+                      th Key(前10位)
+                      th IP
+                      th 初次連線時間
+                      th 最後連線時間
+                    
+                  tbody#table-status
               
               .view-header 流量圖(近24小時)
               
               canvas#myChart
                 div(style="font-size: 30px; font-weight: 900; padding: 10px;") 流量統計列表(近24小時)
               
-              table
-                thead
-                  tr
-                    th 路徑
-                    th 請求類型
-                    th 服務類型
-                    th 次數
-                
-                tbody#table-api
+              .table-wrapper
+                table
+                  thead
+                    tr
+                      th 路徑
+                      th 請求類型
+                      th 服務類型
+                      th 次數
+                  
+                  tbody#table-api
           
           #devices.view 
             div(style="display: flex; align-items: center;")
               div(style="font-size: 30px; font-weight: 900; padding: 10px;") 在線設備列表
             
-            table
-              thead
-                tr
-                  th UUID(前10位)
-                  th IP
-                  th 連線時間
+            .table-wrapper
+              table
+                thead
+                  tr
+                    th UUID(前10位)
+                    th IP
+                    th 連線時間
                 
               tbody#table-device
             div(style="padding-top: 50px;")
@@ -245,21 +249,22 @@ html(lang="zh-Hant")
               button#device-cancel 取消
 
             div(style="font-size: 30px;font-weight: 900;padding: 10px;") 裝置列表(不計入客戶端連接數)
-            table(style="font-size: 18px;")
-              thead
-                tr
-                  th EID
-                  th 型號
-                  th IP
-                  th localIP
-                  th 版本
-                  th SSID
-                  th RSSI
-                  th Mac地址
-                  th 最後連線時間
-                  th 測試
-                  th 設定
-              tbody#table-equipment
+            .table-wrapper
+              table(style="font-size: 18px;")
+                thead
+                  tr
+                    th EID
+                    th 型號
+                    th IP
+                    th localIP
+                    th 版本
+                    th SSID
+                    th RSSI
+                    th Mac地址
+                    th 最後連線時間
+                    th 測試
+                    th 設定
+                tbody#table-equipment
 
           #applications.view 
             .application-container

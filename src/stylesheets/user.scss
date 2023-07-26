@@ -282,13 +282,17 @@ body {
   }
 }
 
+.table-wrapper {
+  overflow: auto;
+}
+
 table {
   border-radius: 4px;
   font-family: sans-serif;
   font-size: 0.9em;
   overflow: hidden;
   border-collapse: collapse;
-  min-width: 400px;
+  width: 100%;
   box-shadow: 0 0 20px rgb(0 0 0 / 15%);
 }
 
@@ -302,6 +306,7 @@ table td {
   padding: 8px 10px;
   color: #fff;
   text-align: center;
+  white-space: nowrap;
 }
 
 table>tbody>tr>td::after {
