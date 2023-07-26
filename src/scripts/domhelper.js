@@ -26,6 +26,15 @@ export class ElementBuilder {
 		return this;
 	}
 
+  setClass(data) {
+    if (Array.isArray(data))
+      for (const className of data)
+        this.element.classList.add(className);
+    else if (typeof data == "string")
+      this.element.className = data;
+      return this;
+  }
+
 	setContent(content) {
 		this.element.textContent = content;
 		return this;

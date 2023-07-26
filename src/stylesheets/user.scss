@@ -229,13 +229,13 @@ body {
     display: flex;
     align-items: center;
     gap: 2px;
-    color: hsl(225, 72%, 68%);
+    color: hsl(225deg, 72%, 68%);
     text-decoration: none;
     font-size: 18px;
     line-height: 20px;
 
     > .link-text {
-      border-bottom: 1px solid hsl(225, 72%, 68%);
+      border-bottom: 1px solid hsl(225deg, 72%, 68%);
     }
 
     &.external::after {
@@ -543,4 +543,24 @@ table>tbody>tr:hover {
   background-color: darkblue;
   font-size: 24px;
   cursor: pointer;
+}
+
+.danger {
+  color: hsl(5deg 100% 85%);
+  
+  &:hover {
+    color: hsl(5deg 100% 75%);
+  }
+}
+
+.primary {
+  color: hsl(225deg, 72%, 68%);  
+  
+  &:hover {
+    color: hsl(225deg, 72%, 58%);
+  }
+}
+
+.action {
+  text-decoration: underline;
 }

@@ -351,11 +351,13 @@ function reload_key() {
 				.setAttribute("data-text", data.note))
 		// copy to clipboard
 			.addChildren(new ElementBuilder("td")
+        .setClass([ "primary", "action" ])
 				.setContent("複製金鑰")
 				.setAttribute("data-text", "複製金鑰")
 				.on("click", copy, k))
 		// delete key
 			.addChildren(new ElementBuilder("td")
+        .setClass([ "danger", "action" ])
 				.setContent("刪除金鑰")
 				.setAttribute("data-text", "刪除金鑰")
 				.on("click", deleteKey, k))
