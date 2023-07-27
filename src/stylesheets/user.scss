@@ -8,6 +8,7 @@ body {
   color: white;
   background-color: #1f2026;
   font-family: Lato, "Noto Sans TC", "微軟正黑體", sans-serif;
+  white-space: nowrap;
   user-select: none;
 
   > .app-container {
@@ -18,11 +19,12 @@ body {
 
     > .content {
       display: grid;
-      grid-template-columns: 160px 1fr;
+      grid-template-columns: 140px 1fr;
       gap: 12px;
       min-height: 0;
-      white-space: nowrap;
-      transition: grid-template-columns .2s;
+      transition-property: grid-template-columns;
+      transition-duration: 200ms;
+      transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 
       > nav {
         display: flex;
@@ -77,6 +79,13 @@ body {
               background-color: hsl(5deg 100% 65% / 16%);
               outline: 1px solid rgb(255 120 120 / 60%);
             }
+          }
+
+          > .text {
+            opacity: 1;
+            transition-property: opacity;
+            transition-duration: 200ms;
+            transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
           }
         }
       }
@@ -588,5 +597,11 @@ table>tbody>tr:hover {
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body > .app-container > .content {
+    grid-template-columns: 200px 1fr;
   }
 }
