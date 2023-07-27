@@ -11,7 +11,7 @@ document.getElementById("register").addEventListener("click", (e) => {
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("owo");
+
   email.setCustomValidity("");
   password.setCustomValidity("");
 

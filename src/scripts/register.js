@@ -5,7 +5,7 @@ const repeat_password = document.getElementById("repeat-password");
 const success_view = document.getElementById("success-view");
 const form_view = document.getElementById("form-view");
 const container = document.getElementById("container");
-const submit = document.getElementById("submit");
+const registerForm = document.getElementById("register");
 
 document.getElementById("login").onclick = (e) => {
   window.location.href = "./login.html";
@@ -32,7 +32,9 @@ password.oninput = (e) => {
   else password_strength.className = "error empty";
 };
 
-submit.onclick = (e) => {
+registerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
   repeat_password.setCustomValidity("");
   email.setCustomValidity("");
   password.setCustomValidity("");
@@ -48,7 +50,7 @@ submit.onclick = (e) => {
     return;
   }
 
-  submit.disabled = true;
+  registerForm.disabled = true;
 
   fetch("https://exptech.com.tw/api/v1/et/register", {
     method  : "POST",
@@ -105,13 +107,13 @@ submit.onclick = (e) => {
             break;
           }
         }
-        submit.disabled = false;
+        registerForm.disabled = false;
       }
     })
     .catch((err) => {
       console.error(err);
-      submit.disabled = false;
+      registerForm.disabled = false;
       const res = err.request.response;
       alert(res);
     });
-};
+});
