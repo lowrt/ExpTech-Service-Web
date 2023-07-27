@@ -52,7 +52,7 @@ const a_type = [
 
 let service_list = [];
 let service_info = [];
-let user_info = {};
+let user = {};
 let CTX;
 
 function Pay(type) {
@@ -111,43 +111,53 @@ function refresh() {
     item.style.pointerEvents = "none";
   }
   fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
-    .then(async res => {
-      user_info = await res.json();
-      if (Object.keys(user_info.client_list).length > user_info.client) {
-        if (!client_limit) {
-          client_limit = true;
-          alert_box.style.display = "";
-          index.style.display = "none";
-          document.getElementById("alert-box-text").innerHTML = "已超出此帳戶限制之 <b>客戶端連接數</b><br>可能導致此帳戶底下的設備 <b>無法正常運作</b>";
-        }
-        client_text.style.color = "purple";
-      } else {
-        client_limit = false;
-        client_text.style.color = "white";
+    .then(res => {
+      if (res.ok) {
+        res
+          .json()
+          .then(data => {
+            user = data;
+            if (Object.keys(user.client_list).length > user.client) {
+              if (!client_limit) {
+                client_limit = true;
+                alert_box.style.display = "";
+                index.style.display = "none";
+                document.getElementById("alert-box-text").innerHTML = "已超出此帳戶限制之 <b>客戶端連接數</b><br>可能導致此帳戶底下的設備 <b>無法正常運作</b>";
+              }
+              client_text.style.color = "purple";
+            } else {
+              client_limit = false;
+              client_text.style.color = "white";
+            }
+            client_text.textContent = `${Object.keys(user.client_list).length}/${user.client}`;
+            document.getElementById("coin").textContent = user.coin;
+            document.getElementById("use").textContent = user.use;
+            const day_count = Math.floor(user.coin / user.use);
+            day_text.textContent = (!user.coin) ? "已用完" : (!user.use) ? "未使用" : `${day_count} 天`;
+            day_text.style.color = (!user.coin) ? "purple" : (!user.use) ? "lightgray" : (day_count < 7) ? "purple" : "white";
+            reload_service();
+            reload_device();
+            reload_status();
+            reload_key();
+            service_info_load();
+            setTimeout(() => {
+              for (const item of document.getElementsByClassName("load")) {
+                item.style.backgroundColor = "dodgerblue";
+                item.textContent = "資料更新";
+                item.style.pointerEvents = "";
+                item.onclick = () => {
+                  refresh();
+                };
+              }
+            }, 5000);
+          });
+      } else
+      if (res.status == 400) {
+        console.log("Invalid or expired access token, redirecting to login page.");
+        window.location.replace("./login.html");
       }
-      client_text.textContent = `${Object.keys(user_info.client_list).length}/${user_info.client}`;
-      document.getElementById("coin").textContent = user_info.coin;
-      document.getElementById("use").textContent = user_info.use;
-      const day_count = Math.floor(user_info.coin / user_info.use);
-      day_text.textContent = (!user_info.coin) ? "已用完" : (!user_info.use) ? "未使用" : `${day_count} 天`;
-      day_text.style.color = (!user_info.coin) ? "purple" : (!user_info.use) ? "lightgray" : (day_count < 7) ? "purple" : "white";
-      reload_service();
-      reload_device();
-      reload_status();
-      reload_key();
-      service_info_load();
-      setTimeout(() => {
-        for (const item of document.getElementsByClassName("load")) {
-          item.style.backgroundColor = "dodgerblue";
-          item.textContent = "資料更新";
-          item.style.pointerEvents = "";
-          item.onclick = () => {
-            refresh();
-          };
-        }
-      }, 5000);
     });
-  // .catch(err => window.location.replace("./login.html"));
+
   fetch("https://exptech.com.tw/api/v1/et/announcement")
     .then(async res => {
       const data = await res.json();
@@ -196,19 +206,19 @@ function service_info_load() {
     datasets : [],
   };
 
-  for (let i = 0; i < user_info.dump.length; i++) {
-    Chart_data.labels.push(`${user_info.dump[i].hour.replace(" ", "日 ")}時`);
-    for (let I = 0; I < Object.keys(user_info.dump[i].data).length; I++) {
-      const type = Object.keys(user_info.dump[i].data)[I];
+  for (let i = 0; i < user.dump.length; i++) {
+    Chart_data.labels.push(`${user.dump[i].hour.replace(" ", "日 ")}時`);
+    for (let I = 0; I < Object.keys(user.dump[i].data).length; I++) {
+      const type = Object.keys(user.dump[i].data)[I];
       if (!amount[type]) amount[type] = 0;
-      amount[type] += user_info.dump[i].data[type];
+      amount[type] += user.dump[i].data[type];
     }
   }
 
-  for (let i = 0; i < user_info.dump.length; i++)
+  for (let i = 0; i < user.dump.length; i++)
     for (let I = 0; I < Object.keys(amount).length; I++) {
       const type = Object.keys(amount)[I];
-      const c = user_info.dump[i].data[type] ?? 0;
+      const c = user.dump[i].data[type] ?? 0;
       let find = false;
       for (let _i = 0; _i < Chart_data.datasets.length; _i++)
         if (Chart_data.datasets[_i].label == type) {
@@ -319,13 +329,13 @@ const deleteKey = (key) => {
 
 function reload_key() {
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(user_info.key).length; i++) {
-    const k = Object.keys(user_info.key)[i];
+  for (let i = 0; i < Object.keys(user.key).length; i++) {
+    const k = Object.keys(user.key)[i];
 
     const data = {
       key  : k.substring(0, 10),
-      time : toTimeString(user_info.key[k].time),
-      note : user_info.key[k].note,
+      time : toTimeString(user.key[k].time),
+      note : user.key[k].note,
     };
 
     const box = new ElementBuilder("tr")
@@ -363,8 +373,8 @@ function reload_key() {
 
 function reload_status() {
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(user_info.key_list).length; i++) {
-    const k = Object.keys(user_info.key_list)[i];
+  for (let i = 0; i < Object.keys(user.key_list).length; i++) {
+    const k = Object.keys(user.key_list)[i];
     const box = document.createElement("tr");
 
     const key = document.createElement("td");
@@ -372,15 +382,15 @@ function reload_status() {
     key.setAttribute("data-text", key.textContent);
 
     const ip = document.createElement("td");
-    ip.textContent = user_info.key_list[k].ip;
+    ip.textContent = user.key_list[k].ip;
     ip.setAttribute("data-text", ip.textContent);
 
     const first = document.createElement("td");
-    first.textContent = toTimeString(user_info.key_list[k].start);
+    first.textContent = toTimeString(user.key_list[k].start);
     first.setAttribute("data-text", first.textContent);
 
     const last = document.createElement("td");
-    last.textContent = toTimeString(user_info.key_list[k].time);
+    last.textContent = toTimeString(user.key_list[k].time);
     last.setAttribute("data-text", last.textContent);
 
     box.appendChild(key);
@@ -395,8 +405,8 @@ function reload_status() {
 
 function reload_device() {
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(user_info.client_list).length; i++) {
-    const id = Object.keys(user_info.client_list)[i];
+  for (let i = 0; i < Object.keys(user.client_list).length; i++) {
+    const id = Object.keys(user.client_list)[i];
     const box = document.createElement("tr");
 
     const uuid = document.createElement("td");
@@ -404,11 +414,11 @@ function reload_device() {
     uuid.setAttribute("data-text", uuid.textContent);
 
     const ip = document.createElement("td");
-    ip.textContent = user_info.client_list[id].ip;
+    ip.textContent = user.client_list[id].ip;
     ip.setAttribute("data-text", ip.textContent);
 
     const first = document.createElement("td");
-    first.textContent = toTimeString(user_info.client_list[id].time);
+    first.textContent = toTimeString(user.client_list[id].time);
     first.setAttribute("data-text", first.textContent);
 
     box.appendChild(uuid);
@@ -439,14 +449,14 @@ function reload_service() {
     coin.setAttribute("data-text", coin.textContent);
 
     const service = document.createElement("td");
-    const ser = user_info.service?.includes(item.api);
+    const ser = user.service?.includes(item.api);
     service.textContent = (ser || typeof item.type == "boolean") ? "服務中" : "未提供";
     service.style.backgroundColor = (ser || typeof item.type == "boolean") ? "green" : "red";
     service.setAttribute("data-text", service.textContent);
 
     const status = document.createElement("td");
-    const sub = user_info.subscribe?.includes(item.api);
-    if (!sub) user_info.service?.includes(item.api);
+    const sub = user.subscribe?.includes(item.api);
+    if (!sub) user.service?.includes(item.api);
     if (item.type && typeof item.type == "string") status.textContent = (sub) ? "已訂閱" : "未訂閱";
     if (item.type && typeof item.type == "string") status.style.backgroundColor = (sub) ? "green" : "red";
     status.setAttribute("data-text", status.textContent);
