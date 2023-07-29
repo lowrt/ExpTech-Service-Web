@@ -7,30 +7,30 @@ const form_view = document.getElementById("form-view");
 const container = document.getElementById("container");
 const registerForm = document.getElementById("register");
 
-document.getElementById("login").onclick = (e) => {
+document.getElementById("login").addEventListener("click", (e) => {
   window.location.href = "./login.html";
-};
+});
 
-password.oninput = (e) => {
+password.addEventListener("input", function(e) {
   this.value = password.value;
   password_strength.style.display = "block";
 
   if (this.value.match(/(?=.*[^A-Za-z0-9@_.-])/))
     return (password_strength.className = "error invalid");
 
-  if (
-    this.value.match(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{10,})/,
-    )
-  )
+  if (this.value.match(
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{10,})/,
+  ))
     password_strength.className = "very-strong";
   else if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/))
     password_strength.className = "strong";
   else if (this.value.match(/((?=.*[a-zA-Z0-9])(?=.{6,}))/))
     password_strength.className = "medium";
-  else if (this.value.length > 0) password_strength.className = "weak";
-  else password_strength.className = "error empty";
-};
+  else if (this.value.length > 0)
+    password_strength.className = "weak";
+  else
+    password_strength.className = "error empty";
+});
 
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
