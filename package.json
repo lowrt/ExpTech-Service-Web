@@ -4,7 +4,7 @@
   "description": "ExpTech Website",
   "scripts": {
     "watch": "parcel ./src/*.pug",
-    "build": "parcel build ./src/*.pug --no-cache --no-scope-hoist"
+    "build": "parcel build ./src/*.pug --no-cache --no-scope-hoist --public-url=https://exptech.com.tw/api/v1/file/exptech/"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,7 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "targets": {
     "default": {
-      "context": "browser",
-      "publicUrl":"https://exptech.com.tw/api/v1/file/exptech/"
+      "context": "browser"
     }
   }
 }

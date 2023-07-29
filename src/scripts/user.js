@@ -301,15 +301,19 @@ function ColorCode() {
   return finalCode;
 }
 
-function switch_service(type, status) {
+const toggleService = (type, status) => {
   fetch(`https://exptech.com.tw/api/v1/et/${(!status) ? "subscribe" : "unsubscribe"}?token=${params.token}&type=${type}`)
-    .then(res => refresh())
+    .then(res => {
+      if (res.ok)
+        refresh();
+      else
+        throw new Error(`The server returned a status code of ${res.status}`);
+    })
     .catch(err => {
       console.error(err);
-      const res = err.request.response;
-      alert(res);
+      alert(`無法${(!status) ? "訂閱" : "取消訂閱"}、請稍後再試。\n原因：${err}`);
     });
-}
+};
 
 const copy = (key) => {
   navigator.clipboard.writeText(key)
@@ -319,11 +323,15 @@ const copy = (key) => {
 
 const deleteKey = (key) => {
   fetch(`https://exptech.com.tw/api/v1/et/key-remove?token=${params.token}&key=${key}`)
-    .then(refresh)
+    .then(res => {
+      if (res.ok)
+        refresh();
+      else
+        throw new Error(`The server returned a status code of ${res.status}`);
+    })
     .catch(err => {
       console.error(err);
-      const res = err.request.response;
-      alert(res);
+      alert(`無法${(!status) ? "訂閱" : "取消訂閱"}、請稍後再試。\n原因：${err}`);
     });
 };
 
@@ -339,25 +347,25 @@ function reload_key() {
     };
 
     const box = new ElementBuilder("tr")
-    // key
+      // key
       .addChildren(new ElementBuilder("td")
         .setContent(data.key)
         .setAttribute("data-text", data.key))
-    // time
+      // time
       .addChildren(new ElementBuilder("td")
         .setContent(data.time)
         .setAttribute("data-text", data.time))
-    // time
+      // time
       .addChildren(new ElementBuilder("td")
         .setContent(data.note)
         .setAttribute("data-text", data.note))
-    // copy to clipboard
+      // copy to clipboard
       .addChildren(new ElementBuilder("td")
         .setClass([ "primary", "action" ])
         .setContent("複製金鑰")
         .setAttribute("data-text", "複製金鑰")
         .on("click", copy, k))
-    // delete key
+      // delete key
       .addChildren(new ElementBuilder("td")
         .setClass([ "danger", "action" ])
         .setContent("刪除金鑰")
@@ -434,44 +442,51 @@ function reload_service() {
   const frag = new DocumentFragment();
   for (let i = 0; i < service_list.length; i++) {
     const item = service_list[i];
-    const box = document.createElement("tr");
 
-    const name = document.createElement("td");
-    name.textContent = item.name;
-    name.setAttribute("data-text", name.textContent);
+    const isServicing = user.service?.includes(item.api) || typeof item.type == "boolean";
+    const isSubscribed = user.subscribe?.includes(item.api);
 
-    const api = document.createElement("td");
-    api.textContent = item.api;
-    api.setAttribute("data-text", api.textContent);
+    const box = new ElementBuilder("tr")
+      // 說明
+      .addChildren(new ElementBuilder("td")
+        .setContent(item.name)
+        .setAttribute("data-text", item.name))
+      // API
+      .addChildren(new ElementBuilder("td")
+        .setContent(item.api)
+        .setAttribute("data-text", item.api))
+      // 費用
+      .addChildren(new ElementBuilder("td")
+        .setContent(`${item.coin} 硬幣/天`)
+        .setAttribute("data-text", `${item.coin} 硬幣/天`))
+      // 服務
+      .addChildren(new ElementBuilder("td")
+        .setContent((isServicing) ? "服務中" : "未提供")
+        .setStyle("color", (isServicing) ? "#bfb" : "#fbb")
+        .setStyle("backgroundColor", (isServicing) ? "#0d04" : "#d004")
+        .setAttribute("data-text", (isServicing) ? "服務中" : "未提供"));
 
-    const coin = document.createElement("td");
-    coin.textContent = `${item.coin} 硬幣/天`;
-    coin.setAttribute("data-text", coin.textContent);
+    // 狀態
+    if (item.type && typeof item.type == "string")
+      box.addChildren(new ElementBuilder("td")
+        .setContent((isSubscribed) ? "已訂閱" : "未訂閱")
+        .setStyle("color", (isSubscribed) ? "#bfb" : "#fbb")
+        .setStyle("backgroundColor", (isSubscribed) ? "#0d04" : "#d004")
+        .setAttribute("data-text", (isSubscribed) ? "已訂閱" : "未訂閱"));
+    else
+      box.addChildren(new ElementBuilder("td"));
 
-    const service = document.createElement("td");
-    const ser = user.service?.includes(item.api);
-    service.textContent = (ser || typeof item.type == "boolean") ? "服務中" : "未提供";
-    service.style.backgroundColor = (ser || typeof item.type == "boolean") ? "green" : "red";
-    service.setAttribute("data-text", service.textContent);
+    // 操作
+    if (item.type && typeof item.type == "string")
+      box.addChildren(new ElementBuilder("td")
+        .setClass([ "action", ...((isSubscribed) ? ["danger"] : ["primary"]) ])
+        .setContent((isSubscribed) ? "取消" : "訂閱")
+        .setAttribute("data-text", (isSubscribed) ? "取消" : "訂閱")
+        .on("click", toggleService, item.type, isSubscribed));
+    else
+      box.addChildren(new ElementBuilder("td"));
 
-    const status = document.createElement("td");
-    const sub = user.subscribe?.includes(item.api);
-    if (!sub) user.service?.includes(item.api);
-    if (item.type && typeof item.type == "string") status.textContent = (sub) ? "已訂閱" : "未訂閱";
-    if (item.type && typeof item.type == "string") status.style.backgroundColor = (sub) ? "green" : "red";
-    status.setAttribute("data-text", status.textContent);
-
-    const type = document.createElement("td");
-    if (item.type && typeof item.type == "string") type.innerHTML = `<a style="color: ${(sub) ? "white" : "lightskyblue"};text-decoration:underline;cursor: pointer;" onclick="switch_service('${item.type}',${sub})">${(sub) ? "取消" : "訂閱"}</a>`;
-    type.setAttribute("data-text", type.textContent);
-
-    box.appendChild(name);
-    box.appendChild(api);
-    box.appendChild(coin);
-    box.appendChild(service);
-    box.appendChild(status);
-    box.appendChild(type);
-    frag.appendChild(box);
+    frag.appendChild(box.toElement());
   }
 
   table_service.replaceChildren(frag);
