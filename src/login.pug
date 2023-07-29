@@ -1,5 +1,4 @@
 html(lang="zh-Hant")
-
   head
     title ExpTech | 登入
     meta(charset="utf-8")
@@ -26,17 +25,18 @@ html(lang="zh-Hant")
     link(rel="preconnect", href="https://fonts.googleapis.com")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
     link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap", rel="stylesheet")
+
   body
     main
-      div.container
-        div.title 登入
-        div.description 登入管理你的 ExpTech 帳號
+      .container
+        .title 登入
+        .description 登入管理你的 ExpTech 帳號
         form#login.login-form
-          div.form-item-container
-            div.form-item
+          .form-item-container
+            .form-item
               label.required(for="email") 電子郵件地址
               input#email(type="email", name="email", placeholder="電子郵件地址", autocomplete="email", required)
-            div.form-item
+            .form-item
               label.required(for="password") 用戶密碼
               input#password(type="password", name="password", placeholder="用戶密碼", autocomplete="current-password", required)
               a.forget-password(href="./forget.html") 忘記密碼？

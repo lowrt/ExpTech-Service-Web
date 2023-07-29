@@ -21,7 +21,10 @@ html(lang="zh-Hant")
     meta(name="twitter:description", content="註冊 ExpTech 帳號")
     meta(name="twitter:image", content="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/image/Icon/ExpTech.png")
 
-    link(rel="stylesheet", href="./stylesheets/utils.css")
+    link(rel="stylesheet", href="./stylesheets/register.scss")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap", rel="stylesheet")
 
   body
     main
@@ -49,3 +52,5 @@ html(lang="zh-Hant")
           .success-description 已寄驗證信到你電子郵件地址請查收
           .success-description 將在五秒後跳轉回登入畫面
       a.info(href="https://exptech.com.tw/f?v=discord") Discord 伺服器
+
+  script(src="./scripts/register.js") 

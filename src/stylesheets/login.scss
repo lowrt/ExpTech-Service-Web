@@ -1,4 +1,3 @@
-
 @use "./components/input.scss";
 
 :root {
@@ -17,15 +16,15 @@ body {
   display: grid;
   align-items: center;
   justify-content: center;
-  padding: 0;
   margin: 0;
+  padding: 0;
   height: 100svh;
-  line-height: 18px;
-  background-color: hsl(var(--background));
   color: hsl(var(--on-background));
-  user-select: none;
-  font-family: "Noto Sans TC", sans-serif;
+  background-color: hsl(var(--background));
+  font-family: Lato, "Noto Sans TC", sans-serif;
+  line-height: 18px;
   overflow-x: hidden;
+  user-select: none;
 }
 
 .container {
@@ -128,15 +127,15 @@ a:active {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: 240deg, 7%, 11%;
-    --on-background: 255deg, 7%, 89%;
-    --primary: 220deg, 100%, 84%;
-    --on-primary: 213deg, 100%, 20%;
-    --primary-container: 212deg, 100%, 28%;
-    --on-primary-container: 224deg, 100%, 92%;
-    --outline: 229deg, 5%, 58%;
-    --surface-variant: 222deg, 7%, 29%;
-    --on-surface-variant: 230deg, 11%, 79%;
+    --background: 240deg 7% 11%;
+    --on-background: 255deg 7% 89%;
+    --primary: 220deg 100% 84%;
+    --on-primary: 213deg 100% 20%;
+    --primary-container: 212deg 100% 28%;
+    --on-primary-container: 224deg 100% 92%;
+    --outline: 229deg 5% 58%;
+    --surface-variant: 222deg 7% 29%;
+    --on-surface-variant: 230deg 11% 79%;
   }
 
   ::-ms-reveal {

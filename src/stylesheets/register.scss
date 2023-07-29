@@ -1,22 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+@use "./components/input.scss";
 
 :root {
-  --background: 48deg, 83%, 98%;
-  --on-background: 72deg, 10%, 10%;
-  --primary: 70deg, 100%, 20%;
-  --on-primary: 0deg, 0%, 100%;
-  --primary-container: 72deg, 76%, 71%;
-  --on-primary-container: 74deg, 100%, 6%;
-  --secondary-container: 69deg, 41%, 83%;
-  --on-secondary-container: 71deg, 57%, 7%;
-  --outline: 64deg, 6%, 44%;
-  --on-surface: 72deg, 10%, 10%;
-  --surface-variant: 64deg, 24%, 86%;
-  --on-surface-variant: 70deg, 9%, 26%;
-  --error: 0deg, 75%, 42%;
-  --medium: 47deg, 100%, 23%;
-  --strong: 72deg, 100%, 20%;
-  --very-strong: 300deg, 76%, 37%;
+  --background: 48deg 83% 98%;
+  --on-background: 72deg 10% 10%;
+  --primary: 70deg 100% 20%;
+  --on-primary: 0deg 0% 100%;
+  --primary-container: 72deg 76% 71%;
+  --on-primary-container: 74deg 100% 6%;
+  --secondary-container: 69deg 41% 83%;
+  --on-secondary-container: 71deg 57% 7%;
+  --outline: 64deg 6% 44%;
+  --on-surface: 72deg 10% 10%;
+  --surface-variant: 64deg 24% 86%;
+  --on-surface-variant: 70deg 9% 26%;
+  --error: 0deg 75% 42%;
+  --medium: 47deg 100% 23%;
+  --strong: 72deg 100% 20%;
+  --very-strong: 300deg 76% 37%;
+}
+
+body {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 100svh;
+  color: hsl(var(--on-background));
+  background-color: hsl(var(--background));
+  font-family: Lato, "Noto Sans TC", sans-serif;
+  line-height: 18px;
+  overflow-x: hidden;
+  user-select: none;
 }
 
 .view {
@@ -61,21 +76,6 @@
   line-height: 18px;
 }
 
-body {
-  display: grid;
-  align-items: center;
-  height: 100svh;
-  margin: 0;
-  padding: 0;
-  color: hsl(var(--on-background));
-  background-color: hsl(var(--background));
-  font-family: "Noto Sans TC", sans-serif;
-  line-height: 18px;
-  overflow-x: hidden;
-  justify-content: center;
-  user-select: none;
-}
-
 #container {
   position: relative;
   width: 400px;
@@ -116,60 +116,6 @@ body {
   display: flex;
   flex-direction: column;
   margin-bottom: 12px;
-}
-
-label {
-  padding: 8px 0;
-  color: hsl(var(--on-surface-variant));
-  font-size: 14px;
-  line-height: 16px;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-  all: unset;
-  flex: 1;
-  padding: 12px;
-  border-radius: 4px;
-  outline: 1px solid hsl(var(--outline) .4);
-  font-size: 14px;
-  line-height: 16px;
-  transition: outline .1s ease-in-out;
-}
-
-input[type="text"]:disabled,
-input[type="password"]:disabled,
-input[type="email"]:disabled {
-  color: hsl(var(--on-surface-variant) .38);
-  outline: 1px solid hsl(var(--on-surface-variant) .12);
-  cursor: not-allowed;
-}
-
-input[type="text"]:not(:disabled):hover,
-input[type="password"]:not(:disabled):hover,
-input[type="email"]:not(:disabled):hover {
-  outline-color: hsl(var(--on-surface-variant));
-}
-
-input[type="text"]:not(:disabled):active,
-input[type="password"]:not(:disabled):active,
-input[type="email"]:not(:disabled):active {
-  opacity: 0.8;
-}
-
-input[type="text"]:not(:disabled):focus,
-input[type="password"]:not(:disabled):focus,
-input[type="email"]:not(:disabled):focus {
-  color: hsl(var(--on-primary-container));
-  background-color: hsl(var(--primary) .08);
-  outline: 2px solid hsl(var(--primary));
-}
-
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="email"]::placeholder {
-  color: hsl(var(--on-surface-variant) .6)
 }
 
 .input-action {
@@ -322,22 +268,22 @@ input[type="email"]::placeholder {
 
 @media (prefers-color-scheme: dark) {
   :root {
-  --background: 72deg, 10%, 10%;
-  --on-background: 48deg, 83%, 98%;
-  --primary: 72deg, 53%, 61%;
-  --on-primary: 72deg, 100%, 10%;
-  --primary-container: 71deg, 100%, 15%;
-  --on-primary-container: 72deg, 76%, 71%;
-  --secondary-container: 72deg, 21%, 24%;
-  --on-secondary-container: 69deg, 41%, 83%;
-  --outline: 64deg, 6%, 54%;
-  --on-surface: 48deg, 16%, 87%;
-  --surface-variant: 70deg, 9%, 26%;
-  --on-surface-variant: 64deg, 13%, 75%;
-  --error: 6deg, 100%, 84%;
-  --medium: 47deg, 88%, 51%;
-  --strong: 71deg, 100%, 42%;
-  --very-strong: 308deg, 100%, 83%;
+  --background: 72deg 10% 10%;
+  --on-background: 48deg 83% 98%;
+  --primary: 72deg 53% 61%;
+  --on-primary: 72deg 100% 10%;
+  --primary-container: 71deg 100% 15%;
+  --on-primary-container: 72deg 76% 71%;
+  --secondary-container: 72deg 21% 24%;
+  --on-secondary-container: 69deg 41% 83%;
+  --outline: 64deg 6% 54%;
+  --on-surface: 48deg 16% 87%;
+  --surface-variant: 70deg 9% 26%;
+  --on-surface-variant: 64deg 13% 75%;
+  --error: 6deg 100% 84%;
+  --medium: 47deg 88% 51%;
+  --strong: 71deg 100% 42%;
+  --very-strong: 308deg 100% 83%;
   }
 
   ::-ms-reveal {
