@@ -4,7 +4,7 @@
   "description": "ExpTech Website",
   "scripts": {
     "watch": "parcel ./src/*.pug",
-    "build": "parcel build ./src/*.pug --no-cache --no-scope-hoist --public-url=https://exptech.com.tw/api/v1/file/exptech/"
+    "build": "parcel build ./src/*.pug --no-cache --no-scope-hoist --public-url=https://api.exptech.com.tw/file/exptech/"
   },
   "repository": {
     "type": "git",
