@@ -1,0 +1,269 @@
+<html lang="zh-Hant">
+  <head>
+    <title>ExpTech | 更改密碼</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="更改 ExpTech 密碼" />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:site_name" content="探索科技 | ExpTech Studio" />
+    <meta
+      property="og:url"
+      content="https://exptech.com.tw/api/v1/file/exptech/register.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="更改密碼" />
+    <meta property="og:description" content="更改 ExpTech 密碼" />
+    <meta
+      property="og:image"
+      content="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/image/Icon/ExpTech.png"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:domain" content="exptech.com.tw" />
+    <meta
+      property="twitter:url"
+      content="https://exptech.com.tw/api/v1/file/exptech/register.html"
+    />
+    <meta name="twitter:title" content="更改密碼" />
+    <meta name="twitter:description" content="更改 ExpTech 密碼" />
+    <meta
+      name="twitter:image"
+      content="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/image/Icon/ExpTech.png"
+    />
+
+    <link
+      id="css-index"
+      rel="stylesheet"
+      href="./stylesheets/components/input.scss"
+    />
+  </head>
+
+  <body>
+    <main>
+      <div id="container">
+        <div class="title">更改密碼</div>
+        <div class="description">更改 ExpTech 密碼</div>
+        <div id="form-view" class="view">
+          <form id="register" class="register-form" action="" method="post">
+            <div class="form-item-container">
+              <div id="email-box" class="form-item">
+                <label class="required" for="email">電子郵件地址</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="電子郵件地址"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div id="pass-box" class="form-item">
+                <label class="required" for="password">舊密碼</label>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="舊密碼"
+                  autocomplete="new-password"
+                  required
+                />
+              </div>
+              <div class="form-item">
+                <label class="required" for="new-password">新密碼</label>
+                <input
+                  id="new-password"
+                  type="password"
+                  name="password"
+                  placeholder="新密碼"
+                  autocomplete="new-password"
+                  required
+                />
+                <div id="password-strength"></div>
+              </div>
+            </div>
+            <button id="login" type="button">登入帳號</button>
+            <button id="submit" type="submit">更改密碼</button>
+          </form>
+        </div>
+        <div id="success-view" class="view">
+          <svg
+            class="check-mark"
+            xmlns="http://www.w3.org/2000/svg"
+            height="128"
+            width="128"
+            viewBox="0 96 960 960"
+          >
+            <path
+              d="M421 744.537 690.537 475l-34.845-34.23L421 675.847 302.539 557.385l-33.846 34.23L421 744.537Zm59.067 211.462q-78.221 0-147.397-29.92-69.176-29.92-120.989-81.71-51.814-51.791-81.747-120.936-29.933-69.146-29.933-147.366 0-78.836 29.92-148.204 29.92-69.369 81.71-120.682 51.791-51.314 120.936-81.247 69.146-29.933 147.366-29.933 78.836 0 148.204 29.92 69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173 0 78.221-29.92 147.397-29.92 69.176-81.21 120.989-51.291 51.814-120.629 81.747-69.337 29.933-148.173 29.933ZM480 910.615q139.692 0 237.154-97.769Q814.615 715.077 814.615 576q0-139.692-97.461-237.154Q619.692 241.385 480 241.385q-139.077 0-236.846 97.461Q145.385 436.308 145.385 576q0 139.077 97.769 236.846T480 910.615ZM480 576Z"
+            />
+          </svg>
+          <div class="success-title title">更改密碼成功</div>
+          <div class="success-description">將在五秒後跳轉回登入畫面</div>
+        </div>
+      </div>
+      <a class="info" href="https://exptech.com.tw/f?v=discord"
+        >Discord 伺服器</a
+      >
+    </main>
+
+    <script>
+      const password_strength = document.getElementById("password-strength");
+      const new_password = document.getElementById("new-password");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const success_view = document.getElementById("success-view");
+      const form_view = document.getElementById("form-view");
+      const container = document.getElementById("container");
+      const submit = document.getElementById("submit");
+
+      document.getElementById("login").onclick = (e) => {
+        window.location.href = "./login.html";
+      };
+
+      new_password.oninput = (e) => {
+        this.value = new_password.value;
+        password_strength.style.display = "block";
+
+        if (this.value.match(/(?=.*[^A-Za-z0-9@_\.-])/))
+          return (password_strength.className = "error invalid");
+
+        if (
+          this.value.match(
+            /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{10,})/
+          )
+        )
+          password_strength.className = "very-strong";
+        else if (this.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/))
+          password_strength.className = "strong";
+        else if (this.value.match(/((?=.*[a-zA-Z0-9])(?=.{6,}))/))
+          password_strength.className = "medium";
+        else if (this.value.length > 0) password_strength.className = "weak";
+        else password_strength.className = "error empty";
+      };
+
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+
+      if (params.token) {
+        document.getElementById("email-box").style.display = "none";
+        document.getElementById("pass-box").style.display = "none";
+      }
+
+      submit.onclick = (e) => {
+        email.setCustomValidity("");
+        password.setCustomValidity("");
+        new_password.setCustomValidity("");
+
+        let values = {
+          email: email.value,
+          pass: password.value,
+          new_pass: new_password.value,
+        };
+
+        if (params.token) {
+          values = {
+            token: params.token,
+            new_pass: new_password.value,
+          };
+        }
+
+        submit.disabled = true;
+
+        fetch("https://exptech.com.tw/api/v1/et/change", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: values.token,
+            email: values.email,
+            pass: values.pass,
+            new_pass: values.new_pass,
+          }),
+        })
+          .then(async (res) => {
+            if (res.ok) {
+              container.style.height = form_view.offsetHeight + 76;
+              form_view.style.position = "absolute";
+              success_view.style.position = "absolute";
+              success_view.style.display = "block";
+              form_view.style.opacity = 0;
+              container.style.height = success_view.offsetHeight + 76;
+              setTimeout(() => {
+                success_view.style.position = "";
+                success_view.style.opacity = 1;
+                form_view.style.display = "none";
+                form_view.style.position = "";
+              }, 100);
+
+              setTimeout(() => (window.location.href = "./login.html"), 5_000);
+            } else {
+              switch (await res.text()) {
+                case "Invaild email!": {
+                  email.setCustomValidity("電子郵件地址無效。");
+                  email.reportValidity();
+                  break;
+                }
+
+                case "Invaild pass!": {
+                  password.setCustomValidity("舊密碼無效。");
+                  password.reportValidity();
+                  break;
+                }
+
+                case "Invaild new pass!": {
+                  new_password.setCustomValidity("新密碼無效。");
+                  new_password.reportValidity();
+                  break;
+                }
+
+                case "Pass format error!": {
+                  password.setCustomValidity("舊密碼格式錯誤。");
+                  password.reportValidity();
+                  break;
+                }
+
+                case "New pass format error!": {
+                  new_password.setCustomValidity("新密碼格式錯誤。");
+                  new_password.reportValidity();
+                  break;
+                }
+
+                case "No changes found!": {
+                  new_password.setCustomValidity("沒有發現任何變化。");
+                  new_password.reportValidity();
+                  break;
+                }
+
+                case "Pass error!": {
+                  password.setCustomValidity("舊密碼錯誤。");
+                  password.reportValidity();
+                  break;
+                }
+
+                case "This account was not found!": {
+                  new_password.setCustomValidity(
+                    "找不到此帳戶，可能尚未註冊。"
+                  );
+                  new_password.reportValidity();
+                  break;
+                }
+
+                default: {
+                  console.error(res);
+                  break;
+                }
+              }
+              submit.disabled = false;
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            submit.disabled = false;
+            const res = err.request.response;
+            alert(res);
+          });
+      };
+    </script>
+  </body>
+</html>

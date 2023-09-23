@@ -1,0 +1,45 @@
+label {
+  font-size: 14px;
+  line-height: 16px;
+  padding: 8px 0;
+  color: hsl(var(--on-surface-variant));
+}
+
+input[type=text],
+input[type=password],
+input[type=email] {
+  all: unset;
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 4px;
+  outline: 1px solid hsl(var(--outline) / 40%);
+  transition: outline .1s ease-in-out;
+
+  &:disabled {
+    outline: 1px solid hsl(var(--on-surface-variant) / 12%);
+    color: hsl(var(--on-surface-variant) / 38%);
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      outline-color: hsl(var(--on-surface-variant));
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: 2px solid hsl(var(--primary));
+      background-color: hsl(var(--primary) / 8%);
+      color: hsl(var(--on-primary-container));
+    }
+  }
+
+  &::placeholder {
+    color: hsl(var(--on-surface-variant) / 60%)
+  }
+}
