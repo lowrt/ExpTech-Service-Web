@@ -55,16 +55,28 @@ let service_info = [];
 let user = {};
 let CTX;
 
+const pay_1 = document.getElementById("pay-1");
+const pay_2 = document.getElementById("pay-2");
+const pay_3 = document.getElementById("pay-3");
+pay_1.addEventListener("click", () => Pay("1"));
+pay_2.addEventListener("click", () => Pay("2"));
+pay_3.addEventListener("click", () => Pay("3"));
 function Pay(type) {
-  document.getElementById("pay-page").style.display = "none";
+  pay_1.style.display = "none";
+  pay_2.style.display = "none";
+  pay_3.style.display = "none";
   fetch(`https://exptech.com.tw/api/v1/et/pay?type=${type}&token=${params.token}`)
     .then(async res => {
+      document.getElementById("pay-button").textContent = `NTD ${(type == 1) ? "100" : (type == 2) ? "500" : "1000"} 前往付款`;
       const data = await res.json();
       document.getElementById("TradeInfo").value = data.TradeInfo;
       document.getElementById("TradeSha").value = data.TradeSha;
       document.getElementById("Pay").style.display = "";
     })
     .catch(err => {
+      pay_1.style.display = "";
+      pay_2.style.display = "";
+      pay_3.style.display = "";
       console.error(err);
       const res = err.request.response;
       alert(res);

@@ -369,7 +369,7 @@ html(lang="zh-Hant")
 
           #charge.view
             .box-items(
-              onclick="Pay('1')"
+               id="pay-1"
               style="background-color: dimgrey; cursor: pointer;"
             )
               div(style="font-size: 24px; font-weight: 900") 加值硬幣數量
@@ -391,7 +391,7 @@ html(lang="zh-Hant")
                     div(style="font-size: 22px; padding-right: 8px") NTD 100
                   
             .box-items(
-              onclick="Pay('2')"
+               id="pay-2"
               style="background-color: darkslategrey; cursor: pointer;"
             )
               div(style="font-size: 24px; font-weight: 900") 加值硬幣數量
@@ -412,7 +412,7 @@ html(lang="zh-Hant")
                   div(style="font-size: 22px; padding-right: 8px") NTD 500
 
             .box-items(
-              onclick="Pay('3')"
+              id="pay-3"
               style="background-color: darkslateblue; cursor: pointer;"
             )
                 div(style="font-size: 24px; font-weight: 900;") 加值硬幣數量
@@ -440,7 +440,7 @@ html(lang="zh-Hant")
                 input#TradeInfo(type="text", name="TradeInfo", hidden)
                 input#TradeSha(type="text", name="TradeSha", hidden) 
                 input(type="text", name="Version", value="2.0", hidden)
-                button.Pay(type="submit") 前往付款
+                button.Pay(type="submit",id="pay-button") 前往付款
 
           #about.view
             .container 
