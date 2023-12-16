@@ -1,5 +1,7 @@
 import { ElementBuilder } from "./domhelper";
 
+const base_url = "http://localhost:20002";
+
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 if (!params.token) window.location.replace("./login.html");
@@ -65,7 +67,7 @@ function Pay(type) {
   pay_1.style.display = "none";
   pay_2.style.display = "none";
   pay_3.style.display = "none";
-  fetch(`https://exptech.com.tw/api/v1/et/pay?type=${type}&token=${params.token}`)
+  fetch(`${base_url}/api/v1/et/pay?type=${type}&token=${params.token}`)
     .then(async res => {
       document.getElementById("pay-button").textContent = `NTD ${(type == 1) ? "100" : (type == 2) ? "500" : "1000"} 前往付款`;
       const data = await res.json();
@@ -100,7 +102,7 @@ const toTimeString = (timestamp) => {
   ].join("");
 };
 
-fetch("https://exptech.com.tw/api/v1/et/service-info")
+fetch(`${base_url}/api/v1/et/service-info`)
   .then(async res => {
     const data = await res.json();
     service_list = data.list;
@@ -122,7 +124,7 @@ function refresh() {
     item.textContent = "資料更新中...";
     item.style.pointerEvents = "none";
   }
-  fetch(`https://exptech.com.tw/api/v1/et/info?token=${params.token}`)
+  fetch(`${base_url}/api/v1/et/info?token=${params.token}`)
     .then(res => {
       if (res.ok) {
         res
@@ -166,11 +168,11 @@ function refresh() {
       } else
       if (res.status == 400) {
         console.log("Invalid or expired access token, redirecting to login page.");
-        window.location.replace("./login.html");
+        // window.location.replace("./login.html");
       }
     });
 
-  fetch("https://exptech.com.tw/api/v1/et/announcement")
+  fetch(`${base_url}/api/v1/et/announcement`)
     .then(async res => {
       const data = await res.json();
       const frag = new DocumentFragment();
@@ -314,7 +316,7 @@ function ColorCode() {
 }
 
 const toggleService = (type, status) => {
-  fetch(`https://exptech.com.tw/api/v1/et/${(!status) ? "subscribe" : "unsubscribe"}?token=${params.token}&type=${type}`)
+  fetch(`${base_url}/api/v1/et/${(!status) ? "subscribe" : "unsubscribe"}?token=${params.token}&type=${type}`)
     .then(res => {
       if (res.ok)
         refresh();
@@ -334,7 +336,7 @@ const copy = (key) => {
 };
 
 const deleteKey = (key) => {
-  fetch(`https://exptech.com.tw/api/v1/et/key-remove?token=${params.token}&key=${key}`)
+  fetch(`${base_url}/api/v1/et/key-remove?token=${params.token}&key=${key}`)
     .then(res => {
       if (res.ok)
         refresh();
@@ -505,7 +507,7 @@ function reload_service() {
 }
 
 create.onclick = () => {
-  fetch("https://exptech.com.tw/api/v1/et/key-add", {
+  fetch(`${base_url}/api/v1/et/key-add`, {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({
@@ -528,7 +530,7 @@ document.getElementById("logout").addEventListener("click", function() {
   document.body.style.pointerEvents = "none";
   this.disabled = true;
   this.classList.add("loading");
-  fetch(`https://exptech.com.tw/api/v1/et/logout?token=${params.token}`)
+  fetch(`${base_url}/api/v1/et/logout?token=${params.token}`)
     .then(res => {
       if (res.ok)
         window.location.replace("./login.html");

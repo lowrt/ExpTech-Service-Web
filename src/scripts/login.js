@@ -5,6 +5,8 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const loginForm = document.getElementById("login");
 
+const base_url = "http://localhost:20002";
+
 document.getElementById("register").addEventListener("click", (e) => {
   window.location.href = "./register.html";
 });
@@ -24,7 +26,7 @@ loginForm.addEventListener("submit", (e) => {
   password.disabled = true;
   loginForm.disabled = true;
 
-  fetch("https://exptech.com.tw/api/v1/et/login", {
+  fetch(`${base_url}/api/v1/et/login`, {
     method  : "POST",
     headers : {
       "Content-Type": "application/json",

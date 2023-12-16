@@ -7,6 +7,8 @@ const form_view = document.getElementById("form-view");
 const container = document.getElementById("container");
 const registerForm = document.getElementById("register");
 
+const base_url = "http://localhost:20002";
+
 document.getElementById("login").addEventListener("click", (e) => {
   window.location.href = "./login.html";
 });
@@ -52,7 +54,7 @@ registerForm.addEventListener("submit", (e) => {
 
   registerForm.disabled = true;
 
-  fetch("https://exptech.com.tw/api/v1/et/register", {
+  fetch(`${base_url}/api/v1/et/register`, {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({
