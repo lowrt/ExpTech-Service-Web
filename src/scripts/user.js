@@ -1,6 +1,6 @@
 import { ElementBuilder } from "./domhelper";
 
-const base_url = "http://localhost:20002";
+const base_url = "https://api.exptech.com.tw";
 
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
@@ -168,7 +168,7 @@ function refresh() {
       } else
       if (res.status == 400) {
         console.log("Invalid or expired access token, redirecting to login page.");
-        // window.location.replace("./login.html");
+        window.location.replace("./login.html");
       }
     });
 
@@ -222,16 +222,14 @@ function service_info_load() {
 
   for (let i = 0; i < user.dump.length; i++) {
     Chart_data.labels.push(`${user.dump[i].hour.replace(" ", "日 ")}時`);
-    for (let I = 0; I < Object.keys(user.dump[i].data).length; I++) {
-      const type = Object.keys(user.dump[i].data)[I];
+    for (const type in user.dump[i].data) {
       if (!amount[type]) amount[type] = 0;
       amount[type] += user.dump[i].data[type];
     }
   }
 
   for (let i = 0; i < user.dump.length; i++)
-    for (let I = 0; I < Object.keys(amount).length; I++) {
-      const type = Object.keys(amount)[I];
+    for (const type in amount) {
       const c = user.dump[i].data[type] ?? 0;
       let find = false;
       for (let _i = 0; _i < Chart_data.datasets.length; _i++)
@@ -250,8 +248,7 @@ function service_info_load() {
 
 
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(amount).length; i++) {
-    const type = Object.keys(amount)[i];
+  for (const type in amount) {
     const box = document.createElement("tr");
 
     const path = document.createElement("td");
@@ -351,9 +348,7 @@ const deleteKey = (key) => {
 
 function reload_key() {
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(user.key).length; i++) {
-    const k = Object.keys(user.key)[i];
-
+  for (const k in user.key) {
     const data = {
       key  : k.substring(0, 10),
       time : toTimeString(user.key[k].time),
@@ -395,8 +390,7 @@ function reload_key() {
 
 function reload_status() {
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(user.key_list).length; i++) {
-    const k = Object.keys(user.key_list)[i];
+  for (const k in user.key_list) {
     const box = document.createElement("tr");
 
     const key = document.createElement("td");
@@ -427,8 +421,7 @@ function reload_status() {
 
 function reload_device() {
   const frag = new DocumentFragment();
-  for (let i = 0; i < Object.keys(user.client_list).length; i++) {
-    const id = Object.keys(user.client_list)[i];
+  for (const id in user.client_list) {
     const box = document.createElement("tr");
 
     const uuid = document.createElement("td");

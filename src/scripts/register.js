@@ -7,7 +7,7 @@ const form_view = document.getElementById("form-view");
 const container = document.getElementById("container");
 const registerForm = document.getElementById("register");
 
-const base_url = "http://localhost:20002";
+const base_url = "https://api.exptech.com.tw";
 
 document.getElementById("login").addEventListener("click", (e) => {
   window.location.href = "./login.html";

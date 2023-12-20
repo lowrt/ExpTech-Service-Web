@@ -5,7 +5,7 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const loginForm = document.getElementById("login");
 
-const base_url = "http://localhost:20002";
+const base_url = "https://api.exptech.com.tw";
 
 document.getElementById("register").addEventListener("click", (e) => {
   window.location.href = "./register.html";
