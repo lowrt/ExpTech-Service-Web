@@ -10,6 +10,10 @@
   --outline: 336deg 6% 48%;
   --surface-variant: 341deg 40% 91%;
   --on-surface-variant: 337deg 9% 29%;
+  --error: 0deg 75% 42%;
+  --medium: 47deg 100% 23%;
+  --strong: 72deg 100% 20%;
+  --very-strong: 300deg 76% 37%;
 }
 
 body {
@@ -82,7 +86,7 @@ body {
   margin: 16px;
 }
 
-.forget-form {
+.change-form {
   display: table;
   margin: 0;
   width: 100%;
@@ -103,6 +107,103 @@ body {
   margin-bottom: 12px;
 }
 
+#password-strength {
+  display: none;
+  position: relative;
+  height: 4px;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  border-radius: 4px;
+  background-color: hsl(var(--surface-variant));
+}
+
+#password-strength::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: width .1s ease-in-out,
+  background-color .1s ease-in-out;
+}
+
+#password-strength::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  margin: 8px 0;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  transition: color .1s ease-in-out;
+}
+
+#password-strength.error::before {
+  color: hsl(var(--error));
+  background-color: hsl(var(--error));
+}
+
+#password-strength.weak::before {
+  width: 25%;
+  color: hsl(var(--outline));
+  background-color: hsl(var(--outline));
+}
+
+#password-strength.medium::before {
+  width: 50%;
+  color: hsl(var(--medium));
+  background-color: hsl(var(--medium));
+}
+
+#password-strength.strong::before {
+  width: 75%;
+  color: hsl(var(--strong));
+  background-color: hsl(var(--strong));
+}
+
+#password-strength.very-strong::before {
+  width: 100%;
+  color: hsl(var(--very-strong));
+  background-color: hsl(var(--very-strong));
+}
+
+#password-strength.error::after {
+  color: hsl(var(--error));
+}
+
+#password-strength.empty::after {
+  content: "密碼不得為空";
+}
+
+#password-strength.invalid::after {
+  content: "密碼只能包含大小寫半形英數、 _ 、 . 、- 和 @";
+}
+
+#password-strength.weak::after {
+  content: "密碼強度：弱";
+  width: 25%;
+  color: hsl(var(--outline));
+}
+
+#password-strength.medium::after {
+  content: "密碼強度：中等";
+  width: 50%;
+  color: hsl(var(--medium));
+}
+
+#password-strength.strong::after {
+  content: "密碼強度：強";
+  width: 75%;
+  color: hsl(var(--strong));
+}
+
+#password-strength.very-strong::after {
+  content: "密碼強度：非常強";
+  width: 100%;
+  color: hsl(var(--very-strong));
+}
+
 #login {
   all: unset;
   padding: 10px 8px;
@@ -114,6 +215,10 @@ body {
   font-weight: bold;
   transition: background-color .1s ease-in-out,
     opacity .1s ease-in-out;
+}
+
+.hidden{
+  display: none;
 }
 
 #login:hover {
@@ -139,7 +244,7 @@ a:active {
   opacity: 0.8;
 }
 
-.forget-password {
+.change-password {
   align-self: start;
   font-size: 14px;
   font-weight: bold;
@@ -168,6 +273,10 @@ a:active {
     --outline: 341deg 8% 58%;
     --surface-variant: 337deg 9% 29%;
     --on-surface-variant: 340deg 17% 80%;
+    --error: 6deg 100% 84%;
+    --medium: 47deg 88% 51%;
+    --strong: 71deg 100% 42%;
+    --very-strong: 308deg 100% 83%;
   }
 
   ::-ms-reveal {
