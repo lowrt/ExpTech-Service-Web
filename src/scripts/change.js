@@ -1,10 +1,19 @@
 const password_strength = document.getElementById("password-strength");
+/**
+ * @type {HTMLInputElement}
+ */
 const new_password = document.getElementById("new-password");
+/**
+ * @type {HTMLInputElement}
+ */
 const repeat_password = document.getElementById("repeat-password");
 const success_view = document.getElementById("success-view");
 const form_view = document.getElementById("form-view");
 const container = document.getElementById("container");
 const submit = document.getElementById("submit");
+/**
+ * @type {HTMLFormElement}
+ */
 const changeForm = document.getElementById("change");
 
 document.getElementById("login").onclick = (e) => {
@@ -38,15 +47,21 @@ const params = Object.fromEntries(urlSearchParams.entries());
 if (!params.token)
   document.location.replace("./login.html");
 
-changeForm.addEventListener("submit", (e) => {
+submit.addEventListener("click", (e) => {
   e.preventDefault();
 
-  repeat_password.setCustomValidity("");
   new_password.setCustomValidity("");
-
-  submit.disabled = true;
+  repeat_password.setCustomValidity("");
 
   console.log("test");
+
+  if (repeat_password.value != new_password.value) {
+    repeat_password.setCustomValidity("與密碼不相符");
+    repeat_password.reportValidity();
+    return;
+  }
+
+  submit.disabled = true;
 
   fetch("https://api.exptech.com.tw/api/v1/et/change", {
     method  : "POST",
@@ -76,21 +91,16 @@ changeForm.addEventListener("submit", (e) => {
         switch (await res.text()) {
           case "Invaild new pass!": {
             new_password.setCustomValidity("新密碼無效。");
-            new_password.reportValidity();
             break;
           }
 
           case "New pass format error!": {
             new_password.setCustomValidity("新密碼格式錯誤。");
-            new_password.reportValidity();
             break;
           }
 
           case "This account was not found!": {
-            new_password.setCustomValidity(
-              "找不到此帳戶，可能尚未註冊。",
-            );
-            new_password.reportValidity();
+            new_password.setCustomValidity("找不到此帳戶，可能尚未註冊。");
             break;
           }
 
@@ -100,6 +110,8 @@ changeForm.addEventListener("submit", (e) => {
           }
         }
         submit.disabled = false;
+        new_password.reportValidity();
+        repeat_password.reportValidity();
       }
     })
     .catch((err) => {

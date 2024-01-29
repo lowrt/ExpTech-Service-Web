@@ -9,7 +9,7 @@ document.getElementById("login").onclick = (e) => {
   window.location.href = "./login.html";
 };
 
-forgetForm.addEventListener("submit", (e) => {
+submit.addEventListener("click", (e) => {
   e.preventDefault();
   email.setCustomValidity("");
   email.reportValidity();

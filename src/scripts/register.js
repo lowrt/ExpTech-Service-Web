@@ -5,6 +5,7 @@ const repeat_password = document.getElementById("repeat-password");
 const success_view = document.getElementById("success-view");
 const form_view = document.getElementById("form-view");
 const container = document.getElementById("container");
+const submit = document.getElementById("submit");
 const registerForm = document.getElementById("register");
 
 const base_url = "https://api.exptech.com.tw";
@@ -34,7 +35,7 @@ password.addEventListener("input", function(e) {
     password_strength.className = "error empty";
 });
 
-registerForm.addEventListener("submit", (e) => {
+submit.addEventListener("click", (e) => {
   e.preventDefault();
 
   repeat_password.setCustomValidity("");

@@ -3,6 +3,7 @@
  */
 const email = document.getElementById("email");
 const password = document.getElementById("password");
+const submit = document.getElementById("submit");
 const loginForm = document.getElementById("login");
 
 const base_url = "https://api.exptech.com.tw";
@@ -11,7 +12,7 @@ document.getElementById("register").addEventListener("click", (e) => {
   window.location.href = "./register.html";
 });
 
-loginForm.addEventListener("submit", (e) => {
+submit.addEventListener("click", (e) => {
   e.preventDefault();
 
   email.setCustomValidity("");
