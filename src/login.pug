@@ -39,10 +39,8 @@ html(lang="zh-Hant")
             .form-item
               label.required(for="password") 用戶密碼
               input#password(type="password", name="password", placeholder="用戶密碼", autocomplete="current-password", required)
-              a.forget-password(href="./forget.html") 忘記密碼？
-              a.forget-password(href="./change.html") 更改密碼？
-            div
-              | 如果這不是你的電腦，請使用私密瀏覽視窗登入。
+              a.forget-password(href="./forget.pug") 忘記密碼？
+            div 如果這不是你的電腦，請使用私密瀏覽視窗登入。
           button#register(type="button") 註冊帳號
           button#submit(type="submit") 登入
       a.info(href="https://exptech.com.tw/discord") Discord 伺服器

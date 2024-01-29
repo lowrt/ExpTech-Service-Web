@@ -1,0 +1,182 @@
+@use "./components/input.scss";
+
+:root {
+  --background: 300deg 100% 99%;
+  --on-background: 336deg 9% 11%;
+  --primary: 327deg 42, 42%;
+  --on-primary: 0 0% 100%;
+  --primary-container: 335deg 100% 92%;
+  --on-primary-container: 322deg 100% 12%;
+  --outline: 336deg 6% 48%;
+  --surface-variant: 341deg 40% 91%;
+  --on-surface-variant: 337deg 9% 29%;
+}
+
+body {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 100svh;
+  color: hsl(var(--on-background));
+  background-color: hsl(var(--background));
+  font-family: Lato, "Noto Sans TC", sans-serif;
+  line-height: 18px;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+.view {
+  width: 400px;
+  transition: opacity 100ms ease-in-out;
+}
+
+#form-view {
+  opacity: 1;
+}
+
+#success-view {
+  display: none;
+  opacity: 0;
+}
+
+.check-mark {
+  display: block;
+  margin: 32px auto;
+  fill: hsl(var(--primary));
+}
+
+.success-title {
+  color: hsl(var(--on-surface-variant));
+}
+
+.success-description {
+  margin: 8px;
+  color: hsl(var(--outline));
+  text-align: center;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+#container {
+  width: 400px;
+  padding: 48px 36px;
+  padding-left: 28px;
+  background-color: hsla(var(--primary), 0.04);
+  outline: 1px solid hsl(var(--surface-variant));
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  text-align: center;
+  margin: 16px;
+}
+
+.forget-form {
+  display: table;
+  margin: 0;
+  width: 100%;
+}
+
+.form-item-container {
+  margin-left: 8px;
+  margin-bottom: 48px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-item {
+  margin-bottom: 12px;
+}
+
+#login {
+  all: unset;
+  padding: 10px 8px;
+  background-color: transparent;
+  color: hsl(var(--primary));
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: bold;
+  transition: background-color .1s ease-in-out,
+    opacity .1s ease-in-out;
+}
+
+#login:hover {
+  background-color: hsla(var(--primary), 0.12);
+}
+
+#submit {
+  all: unset;
+  padding: 10px 24px;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--on-primary));
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: bold;
+  float: right;
+  transition: opacity .1s ease-in-out;
+}
+
+#login:active,
+#submit:active,
+a:active {
+  opacity: 0.8;
+}
+
+.forget-password {
+  align-self: start;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 12px 0;
+  color: hsl(var(--primary));
+  text-decoration: none;
+}
+
+.info {
+  display: inline-block;
+  margin: 16px;
+  font-size: 14px;
+  line-height: 16px;
+  color: hsla(var(--on-surface-variant), .6);
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 336deg 9% 11%;
+    --on-background: 349deg 22% 90%;
+    --primary: 332 100% 84%;
+    --on-primary: 323deg 77 21%;
+    --primary-container: 325deg 53% 31%;
+    --on-primary-container: 335deg 100% 92%;
+    --outline: 341deg 8% 58%;
+    --surface-variant: 337deg 9% 29%;
+    --on-surface-variant: 340deg 17% 80%;
+  }
+
+  ::-ms-reveal {
+    filter: invert(100%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #container {
+    width: auto;
+  }
+}
