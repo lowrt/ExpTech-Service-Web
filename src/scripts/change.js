@@ -77,7 +77,7 @@ changeForm.addEventListener("submit", (e) => {
 
   submit.disabled = true;
 
-  fetch("https://exptech.com.tw/api/v1/et/change", {
+  fetch("https://api.exptech.com.tw/api/v1/et/change", {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({
