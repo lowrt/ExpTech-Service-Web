@@ -92,7 +92,7 @@
             </div>
         </div>
         </div>
-        <a class="info" href="https://exptech.com.tw/f?v=discord">Discord 伺服器</a>
+        <a class="info" href="https://exptech.com.tw/discord">Discord 伺服器</a>
         <a id="login"></a>
     </main>
 
@@ -107,7 +107,7 @@
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
 
-        fetch(`https://exptech.com.tw/api/v1/et/register?code=${params.code}`, {
+        fetch(`https://api.exptech.com.tw/api/v1/et/register?code=${params.code}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
