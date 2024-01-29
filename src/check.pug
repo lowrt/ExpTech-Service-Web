@@ -21,7 +21,7 @@ html(lang="zh-Hant")
     meta(name="twitter:description", content="註冊驗證 ExpTech 帳號")
     meta(name="twitter:image", content="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/image/Icon/ExpTech.png")
 
-    link(rel="stylesheet", href="./stylesheets/change.scss")
+    link(rel="stylesheet", href="./stylesheets/check.scss")
     link(rel="preconnect", href="https://fonts.googleapis.com")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
     link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap", rel="stylesheet")
@@ -29,23 +29,15 @@ html(lang="zh-Hant")
   body
     main
       #container
-        .title 更改密碼
-        .description 更改 ExpTech 密碼
-        #form-view.view
-          form#change.change-form
-            .form-item-container
-              .form-item
-                label.required(for="new-password") 密碼
-                input#new-password(type="password", name="password", placeholder="密碼", autocomplete="new-password", required)
-                #password-strength
-              .form-item
-                label.required(for="repeat-password") 確認密碼
-                input#repeat-password(type="password", name="password", placeholder="確認密碼", autocomplete="new-password", required)
-            button#login(type="button") 登入帳號
-            button#submit(type="submit") 更改密碼
+        .title 註冊驗證
+        .description 註冊驗證 ExpTech 帳號
         #success-view.view
           svg.check-mark(xmlns="http://www.w3.org/2000/svg", height="128", width="128", viewBox="0 96 960 960"): path(d="M421 744.537 690.537 475l-34.845-34.23L421 675.847 302.539 557.385l-33.846 34.23L421 744.537Zm59.067 211.462q-78.221 0-147.397-29.92-69.176-29.92-120.989-81.71-51.814-51.791-81.747-120.936-29.933-69.146-29.933-147.366 0-78.836 29.92-148.204 29.92-69.369 81.71-120.682 51.791-51.314 120.936-81.247 69.146-29.933 147.366-29.933 78.836 0 148.204 29.92 69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173 0 78.221-29.92 147.397-29.92 69.176-81.21 120.989-51.291 51.814-120.629 81.747-69.337 29.933-148.173 29.933ZM480 910.615q139.692 0 237.154-97.769Q814.615 715.077 814.615 576q0-139.692-97.461-237.154Q619.692 241.385 480 241.385q-139.077 0-236.846 97.461Q145.385 436.308 145.385 576q0 139.077 97.769 236.846T480 910.615ZM480 576Z")
-          .success-title.title 更改密碼成功
+          .success-title.title 註冊成功
+          .success-description 將在五秒後跳轉回登入畫面
+        #fail-view.view
+          svg.cross-mark(xmlns="http://www.w3.org/2000/svg", height="128", width="128", viewBox="0 96 960 960"): path(d="M 609.836 414.802 L 638.814 443.78 L 508.413 574.181 L 638.814 704.583 L 609.836 733.56 L 479.435 603.159 L 349.034 733.56 L 320.056 704.583 L 450.457 574.181 L 320.056 443.78 L 349.034 414.802 L 479.435 545.203 L 609.836 414.802 Z M 480.067 955.999 C 427.92 955.999 378.787 946.026 332.67 926.079 C 286.553 906.132 246.223 878.896 211.681 844.369 C 177.138 809.842 149.889 769.53 129.934 723.433 C 109.979 677.336 100.001 628.214 100.001 576.067 C 100.001 523.51 109.974 474.107 129.921 427.863 C 149.868 381.617 177.104 341.39 211.631 307.181 C 246.158 272.971 286.47 245.889 332.567 225.934 C 378.664 205.979 427.786 196.001 479.933 196.001 C 532.49 196.001 581.892 205.974 628.137 225.921 C 674.383 245.868 714.61 272.938 748.819 307.13 C 783.028 341.325 810.111 381.535 830.066 427.76 C 850.022 473.985 859.999 523.376 859.999 575.933 C 860 628.08 850.026 677.213 830.079 723.33 C 810.132 769.447 783.062 809.777 748.869 844.319 C 714.675 878.862 674.465 906.111 628.24 926.066 C 582.015 946.021 532.624 955.999 480.067 955.999 Z M 480 910.615 C 573.128 910.615 652.179 878.025 717.154 812.846 C 782.128 747.667 814.615 668.718 814.615 576 C 814.615 482.872 782.128 403.822 717.154 338.846 C 652.179 273.872 573.128 241.385 480 241.385 C 387.282 241.385 308.333 273.872 243.154 338.846 C 177.975 403.821 145.385 482.872 145.384 576 C 145.385 668.718 177.975 747.667 243.154 812.846 C 308.333 878.025 387.282 910.615 480 910.615 Z")
+          .success-title.title 無效註冊
           .success-description 將在五秒後跳轉回登入畫面
       a.info(href="https://exptech.com.tw/discord") Discord 伺服器
 
