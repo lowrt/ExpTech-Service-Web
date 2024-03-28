@@ -172,7 +172,7 @@ function refresh() {
       }
     });
 
-  fetch(`${base_url}/api/v1/et/announcement`)
+  fetch(`${base_url}/api/v3/et/announcement`)
     .then(async res => {
       const data = await res.json();
       const frag = new DocumentFragment();
