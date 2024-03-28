@@ -4,7 +4,7 @@ const invaild_view = document.getElementById("fail-view");
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
-fetch(`https://api.exptech.com.tw/api/v1/et/register?code=${params.code}`, {
+fetch(`https://api.exptech.com.tw/api/v3/et/register?code=${params.code}`, {
   method  : "GET",
   headers : { "Content-Type": "application/json" },
 })

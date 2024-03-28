@@ -27,7 +27,7 @@ submit.addEventListener("click", (e) => {
   password.disabled = true;
   loginForm.disabled = true;
 
-  fetch(`${base_url}/api/v1/et/login`, {
+  fetch(`${base_url}/api/v3/et/login`, {
     method  : "POST",
     headers : {
       "Content-Type": "application/json",

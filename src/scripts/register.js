@@ -55,7 +55,7 @@ submit.addEventListener("click", (e) => {
 
   registerForm.disabled = true;
 
-  fetch(`${base_url}/api/v1/et/register`, {
+  fetch(`${base_url}/api/v3/et/email`, {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({
