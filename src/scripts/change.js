@@ -44,7 +44,7 @@ new_password.oninput = (e) => {
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
-if (!params.token)
+if (!params.key)
   document.location.replace("./login.html");
 
 submit.addEventListener("click", (e) => {
@@ -67,7 +67,7 @@ submit.addEventListener("click", (e) => {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({
-      token    : params.token,
+      key      : params.key,
       new_pass : new_password.value,
     }),
   })
