@@ -18,7 +18,7 @@ submit.addEventListener("click", (e) => {
 
   submit.disabled = true;
 
-  fetch("https://api.exptech.com.tw/api/v1/et/forget", {
+  fetch("https://api.exptech.com.tw/api/v3/et/forget", {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({ email: values.email }),
