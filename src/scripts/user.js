@@ -4,7 +4,7 @@ const base_url = "https://api.exptech.com.tw";
 
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
-if (!params.token) window.location.replace("./login.html");
+if (!params.key) window.location.replace("./login.html");
 
 Chart.defaults.borderColor = "#36A2EB";
 Chart.defaults.color = "white";
@@ -67,7 +67,7 @@ function Pay(type) {
   pay_1.style.display = "none";
   pay_2.style.display = "none";
   pay_3.style.display = "none";
-  fetch(`${base_url}/api/v1/et/pay?type=${type}&token=${params.token}`)
+  fetch(`${base_url}/api/v1/et/pay?type=${type}&key=${params.key}`)
     .then(async res => {
       document.getElementById("pay-button").textContent = `NTD ${(type == 1) ? "100" : (type == 2) ? "500" : "1000"} 前往付款`;
       const data = await res.json();
@@ -124,7 +124,7 @@ function refresh() {
     item.textContent = "資料更新中...";
     item.style.pointerEvents = "none";
   }
-  fetch(`${base_url}/api/v1/et/info?token=${params.token}`)
+  fetch(`${base_url}/api/v3/et/info?key=${params.key}`)
     .then(res => {
       if (res.ok) {
         res
@@ -313,7 +313,7 @@ function ColorCode() {
 }
 
 const toggleService = (type, status) => {
-  fetch(`${base_url}/api/v1/et/${(!status) ? "subscribe" : "unsubscribe"}?token=${params.token}&type=${type}`)
+  fetch(`${base_url}/api/v1/et/${(!status) ? "subscribe" : "unsubscribe"}?key=${params.key}&type=${type}`)
     .then(res => {
       if (res.ok)
         refresh();
@@ -333,7 +333,7 @@ const copy = (key) => {
 };
 
 const deleteKey = (key) => {
-  fetch(`${base_url}/api/v1/et/key-remove?token=${params.token}&key=${key}`)
+  fetch(`${base_url}/api/v1/et/key-remove?key=${params.key}`)
     .then(res => {
       if (res.ok)
         refresh();
@@ -504,7 +504,7 @@ create.onclick = () => {
     method  : "POST",
     headers : { "Content-Type": "application/json" },
     body    : JSON.stringify({
-      token : params.token,
+      token : params.key,
       note  : note.value,
     }),
   })
@@ -523,7 +523,7 @@ document.getElementById("logout").addEventListener("click", function() {
   document.body.style.pointerEvents = "none";
   this.disabled = true;
   this.classList.add("loading");
-  fetch(`${base_url}/api/v1/et/logout?token=${params.token}`)
+  fetch(`${base_url}/api/v1/et/logout?key=${params.key}`)
     .then(res => {
       if (res.ok)
         window.location.replace("./login.html");
