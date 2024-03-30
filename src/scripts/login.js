@@ -39,7 +39,7 @@ submit.addEventListener("click", (e) => {
   })
     .then(async res => {
       if (res.ok) {
-        window.location.href = `./user.html?key=${await res.text()}`;
+        window.location.href = `./user.html?key=${await res.text()}&email=${values.email}`;
       } else {
         switch (await res.text()) {
           case "Invaild email!": {
